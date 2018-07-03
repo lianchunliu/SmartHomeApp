@@ -270,12 +270,12 @@ void SmartHome_SendCmd(uint8* buf)
     SmartHomeApp_DstAddr.addrMode = afAddrBroadcast;
   } else {
     SmartHomeApp_DstAddr.addrMode = afAddr16Bit;
+    SmartHomeApp_LastSendAddr = destAddr;
+    SmartHomeApp_LastSendTransID = SmartHomeApp_TransID;
   }
  
   SmartHomeApp_DstAddr.addr.shortAddr=destAddr;
-  
-  SmartHomeApp_LastSendAddr = destAddr;
-  SmartHomeApp_LastSendTransID = SmartHomeApp_TransID;
+ 
     
   SmartHomeApp_DstAddr.endPoint = SmartHomeApp_ENDPOINT;
   
