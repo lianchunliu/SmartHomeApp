@@ -425,6 +425,9 @@ uint16 SmartHomeApp_ProcessEvent( uint8 task_id, uint16 events )
 //                                SmartHomeApp_SEND_MSG_EVT,
 //                                SmartHomeApp_SEND_MSG_TIMEOUT );
             
+            osal_start_timerEx( SmartHomeApp_TaskID,
+                        SmartHomeApp_TIMER_UPDATE_EVT,
+                        1000 );
           }
           break;
 
@@ -459,6 +462,18 @@ uint16 SmartHomeApp_ProcessEvent( uint8 task_id, uint16 events )
 //    return (events ^ SmartHomeApp_SEND_MSG_EVT);
 //  }
 
+  if ( events & SmartHomeApp_TIMER_UPDATE_EVT )
+  {
+    
+    DoorLight_Update();
+    // Setup to send message again
+    osal_start_timerEx( SmartHomeApp_TaskID,
+                        SmartHomeApp_TIMER_UPDATE_EVT,
+                        1000 );
+
+    // return unprocessed events
+    return (events ^ SmartHomeApp_TIMER_UPDATE_EVT);
+  }
   
 
   // Discard unknown events

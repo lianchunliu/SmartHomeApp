@@ -9,4 +9,6 @@ void DoorLight_HandleKeys(uint8 keys);
 
 void DoorLight_HandleMsg(uint8* msg);
 
+void DoorLight_Update(void);
+
 #endif /* DoorLight_H*/

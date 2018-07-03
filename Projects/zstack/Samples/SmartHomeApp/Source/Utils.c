@@ -229,3 +229,13 @@ uint16 Util_Str2Uint16(uint8* str)
 }
 
 
+
+uint16 Util_Str2Dec(uint8 * str)
+{
+  uint16 ret = 0;
+  while (*str && (*str != ' ')) {
+    ret = ret*10 + (*str - '0');
+    str++;
+  }
+  return ret;
+}

@@ -15,6 +15,7 @@ void NameAddrCache_put(uint8* name, uint16 addr);
 uint16 NameAddrCache_getAddrFromCmd(uint8* cmd);
 
 uint16 Util_Str2Uint16(uint8* str);
+uint16 Util_Str2Dec(uint8 * str);
 
 uint16 NameAddrCache_getAddrFromCmd(uint8* cmd);
 

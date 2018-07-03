@@ -71,6 +71,8 @@ extern "C"
 
 // Application Events (OSAL) - These are bit weighted definitions.
 #define SmartHomeApp_SEND_MSG_EVT       0x0001
+  
+#define SmartHomeApp_TIMER_UPDATE_EVT   0x0002
 
 
 /*********************************************************************
