@@ -85,6 +85,25 @@ typedef struct
 NameAddrCacheData_t* name_addr_cache[NAME_ADDR_CACHE_SIZE];
 uint16 name_addr_cache_idx = 0;
 
+
+void NameAddrCache_delete(uint16 addr)
+{
+  uint16 i;
+  NameAddrCacheData_t* data;
+  
+  // find old match data, remove it
+  for (i = 0; i < NAME_ADDR_CACHE_SIZE; i++) {
+     data = name_addr_cache[i];
+     if (data == NULL)
+       continue;
+     if (data->addr == addr) {
+       osal_mem_free(data);
+       name_addr_cache[i] = NULL;
+     }
+  }
+  
+}
+
 void NameAddrCache_put(uint8* name, uint16 addr)
 {
   uint16 i;

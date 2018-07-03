@@ -130,6 +130,7 @@ endPointDesc_t SmartHomeApp_epDesc;
 #define SERIAL_APP_TX_MAX 64
 uint8 RxBuf[SERIAL_APP_TX_MAX+1];
 static uint8 SerialApp_TxLen;
+static uint16 SmartHomeApp_LastSendAddr;
 
 /*********************************************************************
  * EXTERNAL VARIABLES
@@ -271,6 +272,8 @@ void SmartHome_SendCmd(uint8* buf)
   }
  
   SmartHomeApp_DstAddr.addr.shortAddr=destAddr;
+  SmartHomeApp_LastSendAddr = destAddr;
+  
   SmartHomeApp_DstAddr.endPoint = SmartHomeApp_ENDPOINT;
   
   if ( AF_DataRequest( &SmartHomeApp_DstAddr, &SmartHomeApp_epDesc,
@@ -395,6 +398,8 @@ uint16 SmartHomeApp_ProcessEvent( uint8 task_id, uint16 events )
           {
             // The data wasn't delivered -- Do something
             printf("SendMsgFailed:%X\n", sentTransID);
+            NameAddrCache_delete(SmartHomeApp_LastSendAddr);
+            
           } else {
             printf("SendMsgOK:%X\n", sentTransID);
             
