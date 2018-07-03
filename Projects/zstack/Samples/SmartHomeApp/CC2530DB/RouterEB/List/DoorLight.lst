@@ -1,0 +1,235 @@
+###############################################################################
+#                                                                             #
+# IAR C/C++ Compiler V8.10.3.10338/W32 for 8051         28/Jun/2018  14:16:01 #
+# Copyright 2004-2011 IAR Systems AB.                                         #
+#                                                                             #
+#    Core               =  plain                                              #
+#    Code model         =  banked                                             #
+#    Data model         =  large                                              #
+#    Calling convention =  xdata reentrant                                    #
+#    Constant location  =  data_rom                                           #
+#    Dptr setup         =  1,16                                               #
+#    Source file        =  C:\ZigBee\SmartHomeApp\Projects\zstack\Samples\Sma #
+#                          rtHomeApp\Source\DoorLight.c                       #
+#    Command line       =  -f C:\ZigBee\SmartHomeApp\Projects\zstack\Samples\ #
+#                          SmartHomeApp\CC2530DB\..\..\..\Tools\CC2530DB\f8wR #
+#                          outer.cfg (-DCPU32MHZ -DROOT=__near_func           #
+#                          -DMAC_CFG_APP_PENDING_QUEUE=TRUE                   #
+#                          -DMAC_CFG_TX_DATA_MAX=5 -DMAC_CFG_TX_MAX=8         #
+#                          -DMAC_CFG_RX_MAX=5 -DRTR_NWK) -f                   #
+#                          C:\ZigBee\SmartHomeApp\Projects\zstack\Samples\Sma #
+#                          rtHomeApp\CC2530DB\..\..\..\Tools\CC2530DB\f8wConf #
+#                          ig.cfg (-DZIGBEEPRO -DSECURE=0                     #
+#                          -DZG_SECURE_DYNAMIC=0 -DREFLECTOR                  #
+#                          -DDEFAULT_CHANLIST=0x00002000                      #
+#                          -DZDAPP_CONFIG_PAN_ID=0xF227                       #
+#                          -DNWK_START_DELAY=100 -DEXTENDED_JOINING_RANDOM_MA #
+#                          SK=0x007F -DBEACON_REQUEST_DELAY=100               #
+#                          -DBEACON_REQ_DELAY_MASK=0x00FF                     #
+#                          -DLINK_STATUS_JITTER_MASK=0x007F                   #
+#                          -DROUTE_EXPIRY_TIME=30 -DAPSC_ACK_WAIT_DURATION_PO #
+#                          LLED=3000 -DNWK_INDIRECT_MSG_TIMEOUT=7             #
+#                          -DMAX_RREQ_ENTRIES=8 -DAPSC_MAX_FRAME_RETRIES=3    #
+#                          -DNWK_MAX_DATA_RETRIES=2                           #
+#                          -DMAX_POLL_FAILURE_RETRIES=2 -DMAX_BCAST=9         #
+#                          -DAPS_MAX_GROUPS=16 -DMAX_RTG_ENTRIES=40           #
+#                          -DNWK_MAX_BINDING_ENTRIES=4                        #
+#                          -DMAX_BINDING_CLUSTER_IDS=4 "-DDEFAULT_KEY={0x01,  #
+#                          0x03, 0x05, 0x07, 0x09, 0x0B, 0x0D, 0x0F, 0x00,    #
+#                          0x02, 0x04, 0x06, 0x08, 0x0A, 0x0C, 0x0D}"         #
+#                          -DMAC_MAX_FRAME_SIZE=116                           #
+#                          -DZDNWKMGR_MIN_TRANSMISSIONS=20 "-DCONST=const     #
+#                          __code" -DGENERIC=__generic                        #
+#                          -DRFD_RCVC_ALWAYS_ON=FALSE -DPOLL_RATE=1000        #
+#                          -DQUEUED_POLL_RATE=100 -DRESPONSE_POLL_RATE=100)   #
+#                          -DREJOIN_POLL_RATE=440 C:\ZigBee\SmartHomeApp\Proj #
+#                          ects\zstack\Samples\SmartHomeApp\Source\DoorLight. #
+#                          c -D ZTOOL_P1 -D MT_TASK -D MT_SYS_FUNC -D         #
+#                          MT_ZDO_FUNC -D xLCD_SUPPORTED=DEBUG -lC            #
+#                          C:\ZigBee\SmartHomeApp\Projects\zstack\Samples\Sma #
+#                          rtHomeApp\CC2530DB\RouterEB\List\ -lA              #
+#                          C:\ZigBee\SmartHomeApp\Projects\zstack\Samples\Sma #
+#                          rtHomeApp\CC2530DB\RouterEB\List\ --diag_suppress  #
+#                          Pe001,Pa010 -o C:\ZigBee\SmartHomeApp\Projects\zst #
+#                          ack\Samples\SmartHomeApp\CC2530DB\RouterEB\Obj\    #
+#                          -e --no_code_motion --debug --core=plain           #
+#                          --dptr=16,1 --data_model=large                     #
+#                          --code_model=banked --calling_convention=xdata_ree #
+#                          ntrant --place_constants=data_rom                  #
+#                          --nr_virtual_regs 16 -I C:\ZigBee\SmartHomeApp\Pro #
+#                          jects\zstack\Samples\SmartHomeApp\CC2530DB\ -I     #
+#                          C:\ZigBee\SmartHomeApp\Projects\zstack\Samples\Sma #
+#                          rtHomeApp\CC2530DB\..\Source\ -I                   #
+#                          C:\ZigBee\SmartHomeApp\Projects\zstack\Samples\Sma #
+#                          rtHomeApp\CC2530DB\..\..\..\ZMain\TI2530DB\ -I     #
+#                          C:\ZigBee\SmartHomeApp\Projects\zstack\Samples\Sma #
+#                          rtHomeApp\CC2530DB\..\..\..\..\..\Components\hal\i #
+#                          nclude\ -I C:\ZigBee\SmartHomeApp\Projects\zstack\ #
+#                          Samples\SmartHomeApp\CC2530DB\..\..\..\..\..\Compo #
+#                          nents\hal\target\CC2530EB\ -I                      #
+#                          C:\ZigBee\SmartHomeApp\Projects\zstack\Samples\Sma #
+#                          rtHomeApp\CC2530DB\..\..\..\..\..\Components\mac\i #
+#                          nclude\ -I C:\ZigBee\SmartHomeApp\Projects\zstack\ #
+#                          Samples\SmartHomeApp\CC2530DB\..\..\..\..\..\Compo #
+#                          nents\mac\high_level\ -I                           #
+#                          C:\ZigBee\SmartHomeApp\Projects\zstack\Samples\Sma #
+#                          rtHomeApp\CC2530DB\..\..\..\..\..\Components\mac\l #
+#                          ow_level\srf04\ -I C:\ZigBee\SmartHomeApp\Projects #
+#                          \zstack\Samples\SmartHomeApp\CC2530DB\..\..\..\..\ #
+#                          ..\Components\mac\low_level\srf04\single_chip\ -I  #
+#                          C:\ZigBee\SmartHomeApp\Projects\zstack\Samples\Sma #
+#                          rtHomeApp\CC2530DB\..\..\..\..\..\Components\mt\   #
+#                          -I C:\ZigBee\SmartHomeApp\Projects\zstack\Samples\ #
+#                          SmartHomeApp\CC2530DB\..\..\..\..\..\Components\os #
+#                          al\include\ -I C:\ZigBee\SmartHomeApp\Projects\zst #
+#                          ack\Samples\SmartHomeApp\CC2530DB\..\..\..\..\..\C #
+#                          omponents\services\saddr\ -I                       #
+#                          C:\ZigBee\SmartHomeApp\Projects\zstack\Samples\Sma #
+#                          rtHomeApp\CC2530DB\..\..\..\..\..\Components\servi #
+#                          ces\sdata\ -I C:\ZigBee\SmartHomeApp\Projects\zsta #
+#                          ck\Samples\SmartHomeApp\CC2530DB\..\..\..\..\..\Co #
+#                          mponents\stack\af\ -I C:\ZigBee\SmartHomeApp\Proje #
+#                          cts\zstack\Samples\SmartHomeApp\CC2530DB\..\..\..\ #
+#                          ..\..\Components\stack\nwk\ -I                     #
+#                          C:\ZigBee\SmartHomeApp\Projects\zstack\Samples\Sma #
+#                          rtHomeApp\CC2530DB\..\..\..\..\..\Components\stack #
+#                          \sapi\ -I C:\ZigBee\SmartHomeApp\Projects\zstack\S #
+#                          amples\SmartHomeApp\CC2530DB\..\..\..\..\..\Compon #
+#                          ents\stack\sec\ -I C:\ZigBee\SmartHomeApp\Projects #
+#                          \zstack\Samples\SmartHomeApp\CC2530DB\..\..\..\..\ #
+#                          ..\Components\stack\sys\ -I                        #
+#                          C:\ZigBee\SmartHomeApp\Projects\zstack\Samples\Sma #
+#                          rtHomeApp\CC2530DB\..\..\..\..\..\Components\stack #
+#                          \zdo\ -I C:\ZigBee\SmartHomeApp\Projects\zstack\Sa #
+#                          mples\SmartHomeApp\CC2530DB\..\..\..\..\..\Compone #
+#                          nts\zmac\ -I C:\ZigBee\SmartHomeApp\Projects\zstac #
+#                          k\Samples\SmartHomeApp\CC2530DB\..\..\..\..\..\Com #
+#                          ponents\zmac\f8w\ -Ohz --require_prototypes        #
+#    List file          =  C:\ZigBee\SmartHomeApp\Projects\zstack\Samples\Sma #
+#                          rtHomeApp\CC2530DB\RouterEB\List\DoorLight.lst     #
+#    Object file        =  C:\ZigBee\SmartHomeApp\Projects\zstack\Samples\Sma #
+#                          rtHomeApp\CC2530DB\RouterEB\Obj\DoorLight.r51      #
+#                                                                             #
+#                                                                             #
+###############################################################################
+
+C:\ZigBee\SmartHomeApp\Projects\zstack\Samples\SmartHomeApp\Source\DoorLight.c
+      1          #include "DoorLight.h"
+      2          
+      3          
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+      4          void DoorLight_HandleKeys(uint8 keys)
+   \                     DoorLight_HandleKeys:
+      5          {
+   \   000000   74F6         MOV     A,#-0xa
+   \   000002   12....       LCALL   ?BANKED_ENTER_XDATA
+   \   000005                ; Saved register size: 10
+   \   000005                ; Auto size: 0
+   \   000005   E9           MOV     A,R1
+   \   000006   FE           MOV     R6,A
+      6            printf("DoorLight_HandleKeys : %X\n", keys);
+   \   000007                ; Setup parameters for call to function printf
+   \   000007   8E..         MOV     ?V0 + 0,R6
+   \   000009   75..00       MOV     ?V0 + 1,#0x0
+   \   00000C   78..         MOV     R0,#?V0 + 0
+   \   00000E   12....       LCALL   ?PUSH_XSTACK_I_TWO
+   \   000011   7A..         MOV     R2,#`?<Constant "DoorLight_HandleKeys ...">` & 0xff
+   \   000013   7B..         MOV     R3,#(`?<Constant "DoorLight_HandleKeys ...">` >> 8) & 0xff
+   \   000015                REQUIRE ?Subroutine0
+   \   000015                ; // Fall through to label ?Subroutine0
+      7            
+      8          }
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ?Subroutine0:
+   \   000000   12....       LCALL   ??printf?relay
+   \   000003   7402         MOV     A,#0x2
+   \   000005   12....       LCALL   ?DEALLOC_XSTACK8
+   \   000008   7F02         MOV     R7,#0x2
+   \   00000A   02....       LJMP    ?BANKED_LEAVE_XDATA
+      9          
+     10          
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+     11          void DoorLight_HandleMsg(uint8* msg)
+   \                     DoorLight_HandleMsg:
+     12          {
+   \   000000   74F6         MOV     A,#-0xa
+   \   000002   12....       LCALL   ?BANKED_ENTER_XDATA
+   \   000005                ; Saved register size: 10
+   \   000005                ; Auto size: 0
+     13            
+     14            printf("DoorLight_HandleMsg: %s\n", msg); 
+   \   000005                ; Setup parameters for call to function printf
+   \   000005   8A..         MOV     ?V0 + 0,R2
+   \   000007   8B..         MOV     ?V0 + 1,R3
+   \   000009   78..         MOV     R0,#?V0 + 0
+   \   00000B   12....       LCALL   ?PUSH_XSTACK_I_TWO
+   \   00000E   7A..         MOV     R2,#`?<Constant "DoorLight_HandleMsg: %s\\n">` & 0xff
+   \   000010   7B..         MOV     R3,#(`?<Constant "DoorLight_HandleMsg: %s\\n">` >> 8) & 0xff
+   \   000012   80..         SJMP    ?Subroutine0
+     15          }
+
+   \                                 In  segment BANK_RELAYS, align 1
+   \                     ??DoorLight_HandleKeys?relay:
+   \   000000   12....       LCALL   ?BDISPATCH
+   \   000003   ......       DC24    DoorLight_HandleKeys
+
+   \                                 In  segment BANK_RELAYS, align 1
+   \                     ??DoorLight_HandleMsg?relay:
+   \   000000   12....       LCALL   ?BDISPATCH
+   \   000003   ......       DC24    DoorLight_HandleMsg
+
+   \                                 In  segment XDATA_ROM_C, align 1
+   \                     `?<Constant "DoorLight_HandleKeys ...">`:
+   \   000000   446F6F72     DB "DoorLight_HandleKeys : %X\012"
+   \            4C696768
+   \            745F4861
+   \            6E646C65
+   \            4B657973
+   \            203A2025
+   \            580A00  
+
+   \                                 In  segment XDATA_ROM_C, align 1
+   \                     `?<Constant "DoorLight_HandleMsg: %s\\n">`:
+   \   000000   446F6F72     DB "DoorLight_HandleMsg: %s\012"
+   \            4C696768
+   \            745F4861
+   \            6E646C65
+   \            4D73673A
+   \            2025730A
+   \            00      
+
+   Maximum stack usage in bytes:
+
+     Function             ISTACK PSTACK XSTACK
+     --------             ------ ------ ------
+     DoorLight_HandleKeys     0      0     12
+       -> printf              0      0     24
+     DoorLight_HandleMsg      0      0     12
+       -> printf              0      0     24
+
+
+   Segment part sizes:
+
+     Function/Label                          Bytes
+     --------------                          -----
+     DoorLight_HandleKeys                      21
+     ?Subroutine0                              13
+     DoorLight_HandleMsg                       20
+     ??DoorLight_HandleKeys?relay               6
+     ??DoorLight_HandleMsg?relay                6
+     ?<Constant "DoorLight_HandleKeys ...">    27
+     ?<Constant "DoorLight_HandleMsg: %s\n">   25
+
+ 
+ 54 bytes in segment BANKED_CODE
+ 12 bytes in segment BANK_RELAYS
+ 52 bytes in segment XDATA_ROM_C
+ 
+ 66 bytes of CODE  memory
+ 52 bytes of CONST memory
+
+Errors: none
+Warnings: none

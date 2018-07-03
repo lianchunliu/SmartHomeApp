@@ -1,0 +1,2569 @@
+###############################################################################
+#                                                                             #
+# IAR C/C++ Compiler V8.10.3.10338/W32 for 8051         03/Jul/2018  09:41:56 #
+# Copyright 2004-2011 IAR Systems AB.                                         #
+#                                                                             #
+#    Core               =  plain                                              #
+#    Code model         =  banked                                             #
+#    Data model         =  large                                              #
+#    Calling convention =  xdata reentrant                                    #
+#    Constant location  =  data_rom                                           #
+#    Dptr setup         =  1,16                                               #
+#    Source file        =  C:\ZigBee\SmartHomeApp\Projects\zstack\Samples\Sma #
+#                          rtHomeApp\Source\SmartHomeApp.c                    #
+#    Command line       =  -f C:\ZigBee\SmartHomeApp\Projects\zstack\Samples\ #
+#                          SmartHomeApp\CC2530DB\..\..\..\Tools\CC2530DB\f8wC #
+#                          oord.cfg (-DCPU32MHZ -DROOT=__near_func            #
+#                          -DMAC_CFG_APP_PENDING_QUEUE=TRUE                   #
+#                          -DMAC_CFG_TX_DATA_MAX=5 -DMAC_CFG_TX_MAX=8         #
+#                          -DMAC_CFG_RX_MAX=5 -DZDO_COORDINATOR -DRTR_NWK)    #
+#                          -f C:\ZigBee\SmartHomeApp\Projects\zstack\Samples\ #
+#                          SmartHomeApp\CC2530DB\..\..\..\Tools\CC2530DB\f8wC #
+#                          onfig.cfg (-DZIGBEEPRO -DSECURE=0                  #
+#                          -DZG_SECURE_DYNAMIC=0 -DREFLECTOR                  #
+#                          -DDEFAULT_CHANLIST=0x00002000                      #
+#                          -DZDAPP_CONFIG_PAN_ID=0xF227                       #
+#                          -DNWK_START_DELAY=100 -DEXTENDED_JOINING_RANDOM_MA #
+#                          SK=0x007F -DBEACON_REQUEST_DELAY=100               #
+#                          -DBEACON_REQ_DELAY_MASK=0x00FF                     #
+#                          -DLINK_STATUS_JITTER_MASK=0x007F                   #
+#                          -DROUTE_EXPIRY_TIME=30 -DAPSC_ACK_WAIT_DURATION_PO #
+#                          LLED=3000 -DNWK_INDIRECT_MSG_TIMEOUT=7             #
+#                          -DMAX_RREQ_ENTRIES=8 -DAPSC_MAX_FRAME_RETRIES=3    #
+#                          -DNWK_MAX_DATA_RETRIES=2                           #
+#                          -DMAX_POLL_FAILURE_RETRIES=2 -DMAX_BCAST=9         #
+#                          -DAPS_MAX_GROUPS=16 -DMAX_RTG_ENTRIES=40           #
+#                          -DNWK_MAX_BINDING_ENTRIES=4                        #
+#                          -DMAX_BINDING_CLUSTER_IDS=4 "-DDEFAULT_KEY={0x01,  #
+#                          0x03, 0x05, 0x07, 0x09, 0x0B, 0x0D, 0x0F, 0x00,    #
+#                          0x02, 0x04, 0x06, 0x08, 0x0A, 0x0C, 0x0D}"         #
+#                          -DMAC_MAX_FRAME_SIZE=116                           #
+#                          -DZDNWKMGR_MIN_TRANSMISSIONS=20 "-DCONST=const     #
+#                          __code" -DGENERIC=__generic                        #
+#                          -DRFD_RCVC_ALWAYS_ON=FALSE -DPOLL_RATE=1000        #
+#                          -DQUEUED_POLL_RATE=100 -DRESPONSE_POLL_RATE=100)   #
+#                          -DREJOIN_POLL_RATE=440 C:\ZigBee\SmartHomeApp\Proj #
+#                          ects\zstack\Samples\SmartHomeApp\Source\SmartHomeA #
+#                          pp.c -D ZTOOL_P1 -D MT_TASK -D MT_SYS_FUNC -D      #
+#                          MT_ZDO_FUNC -D xLCD_SUPPORTED=DEBUG -lC            #
+#                          C:\ZigBee\SmartHomeApp\Projects\zstack\Samples\Sma #
+#                          rtHomeApp\CC2530DB\CoordinatorEB\List\ -lA         #
+#                          C:\ZigBee\SmartHomeApp\Projects\zstack\Samples\Sma #
+#                          rtHomeApp\CC2530DB\CoordinatorEB\List\             #
+#                          --diag_suppress Pe001,Pa010 -o                     #
+#                          C:\ZigBee\SmartHomeApp\Projects\zstack\Samples\Sma #
+#                          rtHomeApp\CC2530DB\CoordinatorEB\Obj\ -e           #
+#                          --no_code_motion --debug --core=plain --dptr=16,1  #
+#                          --data_model=large --code_model=banked             #
+#                          --calling_convention=xdata_reentrant               #
+#                          --place_constants=data_rom --nr_virtual_regs 16    #
+#                          -I C:\ZigBee\SmartHomeApp\Projects\zstack\Samples\ #
+#                          SmartHomeApp\CC2530DB\ -I                          #
+#                          C:\ZigBee\SmartHomeApp\Projects\zstack\Samples\Sma #
+#                          rtHomeApp\CC2530DB\..\Source\ -I                   #
+#                          C:\ZigBee\SmartHomeApp\Projects\zstack\Samples\Sma #
+#                          rtHomeApp\CC2530DB\..\..\..\ZMain\TI2530DB\ -I     #
+#                          C:\ZigBee\SmartHomeApp\Projects\zstack\Samples\Sma #
+#                          rtHomeApp\CC2530DB\..\..\..\..\..\Components\hal\i #
+#                          nclude\ -I C:\ZigBee\SmartHomeApp\Projects\zstack\ #
+#                          Samples\SmartHomeApp\CC2530DB\..\..\..\..\..\Compo #
+#                          nents\hal\target\CC2530EB\ -I                      #
+#                          C:\ZigBee\SmartHomeApp\Projects\zstack\Samples\Sma #
+#                          rtHomeApp\CC2530DB\..\..\..\..\..\Components\mac\i #
+#                          nclude\ -I C:\ZigBee\SmartHomeApp\Projects\zstack\ #
+#                          Samples\SmartHomeApp\CC2530DB\..\..\..\..\..\Compo #
+#                          nents\mac\high_level\ -I                           #
+#                          C:\ZigBee\SmartHomeApp\Projects\zstack\Samples\Sma #
+#                          rtHomeApp\CC2530DB\..\..\..\..\..\Components\mac\l #
+#                          ow_level\srf04\ -I C:\ZigBee\SmartHomeApp\Projects #
+#                          \zstack\Samples\SmartHomeApp\CC2530DB\..\..\..\..\ #
+#                          ..\Components\mac\low_level\srf04\single_chip\ -I  #
+#                          C:\ZigBee\SmartHomeApp\Projects\zstack\Samples\Sma #
+#                          rtHomeApp\CC2530DB\..\..\..\..\..\Components\mt\   #
+#                          -I C:\ZigBee\SmartHomeApp\Projects\zstack\Samples\ #
+#                          SmartHomeApp\CC2530DB\..\..\..\..\..\Components\os #
+#                          al\include\ -I C:\ZigBee\SmartHomeApp\Projects\zst #
+#                          ack\Samples\SmartHomeApp\CC2530DB\..\..\..\..\..\C #
+#                          omponents\services\saddr\ -I                       #
+#                          C:\ZigBee\SmartHomeApp\Projects\zstack\Samples\Sma #
+#                          rtHomeApp\CC2530DB\..\..\..\..\..\Components\servi #
+#                          ces\sdata\ -I C:\ZigBee\SmartHomeApp\Projects\zsta #
+#                          ck\Samples\SmartHomeApp\CC2530DB\..\..\..\..\..\Co #
+#                          mponents\stack\af\ -I C:\ZigBee\SmartHomeApp\Proje #
+#                          cts\zstack\Samples\SmartHomeApp\CC2530DB\..\..\..\ #
+#                          ..\..\Components\stack\nwk\ -I                     #
+#                          C:\ZigBee\SmartHomeApp\Projects\zstack\Samples\Sma #
+#                          rtHomeApp\CC2530DB\..\..\..\..\..\Components\stack #
+#                          \sapi\ -I C:\ZigBee\SmartHomeApp\Projects\zstack\S #
+#                          amples\SmartHomeApp\CC2530DB\..\..\..\..\..\Compon #
+#                          ents\stack\sec\ -I C:\ZigBee\SmartHomeApp\Projects #
+#                          \zstack\Samples\SmartHomeApp\CC2530DB\..\..\..\..\ #
+#                          ..\Components\stack\sys\ -I                        #
+#                          C:\ZigBee\SmartHomeApp\Projects\zstack\Samples\Sma #
+#                          rtHomeApp\CC2530DB\..\..\..\..\..\Components\stack #
+#                          \zdo\ -I C:\ZigBee\SmartHomeApp\Projects\zstack\Sa #
+#                          mples\SmartHomeApp\CC2530DB\..\..\..\..\..\Compone #
+#                          nts\zmac\ -I C:\ZigBee\SmartHomeApp\Projects\zstac #
+#                          k\Samples\SmartHomeApp\CC2530DB\..\..\..\..\..\Com #
+#                          ponents\zmac\f8w\ -Ohz --require_prototypes        #
+#    List file          =  C:\ZigBee\SmartHomeApp\Projects\zstack\Samples\Sma #
+#                          rtHomeApp\CC2530DB\CoordinatorEB\List\SmartHomeApp #
+#                          .lst                                               #
+#    Object file        =  C:\ZigBee\SmartHomeApp\Projects\zstack\Samples\Sma #
+#                          rtHomeApp\CC2530DB\CoordinatorEB\Obj\SmartHomeApp. #
+#                          r51                                                #
+#                                                                             #
+#                                                                             #
+###############################################################################
+
+C:\ZigBee\SmartHomeApp\Projects\zstack\Samples\SmartHomeApp\Source\SmartHomeApp.c
+      1          /******************************************************************************
+      2            Filename:       SmartHomeApp.c
+      3            Revised:        $Date: 2012-03-07 01:04:58 -0800 (Wed, 07 Mar 2012) $
+      4            Revision:       $Revision: 29656 $
+      5          
+      6            Description:    Generic Application (no Profile).
+      7          
+      8          
+      9            Copyright 2004-2012 Texas Instruments Incorporated. All rights reserved.
+     10          
+     11            IMPORTANT: Your use of this Software is limited to those specific rights
+     12            granted under the terms of a software license agreement between the user
+     13            who downloaded the software, his/her employer (which must be your employer)
+     14            and Texas Instruments Incorporated (the "License"). You may not use this
+     15            Software unless you agree to abide by the terms of the License. The License
+     16            limits your use, and you acknowledge, that the Software may not be modified,
+     17            copied or distributed unless embedded on a Texas Instruments microcontroller
+     18            or used solely and exclusively in conjunction with a Texas Instruments radio
+     19            frequency transceiver, which is integrated into your product. Other than for
+     20            the foregoing purpose, you may not use, reproduce, copy, prepare derivative
+     21            works of, modify, distribute, perform, display or sell this Software and/or
+     22            its documentation for any purpose.
+     23          
+     24            YOU FURTHER ACKNOWLEDGE AND AGREE THAT THE SOFTWARE AND DOCUMENTATION ARE
+     25            PROVIDED “AS IS?WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED,
+     26            INCLUDING WITHOUT LIMITATION, ANY WARRANTY OF MERCHANTABILITY, TITLE,
+     27            NON-INFRINGEMENT AND FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT SHALL
+     28            TEXAS INSTRUMENTS OR ITS LICENSORS BE LIABLE OR OBLIGATED UNDER CONTRACT,
+     29            NEGLIGENCE, STRICT LIABILITY, CONTRIBUTION, BREACH OF WARRANTY, OR OTHER
+     30            LEGAL EQUITABLE THEORY ANY DIRECT OR INDIRECT DAMAGES OR EXPENSES
+     31            INCLUDING BUT NOT LIMITED TO ANY INCIDENTAL, SPECIAL, INDIRECT, PUNITIVE
+     32            OR CONSEQUENTIAL DAMAGES, LOST PROFITS OR LOST DATA, COST OF PROCUREMENT
+     33            OF SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
+     34            (INCLUDING BUT NOT LIMITED TO ANY DEFENSE THEREOF), OR OTHER SIMILAR COSTS.
+     35          
+     36            Should you have any questions regarding your right to use this Software,
+     37            contact Texas Instruments Incorporated at www.TI.com.
+     38          ******************************************************************************/
+     39          
+     40          /*********************************************************************
+     41            This application isn't intended to do anything useful, it is
+     42            intended to be a simple example of an application's structure.
+     43          
+     44            This application sends "Hello World" to another "Generic"
+     45            application every 5 seconds.  The application will also
+     46            receives "Hello World" packets.
+     47          
+     48            The "Hello World" messages are sent/received as MSG type message.
+     49          
+     50            This applications doesn't have a profile, so it handles everything
+     51            directly - itself.
+     52          
+     53            Key control:
+     54              SW1:
+     55              SW2:  initiates end device binding
+     56              SW3:
+     57              SW4:  initiates a match description request
+     58          *********************************************************************/
+     59          
+     60          /*********************************************************************
+     61           * INCLUDES
+     62           */
+     63          #include "OSAL.h"
+     64          #include "AF.h"
+     65          #include "ZDApp.h"
+     66          #include "ZDObject.h"
+     67          #include "ZDProfile.h"
+     68          
+     69          #include "SmartHomeApp.h"
+     70          #include "DebugTrace.h"
+     71          
+     72          #if !defined( WIN32 )
+     73            #include "OnBoard.h"
+     74          #endif
+     75          
+     76          /* HAL */
+     77          #include "hal_lcd.h"
+     78          #include "hal_led.h"
+     79          #include "hal_key.h"
+     80          #include "hal_uart.h"
+     81          
+     82          #include "user_printf.h"
+     83          #include "Utils.h"
+     84          
+     85          #include "DefaultProcessor.h"
+     86          #include "DoorLight.h"
+     87          #include "DoorSensor.h"
+     88          
+     89          
+     90          /*********************************************************************
+     91           * MACROS
+     92           */
+     93          
+     94          /*********************************************************************
+     95           * CONSTANTS
+     96           */
+     97          
+     98          /*********************************************************************
+     99           * TYPEDEFS
+    100           */
+    101          
+    102          /*********************************************************************
+    103           * GLOBAL VARIABLES
+    104           */
+    105          // This list should be filled with Application specific Cluster IDs.
+
+   \                                 In  segment XDATA_ROM_C, align 1
+    106          const cId_t SmartHomeApp_ClusterList[SmartHomeApp_MAX_CLUSTERS] =
+   \                     SmartHomeApp_ClusterList:
+   \   000000   0100         DW 1
+    107          {
+    108            SmartHomeApp_CLUSTERID
+    109          };
+    110          
+
+   \                                 In  segment XDATA_ROM_C, align 1
+    111          const SimpleDescriptionFormat_t SmartHomeApp_SimpleDesc =
+   \                     SmartHomeApp_SimpleDesc:
+   \   000000   0A           DB 10
+   \   000001   040F         DW 3844
+   \   000003   0100         DW 1
+   \   000005   00           DB 0
+   \   000006   01           DB 1
+   \   000007   ....         DW SmartHomeApp_ClusterList
+   \   000009   01           DB 1
+   \   00000A   ....         DW SmartHomeApp_ClusterList
+    112          {
+    113            SmartHomeApp_ENDPOINT,              //  int Endpoint;
+    114            SmartHomeApp_PROFID,                //  uint16 AppProfId[2];
+    115            SmartHomeApp_DEVICEID,              //  uint16 AppDeviceId[2];
+    116            SmartHomeApp_DEVICE_VERSION,        //  int   AppDevVer:4;
+    117            SmartHomeApp_FLAGS,                 //  int   AppFlags:4;
+    118            SmartHomeApp_MAX_CLUSTERS,          //  byte  AppNumInClusters;
+    119            (cId_t *)SmartHomeApp_ClusterList,  //  byte *pAppInClusterList;
+    120            SmartHomeApp_MAX_CLUSTERS,          //  byte  AppNumInClusters;
+    121            (cId_t *)SmartHomeApp_ClusterList   //  byte *pAppInClusterList;
+    122          };
+    123          
+    124          // This is the Endpoint/Interface description.  It is defined here, but
+    125          // filled-in in SmartHomeApp_Init().  Another way to go would be to fill
+    126          // in the structure here and make it a "const" (in code space).  The
+    127          // way it's defined in this sample app it is define in RAM.
+
+   \                                 In  segment XDATA_Z, align 1, keep-with-next
+    128          endPointDesc_t SmartHomeApp_epDesc;
+   \                     SmartHomeApp_epDesc:
+   \   000000                DS 6
+   \   000006                REQUIRE __INIT_XDATA_Z
+    129          
+    130          #define SERIAL_APP_TX_MAX 64
+
+   \                                 In  segment XDATA_Z, align 1, keep-with-next
+    131          uint8 RxBuf[SERIAL_APP_TX_MAX+1];
+   \                     RxBuf:
+   \   000000                DS 65
+   \   000041                REQUIRE __INIT_XDATA_Z
+
+   \                                 In  segment XDATA_Z, align 1, keep-with-next
+    132          static uint8 SerialApp_TxLen;
+   \                     SerialApp_TxLen:
+   \   000000                DS 1
+   \   000001                REQUIRE __INIT_XDATA_Z
+    133          
+    134          /*********************************************************************
+    135           * EXTERNAL VARIABLES
+    136           */
+    137          
+    138          /*********************************************************************
+    139           * EXTERNAL FUNCTIONS
+    140           */
+    141          
+    142          /*********************************************************************
+    143           * LOCAL VARIABLES
+    144           */
+
+   \                                 In  segment XDATA_Z, align 1, keep-with-next
+    145          byte SmartHomeApp_TaskID;   // Task ID for internal task/event processing
+   \                     SmartHomeApp_TaskID:
+   \   000000                DS 1
+   \   000001                REQUIRE __INIT_XDATA_Z
+    146                                    // This variable will be received when
+    147                                    // SmartHomeApp_Init() is called.
+
+   \                                 In  segment XDATA_Z, align 1, keep-with-next
+    148          devStates_t SmartHomeApp_NwkState;
+   \                     SmartHomeApp_NwkState:
+   \   000000                DS 1
+   \   000001                REQUIRE __INIT_XDATA_Z
+    149          
+    150          
+
+   \                                 In  segment XDATA_Z, align 1, keep-with-next
+    151          byte SmartHomeApp_TransID;  // This is the unique message ID (counter)
+   \                     SmartHomeApp_TransID:
+   \   000000                DS 1
+   \   000001                REQUIRE __INIT_XDATA_Z
+    152          
+
+   \                                 In  segment XDATA_Z, align 1, keep-with-next
+    153          afAddrType_t SmartHomeApp_DstAddr;
+   \                     SmartHomeApp_DstAddr:
+   \   000000                DS 12
+   \   00000C                REQUIRE __INIT_XDATA_Z
+    154          
+
+   \                                 In  segment XDATA_Z, align 1, keep-with-next
+    155          void (*Processor_HandleKeys)(uint8 keys);
+   \                     Processor_HandleKeys:
+   \   000000                DS 2
+   \   000002                REQUIRE __INIT_XDATA_Z
+
+   \                                 In  segment XDATA_Z, align 1, keep-with-next
+    156          void (*Processor_HandleMsg)(uint8* msg);
+   \                     Processor_HandleMsg:
+   \   000000                DS 2
+   \   000002                REQUIRE __INIT_XDATA_Z
+    157          
+    158          /*********************************************************************
+    159           * LOCAL FUNCTIONS
+    160           */
+    161          static void SmartHomeApp_ProcessZDOMsgs( zdoIncomingMsg_t *inMsg );
+    162          static void SmartHomeApp_HandleKeys( byte shift, byte keys );
+    163          static void SmartHomeApp_MessageMSGCB( afIncomingMSGPacket_t *pckt );
+    164          //static void SmartHomeApp_SendTheMessage( void );
+    165          
+    166          
+    167          
+    168          /*********************************************************************
+    169           * NETWORK LAYER CALLBACKS
+    170           */
+    171          
+    172          /*********************************************************************
+    173           * PUBLIC FUNCTIONS
+    174           */
+    175          
+    176          /*********************************************************************
+    177           * @fn      SmartHomeApp_Init
+    178           *
+    179           * @brief   Initialization function for the Generic App Task.
+    180           *          This is called during initialization and should contain
+    181           *          any application specific initialization (ie. hardware
+    182           *          initialization/setup, table initialization, power up
+    183           *          notificaiton ... ).
+    184           *
+    185           * @param   task_id - the ID assigned by OSAL.  This ID should be
+    186           *                    used to send messages and set timers.
+    187           *
+    188           * @return  none
+    189           */
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+    190          void SmartHomeApp_Init( uint8 task_id )
+   \                     SmartHomeApp_Init:
+    191          {
+   \   000000   74F6         MOV     A,#-0xa
+   \   000002   12....       LCALL   ?BANKED_ENTER_XDATA
+   \   000005                ; Saved register size: 10
+   \   000005                ; Auto size: 29
+   \   000005   74E3         MOV     A,#-0x1d
+   \   000007   12....       LCALL   ?ALLOC_XSTACK8
+   \   00000A   E9           MOV     A,R1
+    192            SmartHomeApp_TaskID = task_id;
+   \   00000B   90....       MOV     DPTR,#SmartHomeApp_TaskID
+   \   00000E   F0           MOVX    @DPTR,A
+    193            SmartHomeApp_NwkState = DEV_INIT;
+   \   00000F   90....       MOV     DPTR,#SmartHomeApp_NwkState
+   \   000012   7401         MOV     A,#0x1
+   \   000014   F0           MOVX    @DPTR,A
+    194            SmartHomeApp_TransID = 0;
+   \   000015   90....       MOV     DPTR,#SmartHomeApp_TransID
+   \   000018   E4           CLR     A
+   \   000019   F0           MOVX    @DPTR,A
+    195          
+    196            // Device hardware initialization can be added here or in main() (Zmain.c).
+    197            // If the hardware is application specific - add it here.
+    198            // If the hardware is other parts of the device add it in main().
+    199            
+    200            halUARTCfg_t uartConfig;
+    201            uartConfig.configured           = TRUE;
+   \   00001A   85..82       MOV     DPL,?XSP + 0
+   \   00001D   85..83       MOV     DPH,?XSP + 1
+   \   000020   04           INC     A
+   \   000021   F0           MOVX    @DPTR,A
+    202            uartConfig.baudRate             = HAL_UART_BR_115200;
+   \   000022   12....       LCALL   ?XSTACK_DISP0_8
+   \   000025   7404         MOV     A,#0x4
+   \   000027   F0           MOVX    @DPTR,A
+    203            uartConfig.flowControl          = FALSE;
+   \   000028   7402         MOV     A,#0x2
+   \   00002A   12....       LCALL   ?XSTACK_DISP0_8
+   \   00002D   E4           CLR     A
+   \   00002E   F0           MOVX    @DPTR,A
+    204            uartConfig.flowControlThreshold = 48;
+   \   00002F   7403         MOV     A,#0x3
+   \   000031   12....       LCALL   ?XSTACK_DISP0_8
+   \   000034   7430         MOV     A,#0x30
+   \   000036   F0           MOVX    @DPTR,A
+   \   000037   A3           INC     DPTR
+   \   000038   E4           CLR     A
+   \   000039   F0           MOVX    @DPTR,A
+    205            uartConfig.rx.maxBufSize        = 128;
+   \   00003A   740A         MOV     A,#0xa
+   \   00003C   12....       LCALL   ?XSTACK_DISP0_8
+   \   00003F   7480         MOV     A,#-0x80
+   \   000041   F0           MOVX    @DPTR,A
+   \   000042   A3           INC     DPTR
+   \   000043   E4           CLR     A
+   \   000044   F0           MOVX    @DPTR,A
+    206            uartConfig.tx.maxBufSize        = 128;
+   \   000045   7412         MOV     A,#0x12
+   \   000047   12....       LCALL   ?XSTACK_DISP0_8
+   \   00004A   7480         MOV     A,#-0x80
+   \   00004C   F0           MOVX    @DPTR,A
+   \   00004D   A3           INC     DPTR
+   \   00004E   E4           CLR     A
+   \   00004F   F0           MOVX    @DPTR,A
+    207            uartConfig.idleTimeout          = 6;   
+   \   000050   7405         MOV     A,#0x5
+   \   000052   12....       LCALL   ?XSTACK_DISP0_8
+   \   000055   7406         MOV     A,#0x6
+   \   000057   F0           MOVX    @DPTR,A
+    208            uartConfig.intEnable            = TRUE;              
+   \   000058   7416         MOV     A,#0x16
+   \   00005A   12....       LCALL   ?XSTACK_DISP0_8
+   \   00005D   7401         MOV     A,#0x1
+   \   00005F   F0           MOVX    @DPTR,A
+    209            uartConfig.callBackFunc         = SmartHomeApp_CallBack;
+   \   000060   741B         MOV     A,#0x1b
+   \   000062   12....       LCALL   ?XSTACK_DISP0_8
+   \   000065   74..         MOV     A,#??SmartHomeApp_CallBack?relay & 0xff
+   \   000067   F0           MOVX    @DPTR,A
+   \   000068   A3           INC     DPTR
+   \   000069   74..         MOV     A,#(??SmartHomeApp_CallBack?relay >> 8) & 0xff
+   \   00006B   F0           MOVX    @DPTR,A
+    210            HalUARTOpen (HAL_UART_PORT_0, &uartConfig);
+   \   00006C                ; Setup parameters for call to function HalUARTOpen
+   \   00006C   85..82       MOV     DPL,?XSP + 0
+   \   00006F   85..83       MOV     DPH,?XSP + 1
+   \   000072   AA82         MOV     R2,DPL
+   \   000074   AB83         MOV     R3,DPH
+   \   000076   7900         MOV     R1,#0x0
+   \   000078   12....       LCALL   ??HalUARTOpen?relay
+    211            
+    212           // uint8 msg[] = "hello,world!";
+    213          //  HalUARTWrite(HAL_UART_PORT_0, msg, sizeof(msg));
+    214            
+    215            printf("My name is %s\n", Util_ReadName());
+   \   00007B                ; Setup parameters for call to function printf
+   \   00007B                ; Setup parameters for call to function Util_ReadName
+   \   00007B   12....       LCALL   ?Subroutine2 & 0xFFFF
+   \                     ??CrossCallReturnLabel_0:
+   \   00007E   12....       LCALL   ?PUSH_XSTACK_I_TWO
+   \   000081   7A..         MOV     R2,#`?<Constant "My name is %s\\n">` & 0xff
+   \   000083   7B..         MOV     R3,#(`?<Constant "My name is %s\\n">` >> 8) & 0xff
+   \   000085   12....       LCALL   ?Subroutine3 & 0xFFFF
+   \                     ??CrossCallReturnLabel_6:
+   \   000088   12....       LCALL   ?DEALLOC_XSTACK8
+    216            
+    217            if (Util_StrEqual((uint8*)"DoorLight", Util_ReadName())) {    
+   \   00008B                ; Setup parameters for call to function Util_StrEqual
+   \   00008B                ; Setup parameters for call to function Util_ReadName
+   \   00008B   12....       LCALL   ?Subroutine4 & 0xFFFF
+   \                     ??CrossCallReturnLabel_15:
+   \   00008E   7A..         MOV     R2,#`?<Constant "DoorLight">` & 0xff
+   \   000090   7B..         MOV     R3,#(`?<Constant "DoorLight">` >> 8) & 0xff
+   \   000092   12....       LCALL   ??Util_StrEqual?relay
+   \   000095   E9           MOV     A,R1
+   \   000096   6015         JZ      ??SmartHomeApp_Init_0
+    218              Processor_HandleKeys = &DoorLight_HandleKeys;
+   \   000098   90....       MOV     DPTR,#Processor_HandleKeys
+   \   00009B   74..         MOV     A,#??DoorLight_HandleKeys?relay & 0xff
+   \   00009D   F0           MOVX    @DPTR,A
+   \   00009E   A3           INC     DPTR
+   \   00009F   74..         MOV     A,#(??DoorLight_HandleKeys?relay >> 8) & 0xff
+   \   0000A1   F0           MOVX    @DPTR,A
+    219              Processor_HandleMsg = &DoorLight_HandleMsg;
+   \   0000A2   90....       MOV     DPTR,#Processor_HandleMsg
+   \   0000A5   74..         MOV     A,#??DoorLight_HandleMsg?relay & 0xff
+   \   0000A7   F0           MOVX    @DPTR,A
+   \   0000A8   A3           INC     DPTR
+   \   0000A9   74..         MOV     A,#(??DoorLight_HandleMsg?relay >> 8) & 0xff
+   \   0000AB   8045         SJMP    ??SmartHomeApp_Init_1
+    220            } else if (Util_StrEqual((uint8*)"DoorSensor", Util_ReadName())) {    
+   \                     ??SmartHomeApp_Init_0:
+   \   0000AD                ; Setup parameters for call to function Util_StrEqual
+   \   0000AD                ; Setup parameters for call to function Util_ReadName
+   \   0000AD   12....       LCALL   ?Subroutine4 & 0xFFFF
+   \                     ??CrossCallReturnLabel_16:
+   \   0000B0   7A..         MOV     R2,#`?<Constant "DoorSensor">` & 0xff
+   \   0000B2   7B..         MOV     R3,#(`?<Constant "DoorSensor">` >> 8) & 0xff
+   \   0000B4   12....       LCALL   ??Util_StrEqual?relay
+   \   0000B7   E9           MOV     A,R1
+   \   0000B8   6015         JZ      ??SmartHomeApp_Init_2
+    221              Processor_HandleKeys = &DoorSensor_HandleKeys;
+   \   0000BA   90....       MOV     DPTR,#Processor_HandleKeys
+   \   0000BD   74..         MOV     A,#??DoorSensor_HandleKeys?relay & 0xff
+   \   0000BF   F0           MOVX    @DPTR,A
+   \   0000C0   A3           INC     DPTR
+   \   0000C1   74..         MOV     A,#(??DoorSensor_HandleKeys?relay >> 8) & 0xff
+   \   0000C3   F0           MOVX    @DPTR,A
+    222              Processor_HandleMsg = &DoorSensor_HandleMsg;
+   \   0000C4   90....       MOV     DPTR,#Processor_HandleMsg
+   \   0000C7   74..         MOV     A,#??DoorSensor_HandleMsg?relay & 0xff
+   \   0000C9   F0           MOVX    @DPTR,A
+   \   0000CA   A3           INC     DPTR
+   \   0000CB   74..         MOV     A,#(??DoorSensor_HandleMsg?relay >> 8) & 0xff
+   \   0000CD   8023         SJMP    ??SmartHomeApp_Init_1
+    223            } else {
+    224              printf("ERROR: Unkown name: %s\n", Util_ReadName());
+   \                     ??SmartHomeApp_Init_2:
+   \   0000CF                ; Setup parameters for call to function printf
+   \   0000CF                ; Setup parameters for call to function Util_ReadName
+   \   0000CF   12....       LCALL   ?Subroutine2 & 0xFFFF
+   \                     ??CrossCallReturnLabel_1:
+   \   0000D2   12....       LCALL   ?PUSH_XSTACK_I_TWO
+   \   0000D5   7A..         MOV     R2,#`?<Constant "ERROR: Unkown name: %s\\n">` & 0xff
+   \   0000D7   7B..         MOV     R3,#(`?<Constant "ERROR: Unkown name: %s\\n">` >> 8) & 0xff
+   \   0000D9   12....       LCALL   ?Subroutine3 & 0xFFFF
+   \                     ??CrossCallReturnLabel_7:
+   \   0000DC   12....       LCALL   ?DEALLOC_XSTACK8
+    225              Processor_HandleKeys = &DefaultProcessor_HandleKeys;
+   \   0000DF   90....       MOV     DPTR,#Processor_HandleKeys
+   \   0000E2   74..         MOV     A,#??DefaultProcessor_HandleKeys?relay & 0xff
+   \   0000E4   F0           MOVX    @DPTR,A
+   \   0000E5   A3           INC     DPTR
+   \   0000E6   74..         MOV     A,#(??DefaultProcessor_HandleKeys?relay >> 8) & 0xff
+   \   0000E8   F0           MOVX    @DPTR,A
+    226              Processor_HandleMsg = &DefaultProcessor_HandleMsg;
+   \   0000E9   90....       MOV     DPTR,#Processor_HandleMsg
+   \   0000EC   74..         MOV     A,#??DefaultProcessor_HandleMsg?relay & 0xff
+   \   0000EE   F0           MOVX    @DPTR,A
+   \   0000EF   A3           INC     DPTR
+   \   0000F0   74..         MOV     A,#(??DefaultProcessor_HandleMsg?relay >> 8) & 0xff
+   \                     ??SmartHomeApp_Init_1:
+   \   0000F2   F0           MOVX    @DPTR,A
+    227            }
+    228            
+    229            
+    230            SmartHomeApp_DstAddr.addrMode = (afAddrMode_t)AddrNotPresent;
+   \   0000F3   90....       MOV     DPTR,#SmartHomeApp_DstAddr + 8
+   \   0000F6   E4           CLR     A
+   \   0000F7   F0           MOVX    @DPTR,A
+    231            SmartHomeApp_DstAddr.endPoint = SmartHomeApp_ENDPOINT;
+   \   0000F8   A3           INC     DPTR
+   \   0000F9   740A         MOV     A,#0xa
+   \   0000FB   F0           MOVX    @DPTR,A
+    232            SmartHomeApp_DstAddr.addr.shortAddr = 0;
+   \   0000FC   90....       MOV     DPTR,#SmartHomeApp_DstAddr
+   \   0000FF   E4           CLR     A
+   \   000100   F0           MOVX    @DPTR,A
+   \   000101   A3           INC     DPTR
+   \   000102   F0           MOVX    @DPTR,A
+    233          
+    234            
+    235            
+    236            // Fill out the endpoint description.
+    237            SmartHomeApp_epDesc.endPoint = SmartHomeApp_ENDPOINT;
+   \   000103   90....       MOV     DPTR,#SmartHomeApp_epDesc
+   \   000106   740A         MOV     A,#0xa
+   \   000108   F0           MOVX    @DPTR,A
+    238            SmartHomeApp_epDesc.task_id = &SmartHomeApp_TaskID;
+   \   000109   A3           INC     DPTR
+   \   00010A   74..         MOV     A,#SmartHomeApp_TaskID & 0xff
+   \   00010C   F0           MOVX    @DPTR,A
+   \   00010D   A3           INC     DPTR
+   \   00010E   74..         MOV     A,#(SmartHomeApp_TaskID >> 8) & 0xff
+   \   000110   F0           MOVX    @DPTR,A
+    239            SmartHomeApp_epDesc.simpleDesc
+    240                      = (SimpleDescriptionFormat_t *)&SmartHomeApp_SimpleDesc;
+   \   000111   A3           INC     DPTR
+   \   000112   74..         MOV     A,#SmartHomeApp_SimpleDesc & 0xff
+   \   000114   F0           MOVX    @DPTR,A
+   \   000115   A3           INC     DPTR
+   \   000116   74..         MOV     A,#(SmartHomeApp_SimpleDesc >> 8) & 0xff
+   \   000118   F0           MOVX    @DPTR,A
+    241            SmartHomeApp_epDesc.latencyReq = noLatencyReqs;
+   \   000119   A3           INC     DPTR
+   \   00011A   E4           CLR     A
+   \   00011B   F0           MOVX    @DPTR,A
+    242          
+    243            // Register the endpoint description with the AF
+    244            afRegister( &SmartHomeApp_epDesc );
+   \   00011C                ; Setup parameters for call to function afRegister
+   \   00011C   7A..         MOV     R2,#SmartHomeApp_epDesc & 0xff
+   \   00011E   7B..         MOV     R3,#(SmartHomeApp_epDesc >> 8) & 0xff
+   \   000120   12....       LCALL   ??afRegister?relay
+    245          
+    246            // Register for all key events - This app will handle all key events
+    247            RegisterForKeys( SmartHomeApp_TaskID );
+   \   000123                ; Setup parameters for call to function RegisterForKeys
+   \   000123   90....       MOV     DPTR,#SmartHomeApp_TaskID
+   \   000126   E0           MOVX    A,@DPTR
+   \   000127   F9           MOV     R1,A
+   \   000128   12....       LCALL   ??RegisterForKeys?relay
+    248          
+    249            // Update the display
+    250          #if defined ( LCD_SUPPORTED )
+    251            HalLcdWriteString( "SmartHomeApp", HAL_LCD_LINE_1 );
+    252          #endif
+    253          
+    254            ZDO_RegisterForZDOMsg( SmartHomeApp_TaskID, End_Device_Bind_rsp );
+   \   00012B                ; Setup parameters for call to function ZDO_RegisterForZDOMsg
+   \   00012B   7A20         MOV     R2,#0x20
+   \   00012D   7B80         MOV     R3,#-0x80
+   \   00012F   90....       MOV     DPTR,#SmartHomeApp_TaskID
+   \   000132   E0           MOVX    A,@DPTR
+   \   000133   F9           MOV     R1,A
+   \   000134   12....       LCALL   ??ZDO_RegisterForZDOMsg?relay
+    255            ZDO_RegisterForZDOMsg( SmartHomeApp_TaskID, Match_Desc_rsp );
+   \   000137                ; Setup parameters for call to function ZDO_RegisterForZDOMsg
+   \   000137   7A06         MOV     R2,#0x6
+   \   000139   7B80         MOV     R3,#-0x80
+   \   00013B   90....       MOV     DPTR,#SmartHomeApp_TaskID
+   \   00013E   E0           MOVX    A,@DPTR
+   \   00013F   F9           MOV     R1,A
+   \   000140   12....       LCALL   ??ZDO_RegisterForZDOMsg?relay
+    256          
+    257          }
+   \   000143   741D         MOV     A,#0x1d
+   \   000145   12....       LCALL   ?DEALLOC_XSTACK8
+   \   000148   7F02         MOV     R7,#0x2
+   \   00014A   02....       LJMP    ?BANKED_LEAVE_XDATA
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ?Subroutine3:
+   \   000000   12....       LCALL   ??printf?relay
+   \   000003   7402         MOV     A,#0x2
+   \   000005   22           RET
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ?Subroutine2:
+   \   000000   12....       LCALL   ??Util_ReadName?relay
+   \   000003   8A..         MOV     ?V0 + 0,R2
+   \   000005   8B..         MOV     ?V0 + 1,R3
+   \   000007                ; Setup parameters for call to function sprintf
+   \   000007   78..         MOV     R0,#?V0 + 0
+   \   000009   22           RET
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ?Subroutine4:
+   \   000000   12....       LCALL   ??Util_ReadName?relay
+   \   000003   EA           MOV     A,R2
+   \   000004   FC           MOV     R4,A
+   \   000005   EB           MOV     A,R3
+   \   000006   FD           MOV     R5,A
+   \   000007   22           RET
+    258          
+    259          
+    260          void SmartHome_SendCmd(uint8* buf)
+    261          {
+    262            
+    263            uint16 destAddr;
+    264            
+    265            destAddr =  NameAddrCache_getAddrFromCmd(buf);
+    266            
+    267            if (destAddr == 0xFFFF) {
+    268              SmartHomeApp_DstAddr.addrMode = afAddrBroadcast;
+    269            } else {
+    270              SmartHomeApp_DstAddr.addrMode = afAddr16Bit;
+    271            }
+    272           
+    273            SmartHomeApp_DstAddr.addr.shortAddr=destAddr;
+    274            SmartHomeApp_DstAddr.endPoint = SmartHomeApp_ENDPOINT;
+    275            
+    276            if ( AF_DataRequest( &SmartHomeApp_DstAddr, &SmartHomeApp_epDesc,
+    277                                 SmartHomeApp_CLUSTERID,
+    278                                 (byte)osal_strlen( (char*)buf ) + 1,
+    279                                 (byte *)buf,
+    280                                 &SmartHomeApp_TransID,
+    281                                 AF_DISCV_ROUTE, AF_DEFAULT_RADIUS ) == afStatus_SUCCESS )
+    282            {
+    283            //  printf("SendCmdOK:%s\n", buf);
+    284            } else {
+    285              printf("SendCmdFailed:%s\n", buf); 
+    286            }
+    287            
+    288          }
+    289          
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+    290          static void processUartCB(uint8* buf, uint8 len)
+   \                     processUartCB:
+    291          {
+   \   000000   74F4         MOV     A,#-0xc
+   \   000002   12....       LCALL   ?BANKED_ENTER_XDATA
+   \   000005                ; Saved register size: 12
+   \   000005                ; Auto size: 0
+   \   000005   8A..         MOV     ?V0 + 0,R2
+   \   000007   8B..         MOV     ?V0 + 1,R3
+   \   000009   E9           MOV     A,R1
+   \   00000A   FE           MOV     R6,A
+    292            // process UART input
+    293            if (Util_StartWith(buf, "ReadName")) {
+   \   00000B                ; Setup parameters for call to function Util_StartWith
+   \   00000B   7C..         MOV     R4,#`?<Constant "ReadName">` & 0xff
+   \   00000D   7D..         MOV     R5,#(`?<Constant "ReadName">` >> 8) & 0xff
+   \   00000F   12....       LCALL   ??Util_StartWith?relay
+   \   000012   E9           MOV     A,R1
+   \   000013   600D         JZ      ??processUartCB_0
+    294              printf("ReadName:%s\n", Util_ReadName());
+   \   000015                ; Setup parameters for call to function printf
+   \   000015                ; Setup parameters for call to function Util_ReadName
+   \   000015   12....       LCALL   ?Subroutine2 & 0xFFFF
+    295            } else if (Util_StartWith(buf, "WriteName ")) {
+   \                     ??CrossCallReturnLabel_2:
+   \   000018   12....       LCALL   ?PUSH_XSTACK_I_TWO
+   \   00001B   7A..         MOV     R2,#`?<Constant "ReadName:%s\\n">` & 0xff
+   \   00001D   7B..         MOV     R3,#(`?<Constant "ReadName:%s\\n">` >> 8) & 0xff
+   \   00001F   02....       LJMP    ??processUartCB_1 & 0xFFFF
+   \                     ??processUartCB_0:
+   \   000022                ; Setup parameters for call to function Util_StartWith
+   \   000022   7C..         MOV     R4,#`?<Constant "WriteName ">` & 0xff
+   \   000024   7D..         MOV     R5,#(`?<Constant "WriteName ">` >> 8) & 0xff
+   \   000026   AA..         MOV     R2,?V0 + 0
+   \   000028   AB..         MOV     R3,?V0 + 1
+   \   00002A   12....       LCALL   ??Util_StartWith?relay
+   \   00002D   E9           MOV     A,R1
+   \   00002E   6022         JZ      ??processUartCB_2
+    296              Util_WriteName(buf + 10, len - 9);
+   \   000030                ; Setup parameters for call to function Util_WriteName
+   \   000030   EE           MOV     A,R6
+   \   000031   24F7         ADD     A,#-0x9
+   \   000033   FC           MOV     R4,A
+   \   000034   E4           CLR     A
+   \   000035   34FF         ADDC    A,#-0x1
+   \   000037   FD           MOV     R5,A
+   \   000038   E5..         MOV     A,?V0 + 0
+   \   00003A   240A         ADD     A,#0xa
+   \   00003C   FA           MOV     R2,A
+   \   00003D   E5..         MOV     A,?V0 + 1
+   \   00003F   3400         ADDC    A,#0x0
+   \   000041   FB           MOV     R3,A
+   \   000042   12....       LCALL   ??Util_WriteName?relay
+    297              printf("WriteName:%s\n", Util_ReadName());
+   \   000045                ; Setup parameters for call to function printf
+   \   000045                ; Setup parameters for call to function Util_ReadName
+   \   000045   12....       LCALL   ?Subroutine2 & 0xFFFF
+    298            } else if (Util_StartWith(buf, "SendCmd ")) {
+   \                     ??CrossCallReturnLabel_3:
+   \   000048   12....       LCALL   ?PUSH_XSTACK_I_TWO
+   \   00004B   7A..         MOV     R2,#`?<Constant "WriteName:%s\\n">` & 0xff
+   \   00004D   7B..         MOV     R3,#(`?<Constant "WriteName:%s\\n">` >> 8) & 0xff
+   \   00004F   02....       LJMP    ??processUartCB_1 & 0xFFFF
+   \                     ??processUartCB_2:
+   \   000052                ; Setup parameters for call to function Util_StartWith
+   \   000052   7C..         MOV     R4,#`?<Constant "SendCmd ">` & 0xff
+   \   000054   7D..         MOV     R5,#(`?<Constant "SendCmd ">` >> 8) & 0xff
+   \   000056   AA..         MOV     R2,?V0 + 0
+   \   000058   AB..         MOV     R3,?V0 + 1
+   \   00005A   12....       LCALL   ??Util_StartWith?relay
+   \   00005D   E9           MOV     A,R1
+   \   00005E   7003         JNZ     $+5
+   \   000060   02....       LJMP    ??processUartCB_3 & 0xFFFF
+    299              SmartHome_SendCmd(buf + 8);
+   \   000063   E5..         MOV     A,?V0 + 0
+   \   000065   2408         ADD     A,#0x8
+   \   000067   F5..         MOV     ?V0 + 0,A
+   \   000069   E5..         MOV     A,?V0 + 1
+   \   00006B   3400         ADDC    A,#0x0
+   \   00006D   F5..         MOV     ?V0 + 1,A
+   \   00006F                ; Setup parameters for call to function NameAddrCache_getAddrFromCmd
+   \   00006F   AA..         MOV     R2,?V0 + 0
+   \   000071   FB           MOV     R3,A
+   \   000072   12....       LCALL   ??NameAddrCache_getAddrFromCmd?relay
+   \   000075   8A..         MOV     ?V0 + 2,R2
+   \   000077   8B..         MOV     ?V0 + 3,R3
+   \   000079   A8..         MOV     R0,?V0 + 2
+   \   00007B   A9..         MOV     R1,?V0 + 3
+   \   00007D   74FF         MOV     A,#-0x1
+   \   00007F   68           XRL     A,R0
+   \   000080   7003         JNZ     ??processUartCB_4
+   \   000082   74FF         MOV     A,#-0x1
+   \   000084   69           XRL     A,R1
+   \                     ??processUartCB_4:
+   \   000085   90....       MOV     DPTR,#SmartHomeApp_DstAddr + 8
+   \   000088   7004         JNZ     ??processUartCB_5
+   \   00008A   740F         MOV     A,#0xf
+   \   00008C   8002         SJMP    ??processUartCB_6
+   \                     ??processUartCB_5:
+   \   00008E   7402         MOV     A,#0x2
+   \                     ??processUartCB_6:
+   \   000090   F0           MOVX    @DPTR,A
+   \   000091   90....       MOV     DPTR,#SmartHomeApp_DstAddr
+   \   000094   E8           MOV     A,R0
+   \   000095   F0           MOVX    @DPTR,A
+   \   000096   A3           INC     DPTR
+   \   000097   E9           MOV     A,R1
+   \   000098   F0           MOVX    @DPTR,A
+   \   000099   90....       MOV     DPTR,#SmartHomeApp_DstAddr + 9
+   \   00009C   740A         MOV     A,#0xa
+   \   00009E   F0           MOVX    @DPTR,A
+   \   00009F                ; Setup parameters for call to function AF_DataRequest
+   \   00009F   75..1E       MOV     ?V0 + 2,#0x1e
+   \   0000A2   78..         MOV     R0,#?V0 + 2
+   \   0000A4   12....       LCALL   ?PUSH_XSTACK_I_ONE
+   \   0000A7   75....       MOV     ?V0 + 2,#SmartHomeApp_TransID & 0xff
+   \   0000AA   75....       MOV     ?V0 + 3,#(SmartHomeApp_TransID >> 8) & 0xff
+   \   0000AD   78..         MOV     R0,#?V0 + 2
+   \   0000AF   12....       LCALL   ?PUSH_XSTACK_I_TWO
+   \   0000B2   78..         MOV     R0,#?V0 + 0
+   \   0000B4   12....       LCALL   ?PUSH_XSTACK_I_TWO
+   \   0000B7                ; Setup parameters for call to function osal_strlen
+   \   0000B7   AA..         MOV     R2,?V0 + 0
+   \   0000B9   AB..         MOV     R3,?V0 + 1
+   \   0000BB   12....       LCALL   ??osal_strlen?relay
+   \   0000BE   EA           MOV     A,R2
+   \   0000BF   2401         ADD     A,#0x1
+   \   0000C1   F5..         MOV     ?V0 + 2,A
+   \   0000C3   E4           CLR     A
+   \   0000C4   3400         ADDC    A,#0x0
+   \   0000C6   F5..         MOV     ?V0 + 3,A
+   \   0000C8   78..         MOV     R0,#?V0 + 2
+   \   0000CA   12....       LCALL   ?PUSH_XSTACK_I_TWO
+   \   0000CD   75..01       MOV     ?V0 + 2,#0x1
+   \   0000D0   75..00       MOV     ?V0 + 3,#0x0
+   \   0000D3   78..         MOV     R0,#?V0 + 2
+   \   0000D5   12....       LCALL   ?PUSH_XSTACK_I_TWO
+   \   0000D8   7920         MOV     R1,#0x20
+   \   0000DA   7C..         MOV     R4,#SmartHomeApp_epDesc & 0xff
+   \   0000DC   7D..         MOV     R5,#(SmartHomeApp_epDesc >> 8) & 0xff
+   \   0000DE   7A..         MOV     R2,#SmartHomeApp_DstAddr & 0xff
+   \   0000E0   7B..         MOV     R3,#(SmartHomeApp_DstAddr >> 8) & 0xff
+   \   0000E2   12....       LCALL   ??AF_DataRequest?relay
+   \   0000E5   7409         MOV     A,#0x9
+   \   0000E7   12....       LCALL   ?DEALLOC_XSTACK8
+   \   0000EA   E9           MOV     A,R1
+   \   0000EB   601A         JZ      ??processUartCB_7
+   \   0000ED                ; Setup parameters for call to function printf
+   \   0000ED   78..         MOV     R0,#?V0 + 0
+   \   0000EF   12....       LCALL   ?PUSH_XSTACK_I_TWO
+   \   0000F2   7A..         MOV     R2,#`?<Constant "SendCmdFailed:%s\\n">` & 0xff
+   \   0000F4   7B..         MOV     R3,#(`?<Constant "SendCmdFailed:%s\\n">` >> 8) & 0xff
+   \   0000F6   8009         SJMP    ??processUartCB_1
+    300            } else {
+    301              
+    302              printf("Unkown Cmd:%s\n", buf); 
+   \                     ??processUartCB_3:
+   \   0000F8                ; Setup parameters for call to function printf
+   \   0000F8   78..         MOV     R0,#?V0 + 0
+   \   0000FA   12....       LCALL   ?PUSH_XSTACK_I_TWO
+   \   0000FD   7A..         MOV     R2,#`?<Constant "Unkown Cmd:%s\\n">` & 0xff
+   \   0000FF   7B..         MOV     R3,#(`?<Constant "Unkown Cmd:%s\\n">` >> 8) & 0xff
+    303            }
+   \                     ??processUartCB_1:
+   \   000101   12....       LCALL   ?Subroutine3 & 0xFFFF
+   \                     ??CrossCallReturnLabel_8:
+   \   000104   12....       LCALL   ?DEALLOC_XSTACK8
+    304            
+    305            
+    306          }
+   \                     ??processUartCB_7:
+   \   000107   02....       LJMP    ?Subroutine0 & 0xFFFF
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ?Subroutine0:
+   \   000000   7F04         MOV     R7,#0x4
+   \   000002   02....       LJMP    ?BANKED_LEAVE_XDATA
+    307          
+    308          
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+    309          static void SmartHomeApp_CallBack(uint8 port, uint8 event)
+   \                     SmartHomeApp_CallBack:
+    310          {
+   \   000000   74F7         MOV     A,#-0x9
+   \   000002   12....       LCALL   ?BANKED_ENTER_XDATA
+   \   000005                ; Saved register size: 9
+   \   000005                ; Auto size: 0
+   \   000005   EA           MOV     A,R2
+   \   000006   FE           MOV     R6,A
+    311            (void)port;
+    312            
+    313            if ((event & (HAL_UART_RX_FULL | HAL_UART_RX_ABOUT_FULL | HAL_UART_RX_TIMEOUT)) &&
+    314          #if SERIAL_APP_LOOPBACK
+    315                (SerialApp_TxLen < SERIAL_APP_TX_MAX))
+    316          #else
+    317                !SerialApp_TxLen)
+   \   000007   7407         MOV     A,#0x7
+   \   000009   5E           ANL     A,R6
+   \   00000A   6039         JZ      ??SmartHomeApp_CallBack_0
+   \   00000C   90....       MOV     DPTR,#SerialApp_TxLen
+   \   00000F   E0           MOVX    A,@DPTR
+   \   000010   7033         JNZ     ??SmartHomeApp_CallBack_0
+    318          #endif
+    319            {
+    320              SerialApp_TxLen = HalUARTRead(0, RxBuf, SERIAL_APP_TX_MAX);
+   \   000012                ; Setup parameters for call to function HalUARTRead
+   \   000012   7C40         MOV     R4,#0x40
+   \   000014   7D00         MOV     R5,#0x0
+   \   000016   7A..         MOV     R2,#RxBuf & 0xff
+   \   000018   7B..         MOV     R3,#(RxBuf >> 8) & 0xff
+   \   00001A   7900         MOV     R1,#0x0
+   \   00001C   12....       LCALL   ??HalUARTRead?relay
+   \   00001F   EA           MOV     A,R2
+   \   000020   90....       MOV     DPTR,#SerialApp_TxLen
+   \   000023   F0           MOVX    @DPTR,A
+    321              if (SerialApp_TxLen)
+   \   000024   601F         JZ      ??SmartHomeApp_CallBack_0
+    322              {
+    323                RxBuf[SerialApp_TxLen] = 0;
+   \   000026   F8           MOV     R0,A
+   \   000027   74..         MOV     A,#RxBuf & 0xff
+   \   000029   28           ADD     A,R0
+   \   00002A   F582         MOV     DPL,A
+   \   00002C   74..         MOV     A,#(RxBuf >> 8) & 0xff
+   \   00002E   3400         ADDC    A,#0x0
+   \   000030   F583         MOV     DPH,A
+   \   000032   E4           CLR     A
+   \   000033   F0           MOVX    @DPTR,A
+    324                processUartCB(RxBuf, SerialApp_TxLen);
+   \   000034                ; Setup parameters for call to function processUartCB
+   \   000034   90....       MOV     DPTR,#SerialApp_TxLen
+   \   000037   E0           MOVX    A,@DPTR
+   \   000038   F9           MOV     R1,A
+   \   000039   7A..         MOV     R2,#RxBuf & 0xff
+   \   00003B   7B..         MOV     R3,#(RxBuf >> 8) & 0xff
+   \   00003D   12....       LCALL   ??processUartCB?relay
+    325                  
+    326               
+    327                SerialApp_TxLen=0;
+   \   000040   90....       MOV     DPTR,#SerialApp_TxLen
+   \   000043   E4           CLR     A
+   \   000044   F0           MOVX    @DPTR,A
+    328              }
+    329            }
+    330            
+    331          
+    332          //  if ((event & (HAL_UART_RX_FULL | HAL_UART_RX_ABOUT_FULL | HAL_UART_RX_TIMEOUT)) &&
+    333          //#if SERIAL_APP_LOOPBACK
+    334          //      (SerialApp_TxLen < SERIAL_APP_TX_MAX))
+    335          //#else
+    336          //      !SerialApp_TxLen)
+    337          //#endif
+    338          //  {
+    339          //    SerialApp_Send();
+    340          //  }
+    341          }
+   \                     ??SmartHomeApp_CallBack_0:
+   \   000045   7F01         MOV     R7,#0x1
+   \   000047   02....       LJMP    ?BANKED_LEAVE_XDATA
+    342          
+    343          /*********************************************************************
+    344           * @fn      SmartHomeApp_ProcessEvent
+    345           *
+    346           * @brief   Generic Application Task event processor.  This function
+    347           *          is called to process all events for the task.  Events
+    348           *          include timers, messages and any other user defined events.
+    349           *
+    350           * @param   task_id  - The OSAL assigned task ID.
+    351           * @param   events - events to process.  This is a bit map and can
+    352           *                   contain more than one event.
+    353           *
+    354           * @return  none
+    355           */
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+    356          uint16 SmartHomeApp_ProcessEvent( uint8 task_id, uint16 events )
+   \                     SmartHomeApp_ProcessEvent:
+    357          {
+   \   000000   74F2         MOV     A,#-0xe
+   \   000002   12....       LCALL   ?BANKED_ENTER_XDATA
+   \   000005                ; Saved register size: 14
+   \   000005                ; Auto size: 0
+   \   000005   8A..         MOV     ?V0 + 2,R2
+   \   000007   8B..         MOV     ?V0 + 3,R3
+    358            afIncomingMSGPacket_t *MSGpkt;
+    359            afDataConfirm_t *afDataConfirm;
+    360          
+    361            // Data Confirmation message fields
+    362            byte sentEP;
+    363            ZStatus_t sentStatus;
+    364            byte sentTransID;       // This should match the value sent
+    365            (void)task_id;  // Intentionally unreferenced parameter
+    366          
+    367            if ( events & SYS_EVENT_MSG )
+   \   000009   EB           MOV     A,R3
+   \   00000A   5480         ANL     A,#0x80
+   \   00000C   7003         JNZ     $+5
+   \   00000E   02....       LJMP    ??SmartHomeApp_ProcessEvent_0 & 0xFFFF
+    368            {
+    369              MSGpkt = (afIncomingMSGPacket_t *)osal_msg_receive( SmartHomeApp_TaskID );
+   \   000011                ; Setup parameters for call to function osal_msg_receive
+   \   000011   8038         SJMP    ??SmartHomeApp_ProcessEvent_1
+    370              while ( MSGpkt )
+    371              {
+    372                switch ( MSGpkt->hdr.event )
+    373                {
+    374                  case ZDO_CB_MSG:
+    375                    SmartHomeApp_ProcessZDOMsgs( (zdoIncomingMsg_t *)MSGpkt );
+    376                    break;
+    377          
+    378                  case KEY_CHANGE:
+    379                    SmartHomeApp_HandleKeys( ((keyChange_t *)MSGpkt)->state, ((keyChange_t *)MSGpkt)->keys );
+    380                    break;
+    381          
+    382                  case AF_DATA_CONFIRM_CMD:
+    383                    // This message is received as a confirmation of a data packet sent.
+    384                    // The status is of ZStatus_t type [defined in ZComDef.h]
+    385                    // The message fields are defined in AF.h
+    386                    afDataConfirm = (afDataConfirm_t *)MSGpkt;
+    387                    sentEP = afDataConfirm->endpoint;
+    388                    sentStatus = afDataConfirm->hdr.status;
+    389                    sentTransID = afDataConfirm->transID;
+    390                    (void)sentEP;
+    391                    (void)sentTransID;
+    392          
+    393                    // Action taken when confirmation is received.
+    394                    if ( sentStatus != ZSuccess )
+    395                    {
+    396                      // The data wasn't delivered -- Do something
+    397                      printf("SendMsgFailed:%X\n", sentTransID);
+    398                    } else {
+    399                      printf("SendMsgOK:%X\n", sentTransID);
+    400                      
+    401                    }
+    402                    break;
+    403          
+    404                  case AF_INCOMING_MSG_CMD:
+    405                    SmartHomeApp_MessageMSGCB( MSGpkt );
+    406                    break;
+    407          
+    408                  case ZDO_STATE_CHANGE:
+    409                    SmartHomeApp_NwkState = (devStates_t)(MSGpkt->hdr.status);
+   \                     ??SmartHomeApp_ProcessEvent_2:
+   \   000013   A3           INC     DPTR
+   \   000014   E0           MOVX    A,@DPTR
+   \   000015   90....       MOV     DPTR,#SmartHomeApp_NwkState
+   \   000018   F0           MOVX    @DPTR,A
+    410                    if ( (SmartHomeApp_NwkState == DEV_ZB_COORD)
+    411                        || (SmartHomeApp_NwkState == DEV_ROUTER)
+    412                        || (SmartHomeApp_NwkState == DEV_END_DEVICE) )
+   \   000019   6409         XRL     A,#0x9
+   \   00001B   600A         JZ      ??SmartHomeApp_ProcessEvent_3
+   \   00001D   E0           MOVX    A,@DPTR
+   \   00001E   6407         XRL     A,#0x7
+   \   000020   6005         JZ      ??SmartHomeApp_ProcessEvent_3
+   \   000022   E0           MOVX    A,@DPTR
+   \   000023   6406         XRL     A,#0x6
+   \   000025   701D         JNZ     ??SmartHomeApp_ProcessEvent_4
+    413                    {
+    414                      
+    415                      uint16 shortAddr = NLME_GetShortAddr();
+   \                     ??SmartHomeApp_ProcessEvent_3:
+   \   000027                ; Setup parameters for call to function NLME_GetShortAddr
+   \   000027   12....       LCALL   ?Subroutine10 & 0xFFFF
+    416                      uint16 parentShortAddr = NLME_GetCoordShortAddr();
+    417                      
+    418                      printf("Addr=%04X, ParentAddr=%04X\n", shortAddr, parentShortAddr);
+    419                      
+    420          //            printf("BV(4) = %X, BV(5) = %X, BV(6) = %X\n", BV(4), BV(5), BV(6));
+    421          //            printf("P0_4 = %X, P0_5 = %X, P0_6 = %X\n", P0_4, P0_5, P0_6);
+    422          //            
+    423                      // Start sending "the" message in a regular interval.
+    424          //            osal_start_timerEx( SmartHomeApp_TaskID,
+    425          //                                SmartHomeApp_SEND_MSG_EVT,
+    426          //                                SmartHomeApp_SEND_MSG_TIMEOUT );
+    427                      
+    428                    }
+   \                     ??CrossCallReturnLabel_31:
+   \   00002A   8A..         MOV     ?V0 + 4,R2
+   \   00002C   8B..         MOV     ?V0 + 5,R3
+   \   00002E   78..         MOV     R0,#?V0 + 4
+   \   000030   12....       LCALL   ?PUSH_XSTACK_I_TWO
+   \   000033   78..         MOV     R0,#?V0 + 0
+   \   000035   12....       LCALL   ?PUSH_XSTACK_I_TWO
+   \   000038   7A..         MOV     R2,#`?<Constant "Addr=%04X, ParentAddr...">` & 0xff
+   \   00003A   7B..         MOV     R3,#(`?<Constant "Addr=%04X, ParentAddr...">` >> 8) & 0xff
+   \   00003C   12....       LCALL   ??printf?relay
+   \   00003F   7404         MOV     A,#0x4
+   \   000041   12....       LCALL   ?DEALLOC_XSTACK8
+    429                    break;
+    430          
+    431                  default:
+    432                    break;
+    433                }
+    434          
+    435                // Release the memory
+    436                osal_msg_deallocate( (uint8 *)MSGpkt );
+   \                     ??SmartHomeApp_ProcessEvent_4:
+   \   000044                ; Setup parameters for call to function osal_msg_deallocate
+   \   000044   EE           MOV     A,R6
+   \   000045   FA           MOV     R2,A
+   \   000046   EF           MOV     A,R7
+   \   000047   FB           MOV     R3,A
+   \   000048   12....       LCALL   ??osal_msg_deallocate?relay
+    437          
+    438                // Next
+    439                MSGpkt = (afIncomingMSGPacket_t *)osal_msg_receive( SmartHomeApp_TaskID );
+   \   00004B                ; Setup parameters for call to function osal_msg_receive
+   \                     ??SmartHomeApp_ProcessEvent_1:
+   \   00004B   90....       MOV     DPTR,#SmartHomeApp_TaskID
+   \   00004E   E0           MOVX    A,@DPTR
+   \   00004F   F9           MOV     R1,A
+   \   000050   12....       LCALL   ??osal_msg_receive?relay
+   \   000053   8A..         MOV     ?V0 + 0,R2
+   \   000055   8B..         MOV     ?V0 + 1,R3
+   \   000057   AE..         MOV     R6,?V0 + 0
+   \   000059   AF..         MOV     R7,?V0 + 1
+   \   00005B   EE           MOV     A,R6
+   \   00005C   4F           ORL     A,R7
+   \   00005D   7003         JNZ     $+5
+   \   00005F   02....       LJMP    ??SmartHomeApp_ProcessEvent_5 & 0xFFFF
+   \   000062   8E82         MOV     DPL,R6
+   \   000064   8F83         MOV     DPH,R7
+   \   000066   E0           MOVX    A,@DPTR
+   \   000067   24E6         ADD     A,#-0x1a
+   \   000069   7003         JNZ     $+5
+   \   00006B   02....       LJMP    ??SmartHomeApp_ProcessEvent_6 & 0xFFFF
+   \   00006E   245A         ADD     A,#0x5a
+   \   000070   7003         JNZ     $+5
+   \   000072   02....       LJMP    ??SmartHomeApp_ProcessEvent_7 & 0xFFFF
+   \   000075   24EF         ADD     A,#-0x11
+   \   000077   609A         JZ      ??SmartHomeApp_ProcessEvent_2
+   \   000079   24FE         ADD     A,#-0x2
+   \   00007B   6009         JZ      ??SmartHomeApp_ProcessEvent_8
+   \   00007D   24D6         ADD     A,#-0x2a
+   \   00007F   7003         JNZ     $+5
+   \   000081   02....       LJMP    ??SmartHomeApp_ProcessEvent_9 & 0xFFFF
+   \   000084   80BE         SJMP    ??SmartHomeApp_ProcessEvent_4
+   \                     ??SmartHomeApp_ProcessEvent_8:
+   \   000086   EE           MOV     A,R6
+   \   000087   240C         ADD     A,#0xc
+   \   000089   12....       LCALL   ??Subroutine14_0 & 0xFFFF
+   \                     ??CrossCallReturnLabel_37:
+   \   00008C   F5..         MOV     ?V0 + 0,A
+   \   00008E   A3           INC     DPTR
+   \   00008F   E0           MOVX    A,@DPTR
+   \   000090   F5..         MOV     ?V0 + 1,A
+   \   000092   78..         MOV     R0,#?V0 + 0
+   \   000094   12....       LCALL   ?US_SWITCH_SPARSE
+   \                     `?<Jumptable for SmartHomeApp_ProcessEvent>_0`:
+   \   000097   0000         DW        0
+   \   000099   0200         DW        2
+   \   00009B   0680         DW        32774
+   \   00009D   ....         DW        ??SmartHomeApp_ProcessEvent_10
+   \   00009F   2080         DW        32800
+   \   0000A1   ....         DW        ??SmartHomeApp_ProcessEvent_11
+   \   0000A3   ....         DW        ??SmartHomeApp_ProcessEvent_4
+   \                     ??SmartHomeApp_ProcessEvent_10:
+   \   0000A5                ; Setup parameters for call to function ZDO_ParseEPListRsp
+   \   0000A5   EE           MOV     A,R6
+   \   0000A6   FA           MOV     R2,A
+   \   0000A7   EF           MOV     A,R7
+   \   0000A8   FB           MOV     R3,A
+   \   0000A9   12....       LCALL   ??ZDO_ParseEPListRsp?relay
+   \   0000AC   8A..         MOV     ?V0 + 0,R2
+   \   0000AE   8B..         MOV     ?V0 + 1,R3
+   \   0000B0   EA           MOV     A,R2
+   \   0000B1   45..         ORL     A,?V0 + 1
+   \   0000B3   608F         JZ      ??SmartHomeApp_ProcessEvent_4
+   \   0000B5   8A82         MOV     DPL,R2
+   \   0000B7   8B83         MOV     DPH,R3
+   \   0000B9   E0           MOVX    A,@DPTR
+   \   0000BA   7022         JNZ     ??SmartHomeApp_ProcessEvent_12
+   \   0000BC   A3           INC     DPTR
+   \   0000BD   A3           INC     DPTR
+   \   0000BE   A3           INC     DPTR
+   \   0000BF   E0           MOVX    A,@DPTR
+   \   0000C0   601C         JZ      ??SmartHomeApp_ProcessEvent_12
+   \   0000C2   90....       MOV     DPTR,#SmartHomeApp_DstAddr + 8
+   \   0000C5   7402         MOV     A,#0x2
+   \   0000C7   F0           MOVX    @DPTR,A
+   \   0000C8   8A82         MOV     DPL,R2
+   \   0000CA   8B83         MOV     DPH,R3
+   \   0000CC   12....       LCALL   ?Subroutine12 & 0xFFFF
+   \                     ??CrossCallReturnLabel_33:
+   \   0000CF   12....       LCALL   ?Subroutine5 & 0xFFFF
+   \                     ??CrossCallReturnLabel_19:
+   \   0000D2   E0           MOVX    A,@DPTR
+   \   0000D3   90....       MOV     DPTR,#SmartHomeApp_DstAddr + 9
+   \   0000D6   F0           MOVX    @DPTR,A
+   \   0000D7                ; Setup parameters for call to function HalLedSet
+   \   0000D7   7A01         MOV     R2,#0x1
+   \   0000D9   7908         MOV     R1,#0x8
+   \   0000DB   12....       LCALL   ??HalLedSet?relay
+   \                     ??SmartHomeApp_ProcessEvent_12:
+   \   0000DE                ; Setup parameters for call to function osal_mem_free
+   \   0000DE   AA..         MOV     R2,?V0 + 0
+   \   0000E0   AB..         MOV     R3,?V0 + 1
+   \   0000E2   12....       LCALL   ??osal_mem_free?relay
+   \   0000E5   02....       LJMP    ??SmartHomeApp_ProcessEvent_4 & 0xFFFF
+   \                     ??SmartHomeApp_ProcessEvent_11:
+   \   0000E8   EE           MOV     A,R6
+   \   0000E9   2413         ADD     A,#0x13
+   \   0000EB   F582         MOV     DPL,A
+   \   0000ED   EF           MOV     A,R7
+   \   0000EE   3400         ADDC    A,#0x0
+   \   0000F0   F583         MOV     DPH,A
+   \   0000F2   12....       LCALL   ?Subroutine9 & 0xFFFF
+   \                     ??CrossCallReturnLabel_28:
+   \   0000F5   E0           MOVX    A,@DPTR
+   \   0000F6   700A         JNZ     ??SmartHomeApp_ProcessEvent_13
+   \   0000F8                ; Setup parameters for call to function HalLedSet
+   \   0000F8   7A01         MOV     R2,#0x1
+   \                     ??SmartHomeApp_ProcessEvent_14:
+   \   0000FA   7908         MOV     R1,#0x8
+   \   0000FC   12....       LCALL   ??HalLedSet?relay
+   \   0000FF   02....       LJMP    ??SmartHomeApp_ProcessEvent_4 & 0xFFFF
+   \                     ??SmartHomeApp_ProcessEvent_13:
+   \   000102                ; Setup parameters for call to function HalLedSet
+   \   000102   7A04         MOV     R2,#0x4
+   \   000104   80F4         SJMP    ??SmartHomeApp_ProcessEvent_14
+   \                     ??SmartHomeApp_ProcessEvent_7:
+   \   000106                ; Setup parameters for indirect call
+   \   000106   A3           INC     DPTR
+   \   000107   A3           INC     DPTR
+   \   000108   A3           INC     DPTR
+   \   000109   E0           MOVX    A,@DPTR
+   \   00010A   F9           MOV     R1,A
+   \   00010B   90....       MOV     DPTR,#Processor_HandleKeys
+   \   00010E   12....       LCALL   ?Subroutine9 & 0xFFFF
+   \                     ??CrossCallReturnLabel_29:
+   \   000111   12....       LCALL   ?CALL_IND
+   \   000114   02....       LJMP    ??SmartHomeApp_ProcessEvent_4 & 0xFFFF
+   \                     ??SmartHomeApp_ProcessEvent_9:
+   \   000117   A3           INC     DPTR
+   \   000118   A3           INC     DPTR
+   \   000119   A3           INC     DPTR
+   \   00011A   E0           MOVX    A,@DPTR
+   \   00011B   F5..         MOV     ?V0 + 0,A
+   \   00011D   8E82         MOV     DPL,R6
+   \   00011F   8F83         MOV     DPH,R7
+   \   000121   A3           INC     DPTR
+   \   000122   E0           MOVX    A,@DPTR
+   \   000123   75..00       MOV     ?V0 + 1,#0x0
+   \   000126   78..         MOV     R0,#?V0 + 0
+   \   000128   6010         JZ      ??SmartHomeApp_ProcessEvent_15
+   \   00012A                ; Setup parameters for call to function printf
+   \   00012A   12....       LCALL   ?PUSH_XSTACK_I_TWO
+   \   00012D   7A..         MOV     R2,#`?<Constant "SendMsgFailed:%X\\n">` & 0xff
+   \   00012F   7B..         MOV     R3,#(`?<Constant "SendMsgFailed:%X\\n">` >> 8) & 0xff
+   \                     ??SmartHomeApp_ProcessEvent_16:
+   \   000131   12....       LCALL   ?Subroutine3 & 0xFFFF
+   \                     ??CrossCallReturnLabel_9:
+   \   000134   12....       LCALL   ?DEALLOC_XSTACK8
+   \   000137   02....       LJMP    ??SmartHomeApp_ProcessEvent_4 & 0xFFFF
+   \                     ??SmartHomeApp_ProcessEvent_15:
+   \   00013A                ; Setup parameters for call to function printf
+   \   00013A   12....       LCALL   ?PUSH_XSTACK_I_TWO
+   \   00013D   7A..         MOV     R2,#`?<Constant "SendMsgOK:%X\\n">` & 0xff
+   \   00013F   7B..         MOV     R3,#(`?<Constant "SendMsgOK:%X\\n">` >> 8) & 0xff
+   \   000141   80EE         SJMP    ??SmartHomeApp_ProcessEvent_16
+   \                     ??SmartHomeApp_ProcessEvent_6:
+   \   000143                ; Setup parameters for call to function SmartHomeApp_MessageMSGCB
+   \   000143   EE           MOV     A,R6
+   \   000144   FA           MOV     R2,A
+   \   000145   EF           MOV     A,R7
+   \   000146   FB           MOV     R3,A
+   \   000147   12....       LCALL   ??SmartHomeApp_MessageMSGCB?relay
+   \   00014A   02....       LJMP    ??SmartHomeApp_ProcessEvent_4 & 0xFFFF
+    440              }
+    441          
+    442              // return unprocessed events
+    443              return (events ^ SYS_EVENT_MSG);
+   \                     ??SmartHomeApp_ProcessEvent_5:
+   \   00014D   AA..         MOV     R2,?V0 + 2
+   \   00014F   E5..         MOV     A,?V0 + 3
+   \   000151   6480         XRL     A,#0x80
+   \   000153   FB           MOV     R3,A
+   \   000154   8004         SJMP    ??SmartHomeApp_ProcessEvent_17
+    444            }
+    445          
+    446            // Send a message out - This event is generated by a timer
+    447            //  (setup in SmartHomeApp_Init()).
+    448          //  if ( events & SmartHomeApp_SEND_MSG_EVT )
+    449          //  {
+    450          //    // Send "the" message
+    451          //    SmartHomeApp_SendTheMessage();
+    452          //
+    453          //    // Setup to send message again
+    454          //    osal_start_timerEx( SmartHomeApp_TaskID,
+    455          //                        SmartHomeApp_SEND_MSG_EVT,
+    456          //                        SmartHomeApp_SEND_MSG_TIMEOUT );
+    457          //
+    458          //    // return unprocessed events
+    459          //    return (events ^ SmartHomeApp_SEND_MSG_EVT);
+    460          //  }
+    461          
+    462            
+    463          
+    464            // Discard unknown events
+    465            return 0;
+   \                     ??SmartHomeApp_ProcessEvent_0:
+   \   000156   7A00         MOV     R2,#0x0
+   \   000158   7B00         MOV     R3,#0x0
+   \                     ??SmartHomeApp_ProcessEvent_17:
+   \   00015A                REQUIRE ?Subroutine1
+   \   00015A                ; // Fall through to label ?Subroutine1
+    466          }
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ?Subroutine1:
+   \   000000   7F06         MOV     R7,#0x6
+   \   000002   02....       LJMP    ?BANKED_LEAVE_XDATA
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ?Subroutine10:
+   \   000000   12....       LCALL   ??NLME_GetShortAddr?relay
+   \   000003   8A..         MOV     ?V0 + 0,R2
+   \   000005   8B..         MOV     ?V0 + 1,R3
+   \   000007                ; Setup parameters for call to function printf
+   \   000007                ; Setup parameters for call to function NLME_GetCoordShortAddr
+   \   000007                ; Setup parameters for call to function NLME_GetCoordShortAddr
+   \   000007   12....       LCALL   ??NLME_GetCoordShortAddr?relay
+   \   00000A   22           RET
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ?Subroutine12:
+   \   000000   A3           INC     DPTR
+   \   000001   E0           MOVX    A,@DPTR
+   \   000002   F8           MOV     R0,A
+   \   000003   A3           INC     DPTR
+   \   000004   E0           MOVX    A,@DPTR
+   \   000005   F9           MOV     R1,A
+   \   000006   90....       MOV     DPTR,#SmartHomeApp_DstAddr
+   \   000009   E8           MOV     A,R0
+   \   00000A   F0           MOVX    @DPTR,A
+   \   00000B   A3           INC     DPTR
+   \   00000C   E9           MOV     A,R1
+   \   00000D   22           RET
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ?Subroutine5:
+   \   000000   F0           MOVX    @DPTR,A
+   \   000001   8A82         MOV     DPL,R2
+   \   000003   8B83         MOV     DPH,R3
+   \   000005   A3           INC     DPTR
+   \   000006   A3           INC     DPTR
+   \   000007   A3           INC     DPTR
+   \   000008   A3           INC     DPTR
+   \   000009   22           RET
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ??Subroutine14_0:
+   \   000000   F582         MOV     DPL,A
+   \   000002   EF           MOV     A,R7
+   \   000003   3400         ADDC    A,#0x0
+   \   000005   F583         MOV     DPH,A
+   \   000007   E0           MOVX    A,@DPTR
+   \   000008   22           RET
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ?Subroutine9:
+   \   000000   E0           MOVX    A,@DPTR
+   \   000001   F8           MOV     R0,A
+   \   000002   A3           INC     DPTR
+   \   000003   E0           MOVX    A,@DPTR
+   \   000004   F583         MOV     DPH,A
+   \   000006   8882         MOV     DPL,R0
+   \   000008   22           RET
+    467          
+    468          /*********************************************************************
+    469           * Event Generation Functions
+    470           */
+    471          
+    472          /*********************************************************************
+    473           * @fn      SmartHomeApp_ProcessZDOMsgs()
+    474           *
+    475           * @brief   Process response messages
+    476           *
+    477           * @param   none
+    478           *
+    479           * @return  none
+    480           */
+    481          static void SmartHomeApp_ProcessZDOMsgs( zdoIncomingMsg_t *inMsg )
+    482          {
+    483            switch ( inMsg->clusterID )
+    484            {
+    485              case End_Device_Bind_rsp:
+    486                if ( ZDO_ParseBindRsp( inMsg ) == ZSuccess )
+    487                {
+    488                  // Light LED
+    489                  HalLedSet( HAL_LED_4, HAL_LED_MODE_ON );
+    490                }
+    491          #if defined( BLINK_LEDS )
+    492                else
+    493                {
+    494                  // Flash LED to show failure
+    495                  HalLedSet ( HAL_LED_4, HAL_LED_MODE_FLASH );
+    496                }
+    497          #endif
+    498                break;
+    499          
+    500              case Match_Desc_rsp:
+    501                {
+    502                  ZDO_ActiveEndpointRsp_t *pRsp = ZDO_ParseEPListRsp( inMsg );
+    503                  if ( pRsp )
+    504                  {
+    505                    if ( pRsp->status == ZSuccess && pRsp->cnt )
+    506                    {
+    507                      SmartHomeApp_DstAddr.addrMode = (afAddrMode_t)Addr16Bit;
+    508                      SmartHomeApp_DstAddr.addr.shortAddr = pRsp->nwkAddr;
+    509                      // Take the first endpoint, Can be changed to search through endpoints
+    510                      SmartHomeApp_DstAddr.endPoint = pRsp->epList[0];
+    511          
+    512                      // Light LED
+    513                      HalLedSet( HAL_LED_4, HAL_LED_MODE_ON );
+    514                    }
+    515                    osal_mem_free( pRsp );
+    516                  }
+    517                }
+    518                break;
+    519            }
+    520          }
+    521          
+    522          /*********************************************************************
+    523           * @fn      SmartHomeApp_HandleKeys
+    524           *
+    525           * @brief   Handles all key events for this device.
+    526           *
+    527           * @param   shift - true if in shift/alt.
+    528           * @param   keys - bit field for key events. Valid entries:
+    529           *                 HAL_KEY_SW_4
+    530           *                 HAL_KEY_SW_3
+    531           *                 HAL_KEY_SW_2
+    532           *                 HAL_KEY_SW_1
+    533           *
+    534           * @return  none
+    535           */
+    536          static void SmartHomeApp_HandleKeys( uint8 shift, uint8 keys )
+    537          {
+    538          //  zAddrType_t dstAddr;
+    539            
+    540            Processor_HandleKeys(keys);
+    541          
+    542          //  // Shift is used to make each button/switch dual purpose.
+    543          //  if ( shift )
+    544          //  {
+    545          //    if ( keys & HAL_KEY_SW_1 )
+    546          //    {
+    547          //    }
+    548          //    if ( keys & HAL_KEY_SW_2 )
+    549          //    {
+    550          //    }
+    551          //    if ( keys & HAL_KEY_SW_3 )
+    552          //    {
+    553          //    }
+    554          //    if ( keys & HAL_KEY_SW_4 )
+    555          //    {
+    556          //    }
+    557          //  }
+    558          //  else
+    559          //  {
+    560          //    if ( keys & HAL_KEY_SW_1 )
+    561          //    {
+    562          //      // Since SW1 isn't used for anything else in this application...
+    563          //#if defined( SWITCH1_BIND )
+    564          //      // we can use SW1 to simulate SW2 for devices that only have one switch,
+    565          //      keys |= HAL_KEY_SW_2;
+    566          //#elif defined( SWITCH1_MATCH )
+    567          //      // or use SW1 to simulate SW4 for devices that only have one switch
+    568          //      keys |= HAL_KEY_SW_4;
+    569          //#endif
+    570          //    }
+    571          //
+    572          //    if ( keys & HAL_KEY_SW_2 )
+    573          //    {
+    574          //      HalLedSet ( HAL_LED_4, HAL_LED_MODE_OFF );
+    575          //
+    576          //      // Initiate an End Device Bind Request for the mandatory endpoint
+    577          //      dstAddr.addrMode = Addr16Bit;
+    578          //      dstAddr.addr.shortAddr = 0x0000; // Coordinator
+    579          //      ZDP_EndDeviceBindReq( &dstAddr, NLME_GetShortAddr(),
+    580          //                            SmartHomeApp_epDesc.endPoint,
+    581          //                            SmartHomeApp_PROFID,
+    582          //                            SmartHomeApp_MAX_CLUSTERS, (cId_t *)SmartHomeApp_ClusterList,
+    583          //                            SmartHomeApp_MAX_CLUSTERS, (cId_t *)SmartHomeApp_ClusterList,
+    584          //                            FALSE );
+    585          //    }
+    586          //
+    587          //    if ( keys & HAL_KEY_SW_3 )
+    588          //    {
+    589          //    }
+    590          //
+    591          //    if ( keys & HAL_KEY_SW_4 )
+    592          //    {
+    593          //      HalLedSet ( HAL_LED_4, HAL_LED_MODE_OFF );
+    594          //      // Initiate a Match Description Request (Service Discovery)
+    595          //      dstAddr.addrMode = AddrBroadcast;
+    596          //      dstAddr.addr.shortAddr = NWK_BROADCAST_SHORTADDR;
+    597          //      ZDP_MatchDescReq( &dstAddr, NWK_BROADCAST_SHORTADDR,
+    598          //                        SmartHomeApp_PROFID,
+    599          //                        SmartHomeApp_MAX_CLUSTERS, (cId_t *)SmartHomeApp_ClusterList,
+    600          //                        SmartHomeApp_MAX_CLUSTERS, (cId_t *)SmartHomeApp_ClusterList,
+    601          //                        FALSE );
+    602          //    }
+    603          //  }
+    604          }
+    605          
+    606          /*********************************************************************
+    607           * LOCAL FUNCTIONS
+    608           */
+    609          
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+    610          static void SmartHomeApp_ProcessReportNames(afIncomingMSGPacket_t *inMsg)
+   \                     SmartHomeApp_ProcessReportNames:
+    611          {
+   \   000000   74F2         MOV     A,#-0xe
+   \   000002   12....       LCALL   ?BANKED_ENTER_XDATA
+   \   000005                ; Saved register size: 14
+   \   000005                ; Auto size: 48
+   \   000005   74D0         MOV     A,#-0x30
+   \   000007   12....       LCALL   ?ALLOC_XSTACK8
+   \   00000A   EA           MOV     A,R2
+   \   00000B   FE           MOV     R6,A
+   \   00000C   EB           MOV     A,R3
+   \   00000D   FF           MOV     R7,A
+    612            uint16 shortAddr = NLME_GetShortAddr();
+   \   00000E                ; Setup parameters for call to function NLME_GetShortAddr
+   \   00000E   12....       LCALL   ?Subroutine10 & 0xFFFF
+    613            uint16 parentShortAddr = NLME_GetCoordShortAddr();
+   \                     ??CrossCallReturnLabel_32:
+   \   000011   8A..         MOV     ?V0 + 2,R2
+   \   000013   8B..         MOV     ?V0 + 3,R3
+    614            char buf[48];
+    615            int len = sprintf(buf, "ReportNamesResp %s %04X %04X", Util_ReadName(), shortAddr, parentShortAddr);
+   \   000015                ; Setup parameters for call to function sprintf
+   \   000015   78..         MOV     R0,#?V0 + 2
+   \   000017   12....       LCALL   ?PUSH_XSTACK_I_TWO
+   \   00001A   78..         MOV     R0,#?V0 + 0
+   \   00001C   12....       LCALL   ?PUSH_XSTACK_I_TWO
+   \   00001F                ; Setup parameters for call to function Util_ReadName
+   \   00001F   12....       LCALL   ?Subroutine2 & 0xFFFF
+   \                     ??CrossCallReturnLabel_4:
+   \   000022   12....       LCALL   ?PUSH_XSTACK_I_TWO
+   \   000025   7C..         MOV     R4,#`?<Constant "ReportNamesResp %s %0...">` & 0xff
+   \   000027   7D..         MOV     R5,#(`?<Constant "ReportNamesResp %s %0...">` >> 8) & 0xff
+   \   000029   7406         MOV     A,#0x6
+   \   00002B   12....       LCALL   ?XSTACK_DISP0_8
+   \   00002E   AA82         MOV     R2,DPL
+   \   000030   AB83         MOV     R3,DPH
+   \   000032   12....       LCALL   ??sprintf?relay
+   \   000035   7406         MOV     A,#0x6
+   \   000037   12....       LCALL   ?DEALLOC_XSTACK8
+    616            
+    617            SmartHomeApp_DstAddr.addrMode = (afAddrMode_t)Addr16Bit;
+   \   00003A   90....       MOV     DPTR,#SmartHomeApp_DstAddr + 8
+   \   00003D   7402         MOV     A,#0x2
+   \   00003F   F0           MOVX    @DPTR,A
+    618            SmartHomeApp_DstAddr.endPoint = SmartHomeApp_ENDPOINT;
+   \   000040   A3           INC     DPTR
+   \   000041   740A         MOV     A,#0xa
+   \   000043   F0           MOVX    @DPTR,A
+    619            SmartHomeApp_DstAddr.addr.shortAddr = inMsg->srcAddr.addr.shortAddr;
+   \   000044   8E82         MOV     DPL,R6
+   \   000046   8F83         MOV     DPH,R7
+   \   000048   A3           INC     DPTR
+   \   000049   A3           INC     DPTR
+   \   00004A   A3           INC     DPTR
+   \   00004B   A3           INC     DPTR
+   \   00004C   12....       LCALL   ?Subroutine8 & 0xFFFF
+    620            
+    621              
+    622            if ( AF_DataRequest( &SmartHomeApp_DstAddr, &SmartHomeApp_epDesc,
+    623                                 SmartHomeApp_CLUSTERID,
+    624                                 osal_strlen(buf)+1,
+    625                                 (uint8*)buf,
+    626                                 &SmartHomeApp_TransID,
+    627                                 AF_DISCV_ROUTE, AF_DEFAULT_RADIUS ) == afStatus_SUCCESS )
+   \                     ??CrossCallReturnLabel_26:
+   \   00004F                ; Setup parameters for call to function AF_DataRequest
+   \   00004F   75..1E       MOV     ?V0 + 0,#0x1e
+   \   000052   78..         MOV     R0,#?V0 + 0
+   \   000054   12....       LCALL   ?PUSH_XSTACK_I_ONE
+   \   000057   75....       MOV     ?V0 + 0,#SmartHomeApp_TransID & 0xff
+   \   00005A   75....       MOV     ?V0 + 1,#(SmartHomeApp_TransID >> 8) & 0xff
+   \   00005D   78..         MOV     R0,#?V0 + 0
+   \   00005F   12....       LCALL   ?PUSH_XSTACK_I_TWO
+   \   000062   7403         MOV     A,#0x3
+   \   000064   12....       LCALL   ?XSTACK_DISP0_8
+   \   000067   8582..       MOV     ?V0 + 0,DPL
+   \   00006A   8583..       MOV     ?V0 + 1,DPH
+   \   00006D   78..         MOV     R0,#?V0 + 0
+   \   00006F   12....       LCALL   ?PUSH_XSTACK_I_TWO
+   \   000072                ; Setup parameters for call to function osal_strlen
+   \   000072   7405         MOV     A,#0x5
+   \   000074   12....       LCALL   ?XSTACK_DISP0_8
+   \   000077   12....       LCALL   ?Subroutine7 & 0xFFFF
+   \                     ??CrossCallReturnLabel_24:
+   \   00007A   12....       LCALL   ?PUSH_XSTACK_I_TWO
+   \   00007D   75..01       MOV     ?V0 + 0,#0x1
+   \   000080   75..00       MOV     ?V0 + 1,#0x0
+   \   000083   78..         MOV     R0,#?V0 + 0
+   \   000085   12....       LCALL   ?PUSH_XSTACK_I_TWO
+   \   000088   7920         MOV     R1,#0x20
+   \   00008A   7C..         MOV     R4,#SmartHomeApp_epDesc & 0xff
+   \   00008C   7D..         MOV     R5,#(SmartHomeApp_epDesc >> 8) & 0xff
+   \   00008E   7A..         MOV     R2,#SmartHomeApp_DstAddr & 0xff
+   \   000090   7B..         MOV     R3,#(SmartHomeApp_DstAddr >> 8) & 0xff
+   \   000092   12....       LCALL   ??AF_DataRequest?relay
+   \   000095   7409         MOV     A,#0x9
+   \   000097   12....       LCALL   ?DEALLOC_XSTACK8
+   \   00009A   E9           MOV     A,R1
+   \   00009B   601B         JZ      ??SmartHomeApp_ProcessReportNames_0
+    628            {
+    629              // Successfully requested to be sent.
+    630            }
+    631            else
+    632            {
+    633              printf("send ReportNamesResp error %s\n", buf);
+   \   00009D                ; Setup parameters for call to function printf
+   \   00009D   85..82       MOV     DPL,?XSP + 0
+   \   0000A0   85..83       MOV     DPH,?XSP + 1
+   \   0000A3   8582..       MOV     ?V0 + 0,DPL
+   \   0000A6   8583..       MOV     ?V0 + 1,DPH
+   \   0000A9   78..         MOV     R0,#?V0 + 0
+   \   0000AB   12....       LCALL   ?PUSH_XSTACK_I_TWO
+   \   0000AE   7A..         MOV     R2,#`?<Constant "send ReportNamesResp ...">` & 0xff
+   \   0000B0   7B..         MOV     R3,#(`?<Constant "send ReportNamesResp ...">` >> 8) & 0xff
+   \   0000B2   12....       LCALL   ?Subroutine3 & 0xFFFF
+    634            }
+   \                     ??CrossCallReturnLabel_10:
+   \   0000B5   12....       LCALL   ?DEALLOC_XSTACK8
+    635            
+    636          }
+   \                     ??SmartHomeApp_ProcessReportNames_0:
+   \   0000B8   7430         MOV     A,#0x30
+   \   0000BA   12....       LCALL   ?DEALLOC_XSTACK8
+   \   0000BD   02....       LJMP    ?Subroutine1 & 0xFFFF
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ?Subroutine8:
+   \   000000   A3           INC     DPTR
+   \   000001   12....       LCALL   ?Subroutine12 & 0xFFFF
+   \                     ??CrossCallReturnLabel_34:
+   \   000004   F0           MOVX    @DPTR,A
+   \   000005   22           RET
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ?Subroutine7:
+   \   000000   AA82         MOV     R2,DPL
+   \   000002   AB83         MOV     R3,DPH
+   \   000004   12....       LCALL   ??osal_strlen?relay
+   \   000007   EA           MOV     A,R2
+   \   000008   2401         ADD     A,#0x1
+   \   00000A   F5..         MOV     ?V0 + 0,A
+   \   00000C   EB           MOV     A,R3
+   \   00000D   3400         ADDC    A,#0x0
+   \   00000F   F5..         MOV     ?V0 + 1,A
+   \   000011   78..         MOV     R0,#?V0 + 0
+   \   000013   22           RET
+    637          
+    638          /**
+    639           save name addr map 
+    640          */
+    641          void SmartHomeApp_ProcessNameAddrMapResp(uint8* data);
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+    642          void SmartHomeApp_ProcessNameAddrMapResp(uint8* data)
+   \                     SmartHomeApp_ProcessNameAddrMapResp:
+    643          {
+   \   000000   74F4         MOV     A,#-0xc
+   \   000002   12....       LCALL   ?BANKED_ENTER_XDATA
+   \   000005                ; Saved register size: 12
+   \   000005                ; Auto size: 0
+   \   000005   8A..         MOV     ?V0 + 0,R2
+   \   000007   8B..         MOV     ?V0 + 1,R3
+    644             //NameAddrMap 1234 name
+    645            if (osal_strlen((char*)data) < 18|| osal_strlen((char*)data) > 38) {
+   \   000009                ; Setup parameters for call to function osal_strlen
+   \   000009   12....       LCALL   ??osal_strlen?relay
+   \   00000C   C3           CLR     C
+   \   00000D   EA           MOV     A,R2
+   \   00000E   9412         SUBB    A,#0x12
+   \   000010   EB           MOV     A,R3
+   \   000011   9400         SUBB    A,#0x0
+   \   000013   A2D2         MOV     C,0xD0 /* PSW */.2
+   \   000015   65D0         XRL     A,PSW
+   \   000017   33           RLC     A
+   \   000018   4015         JC      ??SmartHomeApp_ProcessNameAddrMapResp_0
+   \   00001A                ; Setup parameters for call to function osal_strlen
+   \   00001A   AA..         MOV     R2,?V0 + 0
+   \   00001C   AB..         MOV     R3,?V0 + 1
+   \   00001E   12....       LCALL   ??osal_strlen?relay
+   \   000021   C3           CLR     C
+   \   000022   EA           MOV     A,R2
+   \   000023   9427         SUBB    A,#0x27
+   \   000025   EB           MOV     A,R3
+   \   000026   9400         SUBB    A,#0x0
+   \   000028   A2D2         MOV     C,0xD0 /* PSW */.2
+   \   00002A   65D0         XRL     A,PSW
+   \   00002C   33           RLC     A
+   \   00002D   4011         JC      ??SmartHomeApp_ProcessNameAddrMapResp_1
+    646              // invalid data
+    647              printf("Invalid name addr map: %s\n", data);
+   \                     ??SmartHomeApp_ProcessNameAddrMapResp_0:
+   \   00002F                ; Setup parameters for call to function printf
+   \   00002F   78..         MOV     R0,#?V0 + 0
+   \   000031   12....       LCALL   ?PUSH_XSTACK_I_TWO
+   \   000034   7A..         MOV     R2,#`?<Constant "Invalid name addr map...">` & 0xff
+   \   000036   7B..         MOV     R3,#(`?<Constant "Invalid name addr map...">` >> 8) & 0xff
+   \   000038   12....       LCALL   ?Subroutine3 & 0xFFFF
+   \                     ??CrossCallReturnLabel_11:
+   \   00003B   12....       LCALL   ?DEALLOC_XSTACK8
+    648              return;
+   \   00003E   802C         SJMP    ??SmartHomeApp_ProcessNameAddrMapResp_2
+    649            }
+    650            
+    651            
+    652            uint8* addrPtr = data + 12;
+    653            uint8* namePtr = data + 17;
+    654            uint16 addr = Util_Str2Uint16(addrPtr);
+   \                     ??SmartHomeApp_ProcessNameAddrMapResp_1:
+   \   000040                ; Setup parameters for call to function Util_Str2Uint16
+   \   000040   E5..         MOV     A,?V0 + 0
+   \   000042   240C         ADD     A,#0xc
+   \   000044   FA           MOV     R2,A
+   \   000045   E5..         MOV     A,?V0 + 1
+   \   000047   3400         ADDC    A,#0x0
+   \   000049   FB           MOV     R3,A
+   \   00004A   12....       LCALL   ??Util_Str2Uint16?relay
+   \   00004D   8A..         MOV     ?V0 + 2,R2
+   \   00004F   8B..         MOV     ?V0 + 3,R3
+   \   000051   AC..         MOV     R4,?V0 + 2
+   \   000053   AD..         MOV     R5,?V0 + 3
+    655            
+    656           // printf("addrPtr: %s, name=%s, add=%04X\n", addrPtr, namePtr, addr);
+    657            
+    658            if (addr != 0xFFFF) {
+   \   000055   74FF         MOV     A,#-0x1
+   \   000057   6C           XRL     A,R4
+   \   000058   7003         JNZ     ??SmartHomeApp_ProcessNameAddrMapResp_3
+   \   00005A   74FF         MOV     A,#-0x1
+   \   00005C   6D           XRL     A,R5
+   \                     ??SmartHomeApp_ProcessNameAddrMapResp_3:
+   \   00005D   600D         JZ      ??SmartHomeApp_ProcessNameAddrMapResp_2
+    659              NameAddrCache_put(namePtr, addr); 
+   \   00005F                ; Setup parameters for call to function NameAddrCache_put
+   \   00005F   E5..         MOV     A,?V0 + 0
+   \   000061   2411         ADD     A,#0x11
+   \   000063   FA           MOV     R2,A
+   \   000064   E5..         MOV     A,?V0 + 1
+   \   000066   3400         ADDC    A,#0x0
+   \   000068   FB           MOV     R3,A
+   \   000069   12....       LCALL   ??NameAddrCache_put?relay
+    660            }
+   \                     ??SmartHomeApp_ProcessNameAddrMapResp_2:
+   \   00006C   02....       LJMP    ?Subroutine0 & 0xFFFF
+    661          }
+    662          
+    663          
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+    664          static void SmartHomeApp_SendNameAddrResp(afIncomingMSGPacket_t *pkt)
+   \                     SmartHomeApp_SendNameAddrResp:
+    665          {
+   \   000000   74F4         MOV     A,#-0xc
+   \   000002   12....       LCALL   ?BANKED_ENTER_XDATA
+   \   000005                ; Saved register size: 12
+   \   000005                ; Auto size: 64
+   \   000005   74C0         MOV     A,#-0x40
+   \   000007   12....       LCALL   ?ALLOC_XSTACK8
+    666            uint8 buf[64];
+    667            
+    668            
+    669            SmartHomeApp_DstAddr.addrMode = (afAddrMode_t)Addr16Bit;
+   \   00000A   90....       MOV     DPTR,#SmartHomeApp_DstAddr + 8
+   \   00000D   7402         MOV     A,#0x2
+   \   00000F   F0           MOVX    @DPTR,A
+    670            SmartHomeApp_DstAddr.endPoint = SmartHomeApp_ENDPOINT;
+   \   000010   A3           INC     DPTR
+   \   000011   740A         MOV     A,#0xa
+   \   000013   12....       LCALL   ?Subroutine5 & 0xFFFF
+    671            SmartHomeApp_DstAddr.addr.shortAddr = pkt->srcAddr.addr.shortAddr;
+   \                     ??CrossCallReturnLabel_18:
+   \   000016   12....       LCALL   ?Subroutine8 & 0xFFFF
+    672            
+    673            sprintf((char*)buf, "NameAddrMap %04X %s", NLME_GetShortAddr(), (char*)Util_ReadName());
+   \                     ??CrossCallReturnLabel_27:
+   \   000019                ; Setup parameters for call to function Util_ReadName
+   \   000019   12....       LCALL   ?Subroutine2 & 0xFFFF
+   \                     ??CrossCallReturnLabel_5:
+   \   00001C   12....       LCALL   ?PUSH_XSTACK_I_TWO
+   \   00001F                ; Setup parameters for call to function NLME_GetShortAddr
+   \   00001F   12....       LCALL   ??NLME_GetShortAddr?relay
+   \   000022   8A..         MOV     ?V0 + 0,R2
+   \   000024   8B..         MOV     ?V0 + 1,R3
+   \   000026   78..         MOV     R0,#?V0 + 0
+   \   000028   12....       LCALL   ?PUSH_XSTACK_I_TWO
+   \   00002B   7C..         MOV     R4,#`?<Constant "NameAddrMap %04X %s">` & 0xff
+   \   00002D   7D..         MOV     R5,#(`?<Constant "NameAddrMap %04X %s">` >> 8) & 0xff
+   \   00002F   7404         MOV     A,#0x4
+   \   000031   12....       LCALL   ?XSTACK_DISP0_8
+   \   000034   AA82         MOV     R2,DPL
+   \   000036   AB83         MOV     R3,DPH
+   \   000038   12....       LCALL   ??sprintf?relay
+   \   00003B   7404         MOV     A,#0x4
+   \   00003D   12....       LCALL   ?DEALLOC_XSTACK8
+    674              
+    675            if ( AF_DataRequest( &SmartHomeApp_DstAddr, &SmartHomeApp_epDesc,
+    676                                 SmartHomeApp_CLUSTERID,
+    677                                 osal_strlen((char*)buf)+1,
+    678                                 (uint8*)buf,
+    679                                 &SmartHomeApp_TransID,
+    680                                 AF_DISCV_ROUTE, AF_DEFAULT_RADIUS ) == afStatus_SUCCESS )
+   \   000040                ; Setup parameters for call to function AF_DataRequest
+   \   000040   75..1E       MOV     ?V0 + 0,#0x1e
+   \   000043   78..         MOV     R0,#?V0 + 0
+   \   000045   12....       LCALL   ?PUSH_XSTACK_I_ONE
+   \   000048   75....       MOV     ?V0 + 0,#SmartHomeApp_TransID & 0xff
+   \   00004B   75....       MOV     ?V0 + 1,#(SmartHomeApp_TransID >> 8) & 0xff
+   \   00004E   78..         MOV     R0,#?V0 + 0
+   \   000050   12....       LCALL   ?PUSH_XSTACK_I_TWO
+   \   000053   7403         MOV     A,#0x3
+   \   000055   12....       LCALL   ?XSTACK_DISP0_8
+   \   000058   8582..       MOV     ?V0 + 0,DPL
+   \   00005B   8583..       MOV     ?V0 + 1,DPH
+   \   00005E   78..         MOV     R0,#?V0 + 0
+   \   000060   12....       LCALL   ?PUSH_XSTACK_I_TWO
+   \   000063                ; Setup parameters for call to function osal_strlen
+   \   000063   7405         MOV     A,#0x5
+   \   000065   12....       LCALL   ?XSTACK_DISP0_8
+   \   000068   12....       LCALL   ?Subroutine7 & 0xFFFF
+   \                     ??CrossCallReturnLabel_25:
+   \   00006B   12....       LCALL   ?PUSH_XSTACK_I_TWO
+   \   00006E   75..01       MOV     ?V0 + 0,#0x1
+   \   000071   75..00       MOV     ?V0 + 1,#0x0
+   \   000074   78..         MOV     R0,#?V0 + 0
+   \   000076   12....       LCALL   ?PUSH_XSTACK_I_TWO
+   \   000079   7920         MOV     R1,#0x20
+   \   00007B   7C..         MOV     R4,#SmartHomeApp_epDesc & 0xff
+   \   00007D   7D..         MOV     R5,#(SmartHomeApp_epDesc >> 8) & 0xff
+   \   00007F   7A..         MOV     R2,#SmartHomeApp_DstAddr & 0xff
+   \   000081   7B..         MOV     R3,#(SmartHomeApp_DstAddr >> 8) & 0xff
+   \   000083   12....       LCALL   ??AF_DataRequest?relay
+   \   000086   7409         MOV     A,#0x9
+   \   000088   12....       LCALL   ?DEALLOC_XSTACK8
+   \   00008B   E9           MOV     A,R1
+   \   00008C   601B         JZ      ??SmartHomeApp_SendNameAddrResp_0
+    681            {
+    682              // Successfully requested to be sent.
+    683            }
+    684            else
+    685            {
+    686              printf("SmartHomeApp_SendNameAddrResp error %s\n", buf);
+   \   00008E                ; Setup parameters for call to function printf
+   \   00008E   85..82       MOV     DPL,?XSP + 0
+   \   000091   85..83       MOV     DPH,?XSP + 1
+   \   000094   8582..       MOV     ?V0 + 0,DPL
+   \   000097   8583..       MOV     ?V0 + 1,DPH
+   \   00009A   78..         MOV     R0,#?V0 + 0
+   \   00009C   12....       LCALL   ?PUSH_XSTACK_I_TWO
+   \   00009F   7A..         MOV     R2,#`?<Constant "SmartHomeApp_SendName...">` & 0xff
+   \   0000A1   7B..         MOV     R3,#(`?<Constant "SmartHomeApp_SendName...">` >> 8) & 0xff
+   \   0000A3   12....       LCALL   ?Subroutine3 & 0xFFFF
+    687            }
+   \                     ??CrossCallReturnLabel_12:
+   \   0000A6   12....       LCALL   ?DEALLOC_XSTACK8
+    688            
+    689          }
+   \                     ??SmartHomeApp_SendNameAddrResp_0:
+   \   0000A9   7440         MOV     A,#0x40
+   \   0000AB   12....       LCALL   ?DEALLOC_XSTACK8
+   \   0000AE                REQUIRE ?Subroutine0
+   \   0000AE                ; // Fall through to label ?Subroutine0
+    690          
+    691          
+    692          static uint8 SmartHomeApp_NameAddrNotMatch(uint8* data)
+    693          {
+    694            // find name and cmpare  
+    695            uint8* name;
+    696            uint8 ret;
+    697            
+    698            name = Util_GetNameFromCmd(data);
+    699            
+    700            if (name == NULL)
+    701              return 1;
+    702           
+    703            
+    704            ret = Util_StrEqual(name, Util_ReadName());
+    705            osal_mem_free(name);
+    706            return !ret;
+    707            
+    708          }
+    709          
+    710          /*********************************************************************
+    711           * @fn      SmartHomeApp_MessageMSGCB
+    712           *
+    713           * @brief   Data message processor callback.  This function processes
+    714           *          any incoming data - probably from other devices.  So, based
+    715           *          on cluster ID, perform the intended action.
+    716           *
+    717           * @param   none
+    718           *
+    719           * @return  none
+    720           */
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+    721          static void SmartHomeApp_MessageMSGCB( afIncomingMSGPacket_t *pkt )
+   \                     SmartHomeApp_MessageMSGCB:
+    722          {
+   \   000000   74F4         MOV     A,#-0xc
+   \   000002   12....       LCALL   ?BANKED_ENTER_XDATA
+   \   000005                ; Saved register size: 12
+   \   000005                ; Auto size: 0
+   \   000005   EA           MOV     A,R2
+   \   000006   FE           MOV     R6,A
+   \   000007   EB           MOV     A,R3
+   \   000008   FF           MOV     R7,A
+    723            switch ( pkt->clusterId )
+   \   000009   8E82         MOV     DPL,R6
+   \   00000B   8F83         MOV     DPH,R7
+   \   00000D   A3           INC     DPTR
+   \   00000E   A3           INC     DPTR
+   \   00000F   A3           INC     DPTR
+   \   000010   A3           INC     DPTR
+   \   000011   E0           MOVX    A,@DPTR
+   \   000012   6401         XRL     A,#0x1
+   \   000014   7002         JNZ     ??SmartHomeApp_MessageMSGCB_0
+   \   000016   A3           INC     DPTR
+   \   000017   E0           MOVX    A,@DPTR
+   \                     ??SmartHomeApp_MessageMSGCB_0:
+   \   000018   6003         JZ      $+5
+   \   00001A   02....       LJMP    ??SmartHomeApp_MessageMSGCB_1 & 0xFFFF
+    724            {
+    725              case SmartHomeApp_CLUSTERID:
+    726                pkt->cmd.Data[pkt->cmd.DataLength-1]=0;
+   \   00001D   EE           MOV     A,R6
+   \   00001E   2422         ADD     A,#0x22
+   \   000020   F8           MOV     R0,A
+   \   000021   EF           MOV     A,R7
+   \   000022   3400         ADDC    A,#0x0
+   \   000024   F9           MOV     R1,A
+   \   000025   88..         MOV     ?V0 + 0,R0
+   \   000027   89..         MOV     ?V0 + 1,R1
+   \   000029   EE           MOV     A,R6
+   \   00002A   2420         ADD     A,#0x20
+   \   00002C   12....       LCALL   ??Subroutine14_0 & 0xFFFF
+   \                     ??CrossCallReturnLabel_38:
+   \   00002F   F8           MOV     R0,A
+   \   000030   A3           INC     DPTR
+   \   000031   E0           MOVX    A,@DPTR
+   \   000032   F9           MOV     R1,A
+   \   000033   85..82       MOV     DPL,?V0 + 0
+   \   000036   85..83       MOV     DPH,?V0 + 1
+   \   000039   E0           MOVX    A,@DPTR
+   \   00003A   28           ADD     A,R0
+   \   00003B   F8           MOV     R0,A
+   \   00003C   A3           INC     DPTR
+   \   00003D   E0           MOVX    A,@DPTR
+   \   00003E   39           ADDC    A,R1
+   \   00003F   F9           MOV     R1,A
+   \   000040   E8           MOV     A,R0
+   \   000041   24FF         ADD     A,#-0x1
+   \   000043   F582         MOV     DPL,A
+   \   000045   E9           MOV     A,R1
+   \   000046   34FF         ADDC    A,#-0x1
+   \   000048   F583         MOV     DPH,A
+   \   00004A   E4           CLR     A
+   \   00004B   F0           MOVX    @DPTR,A
+    727                printf("ReceiveMsg:%s\n", pkt->cmd.Data);
+   \   00004C                ; Setup parameters for call to function printf
+   \   00004C   85..82       MOV     DPL,?V0 + 0
+   \   00004F   85..83       MOV     DPH,?V0 + 1
+   \   000052   12....       LCALL   ?PUSH_XSTACK8_X_TWO
+   \   000055   7A..         MOV     R2,#`?<Constant "ReceiveMsg:%s\\n">` & 0xff
+   \   000057   7B..         MOV     R3,#(`?<Constant "ReceiveMsg:%s\\n">` >> 8) & 0xff
+   \   000059   12....       LCALL   ?Subroutine3 & 0xFFFF
+   \                     ??CrossCallReturnLabel_13:
+   \   00005C   12....       LCALL   ?DEALLOC_XSTACK8
+    728                
+    729                if (Util_StrEqual(pkt->cmd.Data, (uint8*)"ReportNames")) {
+   \   00005F                ; Setup parameters for call to function Util_StrEqual
+   \   00005F   7C..         MOV     R4,#`?<Constant "ReportNames">` & 0xff
+   \   000061   7D..         MOV     R5,#(`?<Constant "ReportNames">` >> 8) & 0xff
+   \   000063   85..82       MOV     DPL,?V0 + 0
+   \   000066   85..83       MOV     DPH,?V0 + 1
+   \   000069   E0           MOVX    A,@DPTR
+   \   00006A   FA           MOV     R2,A
+   \   00006B   A3           INC     DPTR
+   \   00006C   E0           MOVX    A,@DPTR
+   \   00006D   FB           MOV     R3,A
+   \   00006E   12....       LCALL   ??Util_StrEqual?relay
+   \   000071   E9           MOV     A,R1
+   \   000072   6009         JZ      ??SmartHomeApp_MessageMSGCB_2
+    730                  SmartHomeApp_ProcessReportNames(pkt); 
+   \   000074                ; Setup parameters for call to function SmartHomeApp_ProcessReportNames
+   \   000074   EE           MOV     A,R6
+   \   000075   FA           MOV     R2,A
+   \   000076   EF           MOV     A,R7
+   \   000077   FB           MOV     R3,A
+   \   000078   12....       LCALL   ??SmartHomeApp_ProcessReportNames?relay
+   \   00007B   8072         SJMP    ??SmartHomeApp_MessageMSGCB_1
+    731                } else if (Util_StartWith(pkt->cmd.Data, (uint8*)"NameAddrMap ")) {
+   \                     ??SmartHomeApp_MessageMSGCB_2:
+   \   00007D                ; Setup parameters for call to function Util_StartWith
+   \   00007D   7C..         MOV     R4,#`?<Constant "NameAddrMap ">` & 0xff
+   \   00007F   7D..         MOV     R5,#(`?<Constant "NameAddrMap ">` >> 8) & 0xff
+   \   000081   12....       LCALL   ?Subroutine6 & 0xFFFF
+   \                     ??CrossCallReturnLabel_20:
+   \   000084   12....       LCALL   ??Util_StartWith?relay
+   \   000087   E9           MOV     A,R1
+   \   000088   6008         JZ      ??SmartHomeApp_MessageMSGCB_3
+    732                  SmartHomeApp_ProcessNameAddrMapResp(pkt->cmd.Data); 
+   \   00008A                ; Setup parameters for call to function SmartHomeApp_ProcessNameAddrMapResp
+   \   00008A   12....       LCALL   ?Subroutine6 & 0xFFFF
+    733                } else {
+   \                     ??CrossCallReturnLabel_21:
+   \   00008D   12....       LCALL   ??SmartHomeApp_ProcessNameAddrMapResp?relay
+   \   000090   805D         SJMP    ??SmartHomeApp_MessageMSGCB_1
+    734                  
+    735                  if (SmartHomeApp_NameAddrNotMatch(pkt->cmd.Data)) { // maybe wrong cache data
+   \                     ??SmartHomeApp_MessageMSGCB_3:
+   \   000092                ; Setup parameters for call to function Util_GetNameFromCmd
+   \   000092   12....       LCALL   ?Subroutine6 & 0xFFFF
+   \                     ??CrossCallReturnLabel_22:
+   \   000095   12....       LCALL   ??Util_GetNameFromCmd?relay
+   \   000098   8A..         MOV     ?V0 + 0,R2
+   \   00009A   8B..         MOV     ?V0 + 1,R3
+   \   00009C   EA           MOV     A,R2
+   \   00009D   45..         ORL     A,?V0 + 1
+   \   00009F   701E         JNZ     ??SmartHomeApp_MessageMSGCB_4
+    736                    printf("NameAddrNotMatch %s\n", pkt->cmd.Data);
+   \                     ??SmartHomeApp_MessageMSGCB_5:
+   \   0000A1                ; Setup parameters for call to function printf
+   \   0000A1   12....       LCALL   ?Subroutine13 & 0xFFFF
+   \                     ??CrossCallReturnLabel_35:
+   \   0000A4   12....       LCALL   ?PUSH_XSTACK8_X_TWO
+   \   0000A7   7A..         MOV     R2,#`?<Constant "NameAddrNotMatch %s\\n">` & 0xff
+   \   0000A9   7B..         MOV     R3,#(`?<Constant "NameAddrNotMatch %s\\n">` >> 8) & 0xff
+   \   0000AB   12....       LCALL   ?Subroutine3 & 0xFFFF
+   \                     ??CrossCallReturnLabel_14:
+   \   0000AE   12....       LCALL   ?DEALLOC_XSTACK8
+    737                    if (!pkt->wasBroadcast) {
+   \   0000B1   12....       LCALL   ?Subroutine11 & 0xFFFF
+   \                     ??CrossCallReturnLabel_39:
+   \   0000B4   7039         JNZ     ??SmartHomeApp_MessageMSGCB_1
+    738                      SmartHomeApp_SendNameAddrResp(pkt);
+   \   0000B6                ; Setup parameters for call to function SmartHomeApp_SendNameAddrResp
+   \   0000B6   EE           MOV     A,R6
+   \   0000B7   FA           MOV     R2,A
+   \   0000B8   EF           MOV     A,R7
+   \   0000B9   FB           MOV     R3,A
+   \   0000BA   12....       LCALL   ??SmartHomeApp_SendNameAddrResp?relay
+   \   0000BD   8030         SJMP    ??SmartHomeApp_MessageMSGCB_1
+   \                     ??SmartHomeApp_MessageMSGCB_4:
+   \   0000BF                ; Setup parameters for call to function Util_StrEqual
+   \   0000BF                ; Setup parameters for call to function Util_ReadName
+    739                    }
+    740                    return;
+    741                  }
+   \   0000BF   12....       LCALL   ?Subroutine4 & 0xFFFF
+   \                     ??CrossCallReturnLabel_17:
+   \   0000C2   AA..         MOV     R2,?V0 + 0
+   \   0000C4   AB..         MOV     R3,?V0 + 1
+   \   0000C6   12....       LCALL   ??Util_StrEqual?relay
+   \   0000C9   E9           MOV     A,R1
+   \   0000CA   F5..         MOV     ?V0 + 2,A
+   \   0000CC                ; Setup parameters for call to function osal_mem_free
+   \   0000CC   AA..         MOV     R2,?V0 + 0
+   \   0000CE   AB..         MOV     R3,?V0 + 1
+   \   0000D0   12....       LCALL   ??osal_mem_free?relay
+   \   0000D3   E5..         MOV     A,?V0 + 2
+   \   0000D5   60CA         JZ      ??SmartHomeApp_MessageMSGCB_5
+    742                  
+    743                  if (pkt->wasBroadcast) {
+   \   0000D7   12....       LCALL   ?Subroutine11 & 0xFFFF
+   \                     ??CrossCallReturnLabel_40:
+   \   0000DA   6007         JZ      ??SmartHomeApp_MessageMSGCB_6
+    744                    SmartHomeApp_SendNameAddrResp(pkt); 
+   \   0000DC                ; Setup parameters for call to function SmartHomeApp_SendNameAddrResp
+   \   0000DC   EE           MOV     A,R6
+   \   0000DD   FA           MOV     R2,A
+   \   0000DE   EF           MOV     A,R7
+   \   0000DF   FB           MOV     R3,A
+   \   0000E0   12....       LCALL   ??SmartHomeApp_SendNameAddrResp?relay
+    745                  }
+    746                  
+    747                  Processor_HandleMsg(pkt->cmd.Data);
+   \                     ??SmartHomeApp_MessageMSGCB_6:
+   \   0000E3                ; Setup parameters for indirect call
+   \   0000E3   12....       LCALL   ?Subroutine6 & 0xFFFF
+    748                }
+    749                
+    750          //#if defined( LCD_SUPPORTED )
+    751          //      HalLcdWriteScreen( (char*)pkt->cmd.Data, "rcvd" );
+    752          //#elif defined( WIN32 )
+    753          //      WPRINTSTR( pkt->cmd.Data );
+    754          //#endif
+    755                break;
+    756            }
+   \                     ??CrossCallReturnLabel_23:
+   \   0000E6   90....       MOV     DPTR,#Processor_HandleMsg
+   \   0000E9   12....       LCALL   ?Subroutine9 & 0xFFFF
+   \                     ??CrossCallReturnLabel_30:
+   \   0000EC   12....       LCALL   ?CALL_IND
+   \                     ??SmartHomeApp_MessageMSGCB_1:
+   \   0000EF   02....       LJMP    ?Subroutine0 & 0xFFFF
+    757          }
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ?Subroutine11:
+   \   000000   EE           MOV     A,R6
+   \   000001   2415         ADD     A,#0x15
+   \   000003                REQUIRE ??Subroutine14_0
+   \   000003                ; // Fall through to label ??Subroutine14_0
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ?Subroutine6:
+   \   000000   12....       LCALL   ?Subroutine13 & 0xFFFF
+   \                     ??CrossCallReturnLabel_36:
+   \   000003   E0           MOVX    A,@DPTR
+   \   000004   FA           MOV     R2,A
+   \   000005   A3           INC     DPTR
+   \   000006   E0           MOVX    A,@DPTR
+   \   000007   FB           MOV     R3,A
+   \   000008   22           RET
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ?Subroutine13:
+   \   000000   EE           MOV     A,R6
+   \   000001   2422         ADD     A,#0x22
+   \   000003   F582         MOV     DPL,A
+   \   000005   EF           MOV     A,R7
+   \   000006   3400         ADDC    A,#0x0
+   \   000008   F583         MOV     DPH,A
+   \   00000A   22           RET
+
+   \                                 In  segment BANK_RELAYS, align 1
+   \                     ??SmartHomeApp_Init?relay:
+   \   000000   12....       LCALL   ?BDISPATCH
+   \   000003   ......       DC24    SmartHomeApp_Init
+
+   \                                 In  segment BANK_RELAYS, align 1
+   \                     ??processUartCB?relay:
+   \   000000   12....       LCALL   ?BDISPATCH
+   \   000003   ......       DC24    processUartCB
+
+   \                                 In  segment BANK_RELAYS, align 1
+   \                     ??SmartHomeApp_CallBack?relay:
+   \   000000   12....       LCALL   ?BDISPATCH
+   \   000003   ......       DC24    SmartHomeApp_CallBack
+
+   \                                 In  segment BANK_RELAYS, align 1
+   \                     ??SmartHomeApp_ProcessEvent?relay:
+   \   000000   12....       LCALL   ?BDISPATCH
+   \   000003   ......       DC24    SmartHomeApp_ProcessEvent
+
+   \                                 In  segment BANK_RELAYS, align 1
+   \                     ??SmartHomeApp_ProcessReportNames?relay:
+   \   000000   12....       LCALL   ?BDISPATCH
+   \   000003   ......       DC24    SmartHomeApp_ProcessReportNames
+
+   \                                 In  segment BANK_RELAYS, align 1
+   \                     ??SmartHomeApp_ProcessNameAddrMapResp?relay:
+   \   000000   12....       LCALL   ?BDISPATCH
+   \   000003   ......       DC24    SmartHomeApp_ProcessNameAddrMapResp
+
+   \                                 In  segment BANK_RELAYS, align 1
+   \                     ??SmartHomeApp_SendNameAddrResp?relay:
+   \   000000   12....       LCALL   ?BDISPATCH
+   \   000003   ......       DC24    SmartHomeApp_SendNameAddrResp
+
+   \                                 In  segment BANK_RELAYS, align 1
+   \                     ??SmartHomeApp_MessageMSGCB?relay:
+   \   000000   12....       LCALL   ?BDISPATCH
+   \   000003   ......       DC24    SmartHomeApp_MessageMSGCB
+
+   \                                 In  segment XDATA_ROM_C, align 1
+   \                     `?<Constant "My name is %s\\n">`:
+   \   000000   4D79206E     DB "My name is %s\012"
+   \            616D6520
+   \            69732025
+   \            730A00  
+
+   \                                 In  segment XDATA_ROM_C, align 1
+   \                     `?<Constant "DoorLight">`:
+   \   000000   446F6F72     DB "DoorLight"
+   \            4C696768
+   \            7400    
+
+   \                                 In  segment XDATA_ROM_C, align 1
+   \                     `?<Constant "DoorSensor">`:
+   \   000000   446F6F72     DB "DoorSensor"
+   \            53656E73
+   \            6F7200  
+
+   \                                 In  segment XDATA_ROM_C, align 1
+   \                     `?<Constant "ERROR: Unkown name: %s\\n">`:
+   \   000000   4552524F     DB "ERROR: Unkown name: %s\012"
+   \            523A2055
+   \            6E6B6F77
+   \            6E206E61
+   \            6D653A20
+   \            25730A00
+
+   \                                 In  segment XDATA_ROM_C, align 1
+   \                     `?<Constant "SendCmdFailed:%s\\n">`:
+   \   000000   53656E64     DB "SendCmdFailed:%s\012"
+   \            436D6446
+   \            61696C65
+   \            643A2573
+   \            0A00    
+
+   \                                 In  segment XDATA_ROM_C, align 1
+   \                     `?<Constant "ReadName">`:
+   \   000000   52656164     DB "ReadName"
+   \            4E616D65
+   \            00      
+
+   \                                 In  segment XDATA_ROM_C, align 1
+   \                     `?<Constant "ReadName:%s\\n">`:
+   \   000000   52656164     DB "ReadName:%s\012"
+   \            4E616D65
+   \            3A25730A
+   \            00      
+
+   \                                 In  segment XDATA_ROM_C, align 1
+   \                     `?<Constant "WriteName ">`:
+   \   000000   57726974     DB "WriteName "
+   \            654E616D
+   \            652000  
+
+   \                                 In  segment XDATA_ROM_C, align 1
+   \                     `?<Constant "WriteName:%s\\n">`:
+   \   000000   57726974     DB "WriteName:%s\012"
+   \            654E616D
+   \            653A2573
+   \            0A00    
+
+   \                                 In  segment XDATA_ROM_C, align 1
+   \                     `?<Constant "SendCmd ">`:
+   \   000000   53656E64     DB "SendCmd "
+   \            436D6420
+   \            00      
+
+   \                                 In  segment XDATA_ROM_C, align 1
+   \                     `?<Constant "Unkown Cmd:%s\\n">`:
+   \   000000   556E6B6F     DB "Unkown Cmd:%s\012"
+   \            776E2043
+   \            6D643A25
+   \            730A00  
+
+   \                                 In  segment XDATA_ROM_C, align 1
+   \                     `?<Constant "SendMsgFailed:%X\\n">`:
+   \   000000   53656E64     DB "SendMsgFailed:%X\012"
+   \            4D736746
+   \            61696C65
+   \            643A2558
+   \            0A00    
+
+   \                                 In  segment XDATA_ROM_C, align 1
+   \                     `?<Constant "SendMsgOK:%X\\n">`:
+   \   000000   53656E64     DB "SendMsgOK:%X\012"
+   \            4D73674F
+   \            4B3A2558
+   \            0A00    
+
+   \                                 In  segment XDATA_ROM_C, align 1
+   \                     `?<Constant "Addr=%04X, ParentAddr...">`:
+   \   000000   41646472     DB "Addr=%04X, ParentAddr=%04X\012"
+   \            3D253034
+   \            582C2050
+   \            6172656E
+   \            74416464
+   \            723D2530
+   \            34580A00
+
+   \                                 In  segment XDATA_ROM_C, align 1
+   \                     `?<Constant "ReportNamesResp %s %0...">`:
+   \   000000   5265706F     DB "ReportNamesResp %s %04X %04X"
+   \            72744E61
+   \            6D657352
+   \            65737020
+   \            25732025
+   \            30345820
+   \            25303458
+   \            00      
+
+   \                                 In  segment XDATA_ROM_C, align 1
+   \                     `?<Constant "send ReportNamesResp ...">`:
+   \   000000   73656E64     DB "send ReportNamesResp error %s\012"
+   \            20526570
+   \            6F72744E
+   \            616D6573
+   \            52657370
+   \            20657272
+   \            6F722025
+   \            730A00  
+
+   \                                 In  segment XDATA_ROM_C, align 1
+   \                     `?<Constant "Invalid name addr map...">`:
+   \   000000   496E7661     DB "Invalid name addr map: %s\012"
+   \            6C696420
+   \            6E616D65
+   \            20616464
+   \            72206D61
+   \            703A2025
+   \            730A00  
+
+   \                                 In  segment XDATA_ROM_C, align 1
+   \                     `?<Constant "NameAddrMap %04X %s">`:
+   \   000000   4E616D65     DB "NameAddrMap %04X %s"
+   \            41646472
+   \            4D617020
+   \            25303458
+   \            20257300
+
+   \                                 In  segment XDATA_ROM_C, align 1
+   \                     `?<Constant "SmartHomeApp_SendName...">`:
+   \   000000   536D6172     DB "SmartHomeApp_SendNameAddrResp error %s\012"
+   \            74486F6D
+   \            65417070
+   \            5F53656E
+   \            644E616D
+   \            65416464
+   \            72526573
+   \            70206572
+   \            726F7220
+   \            25730A00
+
+   \                                 In  segment XDATA_ROM_C, align 1
+   \                     `?<Constant "ReceiveMsg:%s\\n">`:
+   \   000000   52656365     DB "ReceiveMsg:%s\012"
+   \            6976654D
+   \            73673A25
+   \            730A00  
+
+   \                                 In  segment XDATA_ROM_C, align 1
+   \                     `?<Constant "ReportNames">`:
+   \   000000   5265706F     DB "ReportNames"
+   \            72744E61
+   \            6D657300
+
+   \                                 In  segment XDATA_ROM_C, align 1
+   \                     `?<Constant "NameAddrMap ">`:
+   \   000000   4E616D65     DB "NameAddrMap "
+   \            41646472
+   \            4D617020
+   \            00      
+
+   \                                 In  segment XDATA_ROM_C, align 1
+   \                     `?<Constant "NameAddrNotMatch %s\\n">`:
+   \   000000   4E616D65     DB "NameAddrNotMatch %s\012"
+   \            41646472
+   \            4E6F744D
+   \            61746368
+   \            2025730A
+   \            00      
+    758          
+    759          /*********************************************************************
+    760           * @fn      SmartHomeApp_SendTheMessage
+    761           *
+    762           * @brief   Send "the" message.
+    763           *
+    764           * @param   none
+    765           *
+    766           * @return  none
+    767           */
+    768          //static void SmartHomeApp_SendTheMessage( void )
+    769          //{
+    770          //  char theMessageData[] = "Hello World";
+    771          //
+    772          //  if ( AF_DataRequest( &SmartHomeApp_DstAddr, &SmartHomeApp_epDesc,
+    773          //                       SmartHomeApp_CLUSTERID,
+    774          //                       (byte)osal_strlen( theMessageData ) + 1,
+    775          //                       (byte *)&theMessageData,
+    776          //                       &SmartHomeApp_TransID,
+    777          //                       AF_DISCV_ROUTE, AF_DEFAULT_RADIUS ) == afStatus_SUCCESS )
+    778          //  {
+    779          //    // Successfully requested to be sent.
+    780          //  }
+    781          //  else
+    782          //  {
+    783          //    // Error occurred in request to send.
+    784          //  }
+    785          //}
+    786          
+    787          
+    788          /*********************************************************************
+    789           */
+
+   Maximum stack usage in bytes:
+
+     Function                       ISTACK PSTACK XSTACK
+     --------                       ------ ------ ------
+     SmartHomeApp_CallBack              0      0      9
+       -> HalUARTRead                   0      0     18
+       -> processUartCB                 0      0     18
+     SmartHomeApp_Init                  0      0     41
+       -> HalUARTOpen                   0      0     78
+       -> Util_ReadName                 0      0     78
+       -> printf                        0      0     82
+       -> Util_ReadName                 0      0     78
+       -> Util_StrEqual                 0      0     78
+       -> Util_ReadName                 0      0     78
+       -> Util_StrEqual                 0      0     78
+       -> Util_ReadName                 0      0     78
+       -> printf                        0      0     82
+       -> afRegister                    0      0     78
+       -> RegisterForKeys               0      0     78
+       -> ZDO_RegisterForZDOMsg         0      0     78
+       -> ZDO_RegisterForZDOMsg         0      0     78
+     SmartHomeApp_MessageMSGCB          0      0     28
+       -> printf                        0      0     28
+       -> Util_StrEqual                 0      0     24
+       -> SmartHomeApp_ProcessReportNames
+                                        0      0     24
+       -> Util_StartWith                0      0     24
+       -> SmartHomeApp_ProcessNameAddrMapResp
+                                        0      0     24
+       -> Util_GetNameFromCmd           0      0     24
+       -> printf                        0      0     28
+       -> SmartHomeApp_SendNameAddrResp
+                                        0      0     24
+       -> Util_ReadName                 0      0     24
+       -> Util_StrEqual                 0      0     24
+       -> osal_mem_free                 0      0     24
+       -> SmartHomeApp_SendNameAddrResp
+                                        0      0     24
+     SmartHomeApp_ProcessEvent          0      0     18
+       -> osal_msg_receive              0      0     28
+       -> NLME_GetShortAddr             0      0     28
+       -> NLME_GetCoordShortAddr        0      0     28
+       -> printf                        0      0     36
+       -> osal_msg_deallocate           0      0     28
+       -> osal_msg_receive              0      0     28
+       -> ZDO_ParseEPListRsp            0      0     28
+       -> HalLedSet                     0      0     28
+       -> osal_mem_free                 0      0     28
+       -> HalLedSet                     0      0     28
+       -> HalLedSet                     0      0     28
+       -> printf                        0      0     32
+       -> printf                        0      0     32
+       -> SmartHomeApp_MessageMSGCB     0      0     28
+     SmartHomeApp_ProcessNameAddrMapResp
+                                        0      0     26
+       -> osal_strlen                   0      0     24
+       -> osal_strlen                   0      0     24
+       -> printf                        0      0     28
+       -> Util_Str2Uint16               0      0     24
+       -> NameAddrCache_put             0      0     24
+     SmartHomeApp_ProcessReportNames
+                                        0      0     83
+       -> NLME_GetShortAddr             0      0    124
+       -> NLME_GetCoordShortAddr        0      0    124
+       -> Util_ReadName                 0      0    132
+       -> sprintf                       0      0    136
+       -> osal_strlen                   0      0    134
+       -> AF_DataRequest                0      0    142
+       -> printf                        0      0    128
+     SmartHomeApp_SendNameAddrResp      0      0     97
+       -> Util_ReadName                 0      0    152
+       -> NLME_GetShortAddr             0      0    156
+       -> sprintf                       0      0    160
+       -> osal_strlen                   0      0    162
+       -> AF_DataRequest                0      0    170
+       -> printf                        0      0    156
+     processUartCB                      0      0     30
+       -> Util_StartWith                0      0     24
+       -> Util_ReadName                 0      0     24
+       -> printf                        0      0     28
+       -> Util_StartWith                0      0     24
+       -> Util_WriteName                0      0     24
+       -> Util_ReadName                 0      0     24
+       -> printf                        0      0     28
+       -> Util_StartWith                0      0     24
+       -> NameAddrCache_getAddrFromCmd
+                                        0      0     24
+       -> osal_strlen                   0      0     34
+       -> AF_DataRequest                0      0     42
+       -> printf                        0      0     28
+       -> printf                        0      0     28
+
+
+   Segment part sizes:
+
+     Function/Label                              Bytes
+     --------------                              -----
+     SmartHomeApp_ClusterList                       2
+     SmartHomeApp_SimpleDesc                       12
+     SmartHomeApp_epDesc                            6
+     RxBuf                                         65
+     SerialApp_TxLen                                1
+     SmartHomeApp_TaskID                            1
+     SmartHomeApp_NwkState                          1
+     SmartHomeApp_TransID                           1
+     SmartHomeApp_DstAddr                          12
+     Processor_HandleKeys                           2
+     Processor_HandleMsg                            2
+     SmartHomeApp_Init                            333
+     ?Subroutine3                                   6
+     ?Subroutine2                                  10
+     ?Subroutine4                                   8
+     processUartCB                                266
+     ?Subroutine0                                   5
+     SmartHomeApp_CallBack                         74
+     SmartHomeApp_ProcessEvent                    346
+     ?Subroutine1                                   5
+     ?Subroutine10                                 11
+     ?Subroutine12                                 14
+     ?Subroutine5                                  10
+     ??Subroutine14_0                               9
+     ?Subroutine9                                   9
+     SmartHomeApp_ProcessReportNames
+                                                  192
+     ?Subroutine8                                   6
+     ?Subroutine7                                  20
+     SmartHomeApp_ProcessNameAddrMapResp
+                                                  111
+     SmartHomeApp_SendNameAddrResp                174
+     SmartHomeApp_MessageMSGCB                    242
+     ?Subroutine11                                  3
+     ?Subroutine6                                   9
+     ?Subroutine13                                 11
+     ??SmartHomeApp_Init?relay                      6
+     ??processUartCB?relay                          6
+     ??SmartHomeApp_CallBack?relay                  6
+     ??SmartHomeApp_ProcessEvent?relay              6
+     ??SmartHomeApp_ProcessReportNames?relay        6
+     ??SmartHomeApp_ProcessNameAddrMapResp?relay    6
+     ??SmartHomeApp_SendNameAddrResp?relay          6
+     ??SmartHomeApp_MessageMSGCB?relay              6
+     ?<Constant "My name is %s\n">                 15
+     ?<Constant "DoorLight">                       10
+     ?<Constant "DoorSensor">                      11
+     ?<Constant "ERROR: Unkown name: %s\n">        24
+     ?<Constant "SendCmdFailed:%s\n">              18
+     ?<Constant "ReadName">                         9
+     ?<Constant "ReadName:%s\n">                   13
+     ?<Constant "WriteName ">                      11
+     ?<Constant "WriteName:%s\n">                  14
+     ?<Constant "SendCmd ">                         9
+     ?<Constant "Unkown Cmd:%s\n">                 15
+     ?<Constant "SendMsgFailed:%X\n">              18
+     ?<Constant "SendMsgOK:%X\n">                  14
+     ?<Constant "Addr=%04X, ParentAddr...">        28
+     ?<Constant "ReportNamesResp %s %0...">        29
+     ?<Constant "send ReportNamesResp ...">        31
+     ?<Constant "Invalid name addr map...">        27
+     ?<Constant "NameAddrMap %04X %s">             20
+     ?<Constant "SmartHomeApp_SendName...">        40
+     ?<Constant "ReceiveMsg:%s\n">                 15
+     ?<Constant "ReportNames">                     12
+     ?<Constant "NameAddrMap ">                    13
+     ?<Constant "NameAddrNotMatch %s\n">           21
+
+ 
+ 1 874 bytes in segment BANKED_CODE
+    48 bytes in segment BANK_RELAYS
+   431 bytes in segment XDATA_ROM_C
+    91 bytes in segment XDATA_Z
+ 
+ 1 922 bytes of CODE  memory
+   431 bytes of CONST memory
+    91 bytes of XDATA memory
+
+Errors: none
+Warnings: none
