@@ -307,11 +307,13 @@ void SmartHome_SendCmd(uint8* buf)
 static void processUartCB(uint8* buf, uint8 len)
 {
   // process UART input
-  if (Util_StartWith(buf, "ReadName")) {
+  if (Util_StrEqual(buf, "ReadName")) {
     printf("ReadName:%s\n", Util_ReadName());
   } else if (Util_StartWith(buf, "WriteName ")) {
     Util_WriteName(buf + 10, len - 9);
     printf("WriteName:%s\n", Util_ReadName());
+  } else  if (Util_StrEqual(buf, "SystemReset")) {
+    SystemReset();
   } else if (Util_StartWith(buf, "SendCmd ")) {
     SmartHome_SendCmd(buf + 8);
   } else {
