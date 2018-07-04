@@ -1,5 +1,16 @@
 #include "DefaultProcessor.h"
 
+void DefaultProcessor_Init(void)
+{
+  
+}
+
+void DefaultProcessor_Update(void)
+{
+  
+}
+
+
 
 void DefaultProcessor_HandleKeys(uint8 keys)
 {

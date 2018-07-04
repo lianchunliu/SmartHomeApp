@@ -156,6 +156,8 @@ afAddrType_t SmartHomeApp_DstAddr;
 
 void (*Processor_HandleKeys)(uint8 keys);
 void (*Processor_HandleMsg)(uint8* msg);
+void (*Processor_Init)(void);
+void (*Processor_Update)(void);
 
 /*********************************************************************
  * LOCAL FUNCTIONS
@@ -219,15 +221,24 @@ void SmartHomeApp_Init( uint8 task_id )
   if (Util_StrEqual((uint8*)"DoorLight", Util_ReadName())) {    
     Processor_HandleKeys = &DoorLight_HandleKeys;
     Processor_HandleMsg = &DoorLight_HandleMsg;
+    Processor_Init = &DoorLight_Init;
+    Processor_Update = &DoorLight_Update;
+    
   } else if (Util_StrEqual((uint8*)"DoorSensor", Util_ReadName())) {    
     Processor_HandleKeys = &DoorSensor_HandleKeys;
     Processor_HandleMsg = &DoorSensor_HandleMsg;
+    Processor_Init = &DoorSensor_Init;
+    Processor_Update = &DoorSensor_Update;
+    
   } else {
     printf("ERROR: Unkown name: %s\n", Util_ReadName());
     Processor_HandleKeys = &DefaultProcessor_HandleKeys;
     Processor_HandleMsg = &DefaultProcessor_HandleMsg;
+    Processor_Init = &DefaultProcessor_Init;
+    Processor_Update = &DefaultProcessor_Update;
   }
   
+  Processor_Init();
   
   SmartHomeApp_DstAddr.addrMode = (afAddrMode_t)AddrNotPresent;
   SmartHomeApp_DstAddr.endPoint = SmartHomeApp_ENDPOINT;
@@ -475,7 +486,7 @@ uint16 SmartHomeApp_ProcessEvent( uint8 task_id, uint16 events )
   if ( events & SmartHomeApp_TIMER_UPDATE_EVT )
   {
     
-    DoorLight_Update();
+    Processor_Update();
     // Setup to send message again
     osal_start_timerEx( SmartHomeApp_TaskID,
                         SmartHomeApp_TIMER_UPDATE_EVT,

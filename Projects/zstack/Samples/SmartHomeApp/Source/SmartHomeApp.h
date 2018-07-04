@@ -96,7 +96,7 @@ extern UINT16 SmartHomeApp_ProcessEvent( byte task_id, UINT16 events );
 
 static void SmartHomeApp_CallBack(uint8 port, uint8 event);
 
-static void SmartHome_SendCmd(uint8* buf);
+void SmartHome_SendCmd(uint8* buf);
 
 /*********************************************************************
 *********************************************************************/

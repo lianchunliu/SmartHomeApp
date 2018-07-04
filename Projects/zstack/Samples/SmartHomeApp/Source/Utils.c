@@ -24,6 +24,7 @@ const uint8* Util_ReadName(void)
   }
   
   myBuf = osal_mem_alloc(len+1);
+  osal_nv_item_init(MY_NAME_NV_ID, len, NULL);
   if (osal_nv_read(MY_NAME_NV_ID, 0, len, myBuf ) == ZSUCCESS) {
     myBuf[len] = 0;
     application_name = myBuf;

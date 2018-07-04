@@ -11,4 +11,6 @@ void DoorLight_HandleMsg(uint8* msg);
 
 void DoorLight_Update(void);
 
+void DoorLight_Init(void);
+
 #endif /* DoorLight_H*/

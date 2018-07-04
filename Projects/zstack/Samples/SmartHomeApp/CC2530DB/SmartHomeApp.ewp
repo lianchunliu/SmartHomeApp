@@ -3183,6 +3183,12 @@
     <group>
       <name>Modules</name>
       <file>
+        <name>$PROJ_DIR$\..\Source\DefaultLight.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\Source\DefaultLight.h</name>
+      </file>
+      <file>
         <name>$PROJ_DIR$\..\Source\DefaultProcessor.c</name>
       </file>
       <file>
