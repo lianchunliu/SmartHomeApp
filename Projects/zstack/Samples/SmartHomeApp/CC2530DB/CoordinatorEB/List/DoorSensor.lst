@@ -1,6 +1,6 @@
 ###############################################################################
 #                                                                             #
-# IAR C/C++ Compiler V8.10.3.10338/W32 for 8051         03/Jul/2018  08:22:55 #
+# IAR C/C++ Compiler V8.10.3.10338/W32 for 8051         04/Jul/2018  22:34:45 #
 # Copyright 2004-2011 IAR Systems AB.                                         #
 #                                                                             #
 #    Core               =  plain                                              #
@@ -118,20 +118,44 @@
 
 C:\ZigBee\SmartHomeApp\Projects\zstack\Samples\SmartHomeApp\Source\DoorSensor.c
       1          #include "DoorSensor.h"
-      2          
-      3          
+      2          #include "SmartHomeApp.h"
+      3          #include "hal_key.h"
+      4          
+      5          
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-      4          void DoorSensor_HandleKeys(uint8 keys)
+      6          void DoorSensor_Init()
+   \                     DoorSensor_Init:
+      7          {
+   \   000000                ; Saved register size: 0
+   \   000000                ; Auto size: 0
+      8            
+      9          }
+   \   000000   02....       LJMP    ?BRET
+     10          
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+     11          void DoorSensor_Update()
+   \                     DoorSensor_Update:
+     12          {
+   \   000000                ; Saved register size: 0
+   \   000000                ; Auto size: 0
+     13            
+     14          }
+   \   000000   02....       LJMP    ?BRET
+     15          
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+     16          void DoorSensor_HandleKeys(uint8 keys)
    \                     DoorSensor_HandleKeys:
-      5          {
+     17          {
    \   000000   74F6         MOV     A,#-0xa
    \   000002   12....       LCALL   ?BANKED_ENTER_XDATA
    \   000005                ; Saved register size: 10
    \   000005                ; Auto size: 0
    \   000005   E9           MOV     A,R1
    \   000006   FE           MOV     R6,A
-      6            printf("DoorSensor_HandleKeys : %X\n", keys);
+     18            printf("DoorSensor_HandleKeys : %X\n", keys);
    \   000007                ; Setup parameters for call to function printf
    \   000007   8E..         MOV     ?V0 + 0,R6
    \   000009   75..00       MOV     ?V0 + 1,#0x0
@@ -139,31 +163,54 @@ C:\ZigBee\SmartHomeApp\Projects\zstack\Samples\SmartHomeApp\Source\DoorSensor.c
    \   00000E   12....       LCALL   ?PUSH_XSTACK_I_TWO
    \   000011   7A..         MOV     R2,#`?<Constant "DoorSensor_HandleKeys...">` & 0xff
    \   000013   7B..         MOV     R3,#(`?<Constant "DoorSensor_HandleKeys...">` >> 8) & 0xff
-   \   000015                REQUIRE ?Subroutine0
-   \   000015                ; // Fall through to label ?Subroutine0
-      7            
-      8          }
+   \   000015   12....       LCALL   ??printf?relay
+   \   000018   7402         MOV     A,#0x2
+   \   00001A   12....       LCALL   ?DEALLOC_XSTACK8
+     19            
+     20            if (keys & HAL_KEY_SW_4) {
+   \   00001D   EE           MOV     A,R6
+   \   00001E   A2E3         MOV     C,0xE0 /* A   */.3
+   \   000020   5007         JNC     ??DoorSensor_HandleKeys_0
+     21              SmartHome_SendCmd("TurnOffLater DoorLight 0 60");
+   \   000022                ; Setup parameters for call to function SmartHome_SendCmd
+   \   000022   7A..         MOV     R2,#`?<Constant "TurnOffLater DoorLigh...">` & 0xff
+   \   000024   7B..         MOV     R3,#(`?<Constant "TurnOffLater DoorLigh...">` >> 8) & 0xff
+   \   000026   12....       LCALL   ??SmartHome_SendCmd?relay
+     22            }
+     23            
+     24            if (keys & HAL_KEY_SW_5) {
+   \                     ??DoorSensor_HandleKeys_0:
+   \   000029   EE           MOV     A,R6
+   \   00002A   A2E2         MOV     C,0xE0 /* A   */.2
+   \   00002C   5007         JNC     ??DoorSensor_HandleKeys_1
+     25              SmartHome_SendCmd("TurnOffLater DoorLight 1 30");
+   \   00002E                ; Setup parameters for call to function SmartHome_SendCmd
+   \   00002E   7A..         MOV     R2,#`?<Constant "TurnOffLater DoorLigh...">_1` & 0xff
+   \   000030   7B..         MOV     R3,#(`?<Constant "TurnOffLater DoorLigh...">_1` >> 8) & 0xff
+   \   000032   12....       LCALL   ??SmartHome_SendCmd?relay
+     26            }
+     27          }
+   \                     ??DoorSensor_HandleKeys_1:
+   \   000035                REQUIRE ?Subroutine0
+   \   000035                ; // Fall through to label ?Subroutine0
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
    \                     ?Subroutine0:
-   \   000000   12....       LCALL   ??printf?relay
-   \   000003   7402         MOV     A,#0x2
-   \   000005   12....       LCALL   ?DEALLOC_XSTACK8
-   \   000008   7F02         MOV     R7,#0x2
-   \   00000A   02....       LJMP    ?BANKED_LEAVE_XDATA
-      9          
-     10          
+   \   000000   7F02         MOV     R7,#0x2
+   \   000002   02....       LJMP    ?BANKED_LEAVE_XDATA
+     28          
+     29          
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-     11          void DoorSensor_HandleMsg(uint8* msg)
+     30          void DoorSensor_HandleMsg(uint8* msg)
    \                     DoorSensor_HandleMsg:
-     12          {
+     31          {
    \   000000   74F6         MOV     A,#-0xa
    \   000002   12....       LCALL   ?BANKED_ENTER_XDATA
    \   000005                ; Saved register size: 10
    \   000005                ; Auto size: 0
-     13            
-     14            printf("DoorSensor_HandleMsg: %s\n", msg); 
+     32            
+     33            printf("DoorSensor_HandleMsg: %s\n", msg); 
    \   000005                ; Setup parameters for call to function printf
    \   000005   8A..         MOV     ?V0 + 0,R2
    \   000007   8B..         MOV     ?V0 + 1,R3
@@ -171,8 +218,21 @@ C:\ZigBee\SmartHomeApp\Projects\zstack\Samples\SmartHomeApp\Source\DoorSensor.c
    \   00000B   12....       LCALL   ?PUSH_XSTACK_I_TWO
    \   00000E   7A..         MOV     R2,#`?<Constant "DoorSensor_HandleMsg:...">` & 0xff
    \   000010   7B..         MOV     R3,#(`?<Constant "DoorSensor_HandleMsg:...">` >> 8) & 0xff
-   \   000012   80..         SJMP    ?Subroutine0
-     15          }
+   \   000012   12....       LCALL   ??printf?relay
+   \   000015   7402         MOV     A,#0x2
+   \   000017   12....       LCALL   ?DEALLOC_XSTACK8
+     34          }
+   \   00001A   80..         SJMP    ?Subroutine0
+
+   \                                 In  segment BANK_RELAYS, align 1
+   \                     ??DoorSensor_Init?relay:
+   \   000000   12....       LCALL   ?BDISPATCH
+   \   000003   ......       DC24    DoorSensor_Init
+
+   \                                 In  segment BANK_RELAYS, align 1
+   \                     ??DoorSensor_Update?relay:
+   \   000000   12....       LCALL   ?BDISPATCH
+   \   000003   ......       DC24    DoorSensor_Update
 
    \                                 In  segment BANK_RELAYS, align 1
    \                     ??DoorSensor_HandleKeys?relay:
@@ -195,6 +255,26 @@ C:\ZigBee\SmartHomeApp\Projects\zstack\Samples\SmartHomeApp\Source\DoorSensor.c
    \            25580A00
 
    \                                 In  segment XDATA_ROM_C, align 1
+   \                     `?<Constant "TurnOffLater DoorLigh...">`:
+   \   000000   5475726E     DB "TurnOffLater DoorLight 0 60"
+   \            4F66664C
+   \            61746572
+   \            20446F6F
+   \            724C6967
+   \            68742030
+   \            20363000
+
+   \                                 In  segment XDATA_ROM_C, align 1
+   \                     `?<Constant "TurnOffLater DoorLigh...">_1`:
+   \   000000   5475726E     DB "TurnOffLater DoorLight 1 30"
+   \            4F66664C
+   \            61746572
+   \            20446F6F
+   \            724C6967
+   \            68742031
+   \            20333000
+
+   \                                 In  segment XDATA_ROM_C, align 1
    \                     `?<Constant "DoorSensor_HandleMsg:...">`:
    \   000000   446F6F72     DB "DoorSensor_HandleMsg: %s\012"
    \            53656E73
@@ -206,33 +286,43 @@ C:\ZigBee\SmartHomeApp\Projects\zstack\Samples\SmartHomeApp\Source\DoorSensor.c
 
    Maximum stack usage in bytes:
 
-     Function              ISTACK PSTACK XSTACK
-     --------              ------ ------ ------
-     DoorSensor_HandleKeys     0      0     12
-       -> printf               0      0     24
-     DoorSensor_HandleMsg      0      0     12
-       -> printf               0      0     24
+     Function               ISTACK PSTACK XSTACK
+     --------               ------ ------ ------
+     DoorSensor_HandleKeys      0      0     12
+       -> printf                0      0     24
+       -> SmartHome_SendCmd     0      0     20
+       -> SmartHome_SendCmd     0      0     20
+     DoorSensor_HandleMsg       0      0     12
+       -> printf                0      0     24
+     DoorSensor_Init            0      0      0
+     DoorSensor_Update          0      0      0
 
 
    Segment part sizes:
 
-     Function/Label                         Bytes
-     --------------                         -----
-     DoorSensor_HandleKeys                    21
-     ?Subroutine0                             13
-     DoorSensor_HandleMsg                     20
-     ??DoorSensor_HandleKeys?relay             6
-     ??DoorSensor_HandleMsg?relay              6
-     ?<Constant "DoorSensor_HandleKeys...">   28
-     ?<Constant "DoorSensor_HandleMsg:...">   26
+     Function/Label                           Bytes
+     --------------                           -----
+     DoorSensor_Init                             3
+     DoorSensor_Update                           3
+     DoorSensor_HandleKeys                      53
+     ?Subroutine0                                5
+     DoorSensor_HandleMsg                       28
+     ??DoorSensor_Init?relay                     6
+     ??DoorSensor_Update?relay                   6
+     ??DoorSensor_HandleKeys?relay               6
+     ??DoorSensor_HandleMsg?relay                6
+     ?<Constant "DoorSensor_HandleKeys...">     28
+     ?<Constant "TurnOffLater DoorLigh...">     28
+     ?<Constant "TurnOffLater DoorLigh...">_1   28
+     ?<Constant "DoorSensor_HandleMsg:...">     26
 
  
- 54 bytes in segment BANKED_CODE
- 12 bytes in segment BANK_RELAYS
- 54 bytes in segment XDATA_ROM_C
+  92 bytes in segment BANKED_CODE
+  24 bytes in segment BANK_RELAYS
+ 110 bytes in segment XDATA_ROM_C
  
- 66 bytes of CODE  memory
- 54 bytes of CONST memory
+ 116 bytes of CODE  memory
+ 110 bytes of CONST memory
 
 Errors: none
 Warnings: none

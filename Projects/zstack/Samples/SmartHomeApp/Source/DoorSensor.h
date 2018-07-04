@@ -6,7 +6,7 @@
 
 void DoorSensor_HandleKeys(uint8 keys);
 
-void DoorSensor_HandleMsg(uint8* msg);
+void DoorSensor_HandleMsg(uint8* msg, uint16 srcAddr);
 
 void DoorSensor_Init(void);
 

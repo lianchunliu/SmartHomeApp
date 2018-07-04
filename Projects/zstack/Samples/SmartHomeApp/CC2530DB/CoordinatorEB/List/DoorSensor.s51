@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //                                                                            /
-// IAR C/C++ Compiler V8.10.3.10338/W32 for 8051        03/Jul/2018  08:22:55 /
+// IAR C/C++ Compiler V8.10.3.10338/W32 for 8051        04/Jul/2018  22:34:45 /
 // Copyright 2004-2011 IAR Systems AB.                                        /
 //                                                                            /
 //    Core               =  plain                                             /
@@ -137,6 +137,7 @@
         EXTERN ?BANKED_ENTER_XDATA
         EXTERN ?BANKED_LEAVE_XDATA
         EXTERN ?BDISPATCH
+        EXTERN ?BRET
         EXTERN ?DEALLOC_XSTACK8
         EXTERN ?PUSH_XSTACK_I_TWO
         EXTERN ?V0
@@ -145,6 +146,10 @@
         FUNCTION ??DoorSensor_HandleKeys?relay,0203H
         PUBLIC ??DoorSensor_HandleMsg?relay
         FUNCTION ??DoorSensor_HandleMsg?relay,0203H
+        PUBLIC ??DoorSensor_Init?relay
+        FUNCTION ??DoorSensor_Init?relay,0203H
+        PUBLIC ??DoorSensor_Update?relay
+        FUNCTION ??DoorSensor_Update?relay,0203H
         PUBLIC DoorSensor_HandleKeys
         FUNCTION DoorSensor_HandleKeys,021203H
         ARGFRAME XSTACK, 0, STACK
@@ -153,6 +158,12 @@
         FUNCTION DoorSensor_HandleMsg,021203H
         ARGFRAME XSTACK, 0, STACK
         LOCFRAME XSTACK, 12, STACK
+        PUBLIC DoorSensor_Init
+        FUNCTION DoorSensor_Init,0203H
+        ARGFRAME XSTACK, 0, STACK
+        PUBLIC DoorSensor_Update
+        FUNCTION DoorSensor_Update,0203H
+        ARGFRAME XSTACK, 0, STACK
         
         CFI Names cfiNames0
         CFI StackFrame CFA_SP SP IDATA
@@ -243,11 +254,17 @@
         CFI EndCommon cfiCommon0
         
 printf              SYMBOL "printf"
+SmartHome_SendCmd   SYMBOL "SmartHome_SendCmd"
+??SmartHome_SendCmd?relay SYMBOL "?relay", SmartHome_SendCmd
 ??printf?relay      SYMBOL "?relay", printf
 DoorSensor_HandleKeys SYMBOL "DoorSensor_HandleKeys"
 ??DoorSensor_HandleKeys?relay SYMBOL "?relay", DoorSensor_HandleKeys
 DoorSensor_HandleMsg SYMBOL "DoorSensor_HandleMsg"
 ??DoorSensor_HandleMsg?relay SYMBOL "?relay", DoorSensor_HandleMsg
+DoorSensor_Init     SYMBOL "DoorSensor_Init"
+??DoorSensor_Init?relay SYMBOL "?relay", DoorSensor_Init
+DoorSensor_Update   SYMBOL "DoorSensor_Update"
+??DoorSensor_Update?relay SYMBOL "?relay", DoorSensor_Update
 
         EXTERN printf
         FUNCTION printf,0202H
@@ -256,21 +273,62 @@ DoorSensor_HandleMsg SYMBOL "DoorSensor_HandleMsg"
         ARGFRAME XSTACK, 12, STACK
         ARGFRAME IOVERLAY, 0, STATIC
         ARGFRAME DOVERLAY, 0, STATIC
+        EXTERN SmartHome_SendCmd
+        FUNCTION SmartHome_SendCmd,0202H
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 10, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        EXTERN ??SmartHome_SendCmd?relay
+        FUNCTION ??SmartHome_SendCmd?relay,00H
         EXTERN ??printf?relay
         FUNCTION ??printf?relay,00H
 
 // C:\ZigBee\SmartHomeApp\Projects\zstack\Samples\SmartHomeApp\Source\DoorSensor.c
 //    1 #include "DoorSensor.h"
-//    2 
-//    3 
+//    2 #include "SmartHomeApp.h"
+//    3 #include "hal_key.h"
+//    4 
+//    5 
 
         RSEG BANKED_CODE:CODE:NOROOT(0)
-//    4 void DoorSensor_HandleKeys(uint8 keys)
-DoorSensor_HandleKeys:
+//    6 void DoorSensor_Init()
+DoorSensor_Init:
         CFI Block cfiBlock0 Using cfiCommon0
+        CFI Function DoorSensor_Init
+        CODE
+//    7 {
+        ; Saved register size: 0
+        ; Auto size: 0
+//    8   
+//    9 }
+        LJMP    ?BRET
+        CFI EndBlock cfiBlock0
+//   10 
+
+        RSEG BANKED_CODE:CODE:NOROOT(0)
+//   11 void DoorSensor_Update()
+DoorSensor_Update:
+        CFI Block cfiBlock1 Using cfiCommon0
+        CFI Function DoorSensor_Update
+        CODE
+//   12 {
+        ; Saved register size: 0
+        ; Auto size: 0
+//   13   
+//   14 }
+        LJMP    ?BRET
+        CFI EndBlock cfiBlock1
+//   15 
+
+        RSEG BANKED_CODE:CODE:NOROOT(0)
+//   16 void DoorSensor_HandleKeys(uint8 keys)
+DoorSensor_HandleKeys:
+        CFI Block cfiBlock2 Using cfiCommon0
         CFI Function DoorSensor_HandleKeys
         CODE
-//    5 {
+//   17 {
         FUNCALL DoorSensor_HandleKeys, printf
         LOCFRAME ISTACK, 0, STACK
         LOCFRAME PSTACK, 0, STACK
@@ -280,6 +338,28 @@ DoorSensor_HandleKeys:
         ARGFRAME ISTACK, 0, STACK
         ARGFRAME PSTACK, 0, STACK
         ARGFRAME XSTACK, 12, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL DoorSensor_HandleKeys, SmartHome_SendCmd
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 10, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 10, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL DoorSensor_HandleKeys, SmartHome_SendCmd
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 10, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 10, STACK
         ARGFRAME IOVERLAY, 0, STATIC
         ARGFRAME DOVERLAY, 0, STATIC
         MOV     A,#-0xa
@@ -300,7 +380,7 @@ DoorSensor_HandleKeys:
         ; Auto size: 0
         MOV     A,R1
         MOV     R6,A
-//    6   printf("DoorSensor_HandleKeys : %X\n", keys);
+//   18   printf("DoorSensor_HandleKeys : %X\n", keys);
         ; Setup parameters for call to function printf
         MOV     ?V0 + 0,R6
         MOV     ?V0 + 1,#0x0
@@ -309,18 +389,45 @@ DoorSensor_HandleKeys:
         CFI CFA_XSP16 add(XSP16, 12)
         MOV     R2,#`?<Constant "DoorSensor_HandleKeys...">` & 0xff
         MOV     R3,#(`?<Constant "DoorSensor_HandleKeys...">` >> 8) & 0xff
-        CFI EndBlock cfiBlock0
+        LCALL   ??printf?relay
+        MOV     A,#0x2
+        LCALL   ?DEALLOC_XSTACK8
+        CFI CFA_XSP16 add(XSP16, 10)
+//   19   
+//   20   if (keys & HAL_KEY_SW_4) {
+        MOV     A,R6
+        MOV     C,0xE0 /* A   */.3
+        JNC     ??DoorSensor_HandleKeys_0
+//   21     SmartHome_SendCmd("TurnOffLater DoorLight 0 60");
+        ; Setup parameters for call to function SmartHome_SendCmd
+        MOV     R2,#`?<Constant "TurnOffLater DoorLigh...">` & 0xff
+        MOV     R3,#(`?<Constant "TurnOffLater DoorLigh...">` >> 8) & 0xff
+        LCALL   ??SmartHome_SendCmd?relay
+//   22   }
+//   23   
+//   24   if (keys & HAL_KEY_SW_5) {
+??DoorSensor_HandleKeys_0:
+        MOV     A,R6
+        MOV     C,0xE0 /* A   */.2
+        JNC     ??DoorSensor_HandleKeys_1
+//   25     SmartHome_SendCmd("TurnOffLater DoorLight 1 30");
+        ; Setup parameters for call to function SmartHome_SendCmd
+        MOV     R2,#`?<Constant "TurnOffLater DoorLigh...">_1` & 0xff
+        MOV     R3,#(`?<Constant "TurnOffLater DoorLigh...">_1` >> 8) & 0xff
+        LCALL   ??SmartHome_SendCmd?relay
+        CFI EndBlock cfiBlock2
+//   26   }
+//   27 }
+??DoorSensor_HandleKeys_1:
         REQUIRE ?Subroutine0
         ; // Fall through to label ?Subroutine0
-//    7   
-//    8 }
 
         RSEG BANKED_CODE:CODE:NOROOT(0)
 ?Subroutine0:
-        CFI Block cfiBlock1 Using cfiCommon0
+        CFI Block cfiBlock3 Using cfiCommon0
         CFI NoFunction
         CFI CFA_SP SP+0
-        CFI CFA_XSP16 add(XSP16, 12)
+        CFI CFA_XSP16 add(XSP16, 10)
         CFI VB load(1, XDATA, add(CFA_XSP16, literal(-9)))
         CFI DPL0 load(1, XDATA, add(CFA_XSP16, literal(-2)))
         CFI DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
@@ -331,23 +438,19 @@ DoorSensor_HandleKeys:
         CFI ?BRET_EXT load(1, XDATA, add(CFA_XSP16, literal(-3)))
         CFI ?RET_HIGH load(1, XDATA, add(CFA_XSP16, literal(-4)))
         CFI ?RET_LOW load(1, XDATA, add(CFA_XSP16, literal(-5)))
-        LCALL   ??printf?relay
-        MOV     A,#0x2
-        LCALL   ?DEALLOC_XSTACK8
-        CFI CFA_XSP16 add(XSP16, 10)
         MOV     R7,#0x2
         LJMP    ?BANKED_LEAVE_XDATA
-        CFI EndBlock cfiBlock1
-//    9 
-//   10 
+        CFI EndBlock cfiBlock3
+//   28 
+//   29 
 
         RSEG BANKED_CODE:CODE:NOROOT(0)
-//   11 void DoorSensor_HandleMsg(uint8* msg)
+//   30 void DoorSensor_HandleMsg(uint8* msg)
 DoorSensor_HandleMsg:
-        CFI Block cfiBlock2 Using cfiCommon0
+        CFI Block cfiBlock4 Using cfiCommon0
         CFI Function DoorSensor_HandleMsg
         CODE
-//   12 {
+//   31 {
         FUNCALL DoorSensor_HandleMsg, printf
         LOCFRAME ISTACK, 0, STACK
         LOCFRAME PSTACK, 0, STACK
@@ -375,8 +478,8 @@ DoorSensor_HandleMsg:
         CFI CFA_XSP16 add(XSP16, 10)
         ; Saved register size: 10
         ; Auto size: 0
-//   13   
-//   14   printf("DoorSensor_HandleMsg: %s\n", msg); 
+//   32   
+//   33   printf("DoorSensor_HandleMsg: %s\n", msg); 
         ; Setup parameters for call to function printf
         MOV     ?V0 + 0,R2
         MOV     ?V0 + 1,R3
@@ -385,9 +488,25 @@ DoorSensor_HandleMsg:
         CFI CFA_XSP16 add(XSP16, 12)
         MOV     R2,#`?<Constant "DoorSensor_HandleMsg:...">` & 0xff
         MOV     R3,#(`?<Constant "DoorSensor_HandleMsg:...">` >> 8) & 0xff
+        LCALL   ??printf?relay
+        MOV     A,#0x2
+        LCALL   ?DEALLOC_XSTACK8
+        CFI CFA_XSP16 add(XSP16, 10)
+//   34 }
         SJMP    ?Subroutine0
-        CFI EndBlock cfiBlock2
-//   15 }
+        CFI EndBlock cfiBlock4
+
+        RSEG BANK_RELAYS:CODE:REORDER:NOROOT(0)
+??DoorSensor_Init?relay:
+        LCALL   ?BDISPATCH
+        DATA
+        DC24    DoorSensor_Init
+
+        RSEG BANK_RELAYS:CODE:REORDER:NOROOT(0)
+??DoorSensor_Update?relay:
+        LCALL   ?BDISPATCH
+        DATA
+        DC24    DoorSensor_Update
 
         RSEG BANK_RELAYS:CODE:REORDER:NOROOT(0)
 ??DoorSensor_HandleKeys?relay:
@@ -408,17 +527,27 @@ DoorSensor_HandleMsg:
 
         RSEG XDATA_ROM_C:CONST:REORDER:NOROOT(0)
         DATA8
+`?<Constant "TurnOffLater DoorLigh...">`:
+        DB "TurnOffLater DoorLight 0 60"
+
+        RSEG XDATA_ROM_C:CONST:REORDER:NOROOT(0)
+        DATA8
+`?<Constant "TurnOffLater DoorLigh...">_1`:
+        DB "TurnOffLater DoorLight 1 30"
+
+        RSEG XDATA_ROM_C:CONST:REORDER:NOROOT(0)
+        DATA8
 `?<Constant "DoorSensor_HandleMsg:...">`:
         DB "DoorSensor_HandleMsg: %s\012"
 
         END
 // 
-// 54 bytes in segment BANKED_CODE
-// 12 bytes in segment BANK_RELAYS
-// 54 bytes in segment XDATA_ROM_C
+//  92 bytes in segment BANKED_CODE
+//  24 bytes in segment BANK_RELAYS
+// 110 bytes in segment XDATA_ROM_C
 // 
-// 66 bytes of CODE  memory
-// 54 bytes of CONST memory
+// 116 bytes of CODE  memory
+// 110 bytes of CONST memory
 //
 //Errors: none
 //Warnings: none

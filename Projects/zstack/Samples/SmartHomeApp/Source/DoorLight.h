@@ -7,7 +7,7 @@
 //DoorLight_ProcessEvent();
 void DoorLight_HandleKeys(uint8 keys);
 
-void DoorLight_HandleMsg(uint8* msg);
+void DoorLight_HandleMsg(uint8* msg, uint16 srcAddr);
 
 void DoorLight_Update(void);
 

@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //                                                                            /
-// IAR C/C++ Compiler V8.10.3.10338/W32 for 8051        02/Jul/2018  19:56:19 /
+// IAR C/C++ Compiler V8.10.3.10338/W32 for 8051        04/Jul/2018  22:34:44 /
 // Copyright 2004-2011 IAR Systems AB.                                        /
 //                                                                            /
 //    Core               =  plain                                             /
@@ -137,20 +137,43 @@
         EXTERN ?BANKED_ENTER_XDATA
         EXTERN ?BANKED_LEAVE_XDATA
         EXTERN ?BDISPATCH
+        EXTERN ?BRET
         EXTERN ?DEALLOC_XSTACK8
         EXTERN ?PUSH_XSTACK_I_TWO
+        EXTERN ?US_SWITCH_DENSE
         EXTERN ?V0
 
         PUBLIC ??DoorLight_HandleKeys?relay
         FUNCTION ??DoorLight_HandleKeys?relay,0203H
         PUBLIC ??DoorLight_HandleMsg?relay
         FUNCTION ??DoorLight_HandleMsg?relay,0203H
+        PUBLIC ??DoorLight_Init?relay
+        FUNCTION ??DoorLight_Init?relay,0203H
+        PUBLIC ??DoorLight_Update?relay
+        FUNCTION ??DoorLight_Update?relay,0203H
+        FUNCTION ??turnOffLight?relay,0203H
+        FUNCTION ??turnOnLight?relay,0203H
         PUBLIC DoorLight_HandleKeys
         FUNCTION DoorLight_HandleKeys,021203H
         ARGFRAME XSTACK, 0, STACK
         LOCFRAME XSTACK, 12, STACK
         PUBLIC DoorLight_HandleMsg
         FUNCTION DoorLight_HandleMsg,021203H
+        ARGFRAME XSTACK, 0, STACK
+        LOCFRAME ISTACK, 2, STACK
+        PUBLIC DoorLight_Init
+        FUNCTION DoorLight_Init,021203H
+        ARGFRAME XSTACK, 0, STACK
+        LOCFRAME ISTACK, 2, STACK
+        PUBLIC DoorLight_Update
+        FUNCTION DoorLight_Update,021203H
+        ARGFRAME XSTACK, 0, STACK
+        LOCFRAME ISTACK, 2, STACK
+        PUBWEAK _A_P1
+        FUNCTION turnOffLight,0a1603H
+        ARGFRAME XSTACK, 0, STACK
+        LOCFRAME XSTACK, 12, STACK
+        FUNCTION turnOnLight,0a1603H
         ARGFRAME XSTACK, 0, STACK
         LOCFRAME XSTACK, 12, STACK
         
@@ -243,11 +266,21 @@
         CFI EndCommon cfiCommon0
         
 printf              SYMBOL "printf"
+DefaultLight_Init   SYMBOL "DefaultLight_Init"
+DefaultLight_HandleMsg SYMBOL "DefaultLight_HandleMsg"
+DefaultLight_Update SYMBOL "DefaultLight_Update"
+??DefaultLight_HandleMsg?relay SYMBOL "?relay", DefaultLight_HandleMsg
+??DefaultLight_Init?relay SYMBOL "?relay", DefaultLight_Init
+??DefaultLight_Update?relay SYMBOL "?relay", DefaultLight_Update
 ??printf?relay      SYMBOL "?relay", printf
 DoorLight_HandleKeys SYMBOL "DoorLight_HandleKeys"
 ??DoorLight_HandleKeys?relay SYMBOL "?relay", DoorLight_HandleKeys
 DoorLight_HandleMsg SYMBOL "DoorLight_HandleMsg"
 ??DoorLight_HandleMsg?relay SYMBOL "?relay", DoorLight_HandleMsg
+DoorLight_Init      SYMBOL "DoorLight_Init"
+??DoorLight_Init?relay SYMBOL "?relay", DoorLight_Init
+DoorLight_Update    SYMBOL "DoorLight_Update"
+??DoorLight_Update?relay SYMBOL "?relay", DoorLight_Update
 
         EXTERN printf
         FUNCTION printf,0202H
@@ -256,21 +289,347 @@ DoorLight_HandleMsg SYMBOL "DoorLight_HandleMsg"
         ARGFRAME XSTACK, 12, STACK
         ARGFRAME IOVERLAY, 0, STATIC
         ARGFRAME DOVERLAY, 0, STATIC
+        EXTERN DefaultLight_Init
+        FUNCTION DefaultLight_Init,0202H
+        ARGFRAME ISTACK, 2, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 0, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        EXTERN DefaultLight_HandleMsg
+        FUNCTION DefaultLight_HandleMsg,0202H
+        ARGFRAME ISTACK, 2, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 0, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        EXTERN DefaultLight_Update
+        FUNCTION DefaultLight_Update,0202H
+        ARGFRAME ISTACK, 2, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 0, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        EXTERN ??DefaultLight_HandleMsg?relay
+        FUNCTION ??DefaultLight_HandleMsg?relay,00H
+        EXTERN ??DefaultLight_Init?relay
+        FUNCTION ??DefaultLight_Init?relay,00H
+        EXTERN ??DefaultLight_Update?relay
+        FUNCTION ??DefaultLight_Update?relay,00H
         EXTERN ??printf?relay
         FUNCTION ??printf?relay,00H
 
 // C:\ZigBee\SmartHomeApp\Projects\zstack\Samples\SmartHomeApp\Source\DoorLight.c
 //    1 #include "DoorLight.h"
-//    2 
-//    3 
+//    2 #include "hal_mcu.h"
+
+        ASEGN SFR_AN:DATA:NOROOT,090H
+// union <unnamed> volatile __sfr _A_P1
+_A_P1:
+        DATA8
+        DS 1
+//    3 #include "Utils.h"
+//    4 
+//    5 #include "DefaultLight.h"
+//    6 
+//    7 #define LIGHT_TOTAL_NUM 3
+//    8 #define LIGHT0_PIN P1_0
+//    9 #define LIGHT1_PIN P1_1
+//   10 #define LIGHT2_PIN P1_4
+//   11 
+//   12 #define LIHGT_ON_STATE 0
+//   13 #define LIGHT_OFF_STATE 1
+//   14 
+//   15 
 
         RSEG BANKED_CODE:CODE:NOROOT(0)
-//    4 void DoorLight_HandleKeys(uint8 keys)
-DoorLight_HandleKeys:
+//   16 static void turnOnLight(uint16 lightNum)
+turnOnLight:
         CFI Block cfiBlock0 Using cfiCommon0
+        CFI Function turnOnLight
+        CODE
+//   17 {
+        FUNCALL turnOnLight, printf
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 12, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 12, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        MOV     A,#-0xa
+        LCALL   ?BANKED_ENTER_XDATA
+        CFI DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
+        CFI DPL0 load(1, XDATA, add(CFA_XSP16, literal(-2)))
+        CFI ?BRET_EXT load(1, XDATA, add(CFA_XSP16, literal(-3)))
+        CFI ?RET_HIGH load(1, XDATA, add(CFA_XSP16, literal(-4)))
+        CFI ?RET_LOW load(1, XDATA, add(CFA_XSP16, literal(-5)))
+        CFI R7 load(1, XDATA, add(CFA_XSP16, literal(-6)))
+        CFI V1 load(1, XDATA, add(CFA_XSP16, literal(-7)))
+        CFI V0 load(1, XDATA, add(CFA_XSP16, literal(-8)))
+        CFI VB load(1, XDATA, add(CFA_XSP16, literal(-9)))
+        CFI R6 load(1, XDATA, add(CFA_XSP16, literal(-10)))
+        CFI CFA_SP SP+0
+        CFI CFA_XSP16 add(XSP16, 10)
+        ; Saved register size: 10
+        ; Auto size: 0
+        MOV     ?V0 + 0,R2
+        MOV     ?V0 + 1,R3
+//   18   printf("TurnOn light %d\n", lightNum);
+        ; Setup parameters for call to function printf
+        MOV     R0,#?V0 + 0
+        LCALL   ?PUSH_XSTACK_I_TWO
+        CFI CFA_XSP16 add(XSP16, 12)
+        MOV     R2,#`?<Constant "TurnOn light %d\\n">` & 0xff
+        MOV     R3,#(`?<Constant "TurnOn light %d\\n">` >> 8) & 0xff
+        LCALL   ??printf?relay
+        MOV     A,#0x2
+        LCALL   ?DEALLOC_XSTACK8
+        CFI CFA_XSP16 add(XSP16, 10)
+//   19   
+//   20   switch(lightNum) {
+        MOV     R0,#?V0 + 0
+        LCALL   ?US_SWITCH_DENSE
+`?<Jumptable for turnOnLight>_0`:
+        DATA
+        DATA16
+        DATA
+        DATA16
+        DW        1
+        DATA
+        DATA8
+        DATA
+        DATA8
+        DB        1
+        DATA
+        DATA16
+        DATA
+        DATA16
+        DW        ??turnOnLight_0
+        DATA
+        DATA16
+        DATA
+        DATA16
+        DW        ??turnOnLight_1
+        DATA
+        DATA16
+        DATA
+        DATA16
+        DW        ??turnOnLight_2
+        CODE
+//   21   case 1:
+//   22     LIGHT1_PIN = LIHGT_ON_STATE;
+??turnOnLight_1:
+        CLR     0x90.1
+//   23     break;
+        SJMP    ??turnOnLight_3
+//   24   case 2:
+//   25     LIGHT2_PIN = LIHGT_ON_STATE;
+??turnOnLight_2:
+        CLR     0x90.4
+//   26     break;
+        SJMP    ??turnOnLight_3
+//   27   default:
+//   28     LIGHT0_PIN = LIHGT_ON_STATE;
+??turnOnLight_0:
+        CLR     0x90.0
+        CFI EndBlock cfiBlock0
+//   29   }
+//   30   
+//   31 }
+??turnOnLight_3:
+        REQUIRE ?Subroutine0
+        REQUIRE _A_P1
+        ; // Fall through to label ?Subroutine0
+
+        RSEG BANKED_CODE:CODE:NOROOT(0)
+?Subroutine0:
+        CFI Block cfiBlock1 Using cfiCommon0
+        CFI NoFunction
+        CFI CFA_SP SP+0
+        CFI CFA_XSP16 add(XSP16, 10)
+        CFI VB load(1, XDATA, add(CFA_XSP16, literal(-9)))
+        CFI DPL0 load(1, XDATA, add(CFA_XSP16, literal(-2)))
+        CFI DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
+        CFI R6 load(1, XDATA, add(CFA_XSP16, literal(-10)))
+        CFI R7 load(1, XDATA, add(CFA_XSP16, literal(-6)))
+        CFI V0 load(1, XDATA, add(CFA_XSP16, literal(-8)))
+        CFI V1 load(1, XDATA, add(CFA_XSP16, literal(-7)))
+        CFI ?BRET_EXT load(1, XDATA, add(CFA_XSP16, literal(-3)))
+        CFI ?RET_HIGH load(1, XDATA, add(CFA_XSP16, literal(-4)))
+        CFI ?RET_LOW load(1, XDATA, add(CFA_XSP16, literal(-5)))
+        MOV     R7,#0x2
+        LJMP    ?BANKED_LEAVE_XDATA
+        CFI EndBlock cfiBlock1
+//   32 
+
+        RSEG BANKED_CODE:CODE:NOROOT(0)
+//   33 static void turnOffLight(uint16 lightNum)
+turnOffLight:
+        CFI Block cfiBlock2 Using cfiCommon0
+        CFI Function turnOffLight
+        CODE
+//   34 {
+        FUNCALL turnOffLight, printf
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 12, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 12, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        MOV     A,#-0xa
+        LCALL   ?BANKED_ENTER_XDATA
+        CFI DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
+        CFI DPL0 load(1, XDATA, add(CFA_XSP16, literal(-2)))
+        CFI ?BRET_EXT load(1, XDATA, add(CFA_XSP16, literal(-3)))
+        CFI ?RET_HIGH load(1, XDATA, add(CFA_XSP16, literal(-4)))
+        CFI ?RET_LOW load(1, XDATA, add(CFA_XSP16, literal(-5)))
+        CFI R7 load(1, XDATA, add(CFA_XSP16, literal(-6)))
+        CFI V1 load(1, XDATA, add(CFA_XSP16, literal(-7)))
+        CFI V0 load(1, XDATA, add(CFA_XSP16, literal(-8)))
+        CFI VB load(1, XDATA, add(CFA_XSP16, literal(-9)))
+        CFI R6 load(1, XDATA, add(CFA_XSP16, literal(-10)))
+        CFI CFA_SP SP+0
+        CFI CFA_XSP16 add(XSP16, 10)
+        ; Saved register size: 10
+        ; Auto size: 0
+        MOV     ?V0 + 0,R2
+        MOV     ?V0 + 1,R3
+//   35   printf("TurnOff light %d\n", lightNum);
+        ; Setup parameters for call to function printf
+        MOV     R0,#?V0 + 0
+        LCALL   ?PUSH_XSTACK_I_TWO
+        CFI CFA_XSP16 add(XSP16, 12)
+        MOV     R2,#`?<Constant "TurnOff light %d\\n">` & 0xff
+        MOV     R3,#(`?<Constant "TurnOff light %d\\n">` >> 8) & 0xff
+        LCALL   ??printf?relay
+        MOV     A,#0x2
+        LCALL   ?DEALLOC_XSTACK8
+        CFI CFA_XSP16 add(XSP16, 10)
+//   36   switch(lightNum) {
+        MOV     R0,#?V0 + 0
+        LCALL   ?US_SWITCH_DENSE
+`?<Jumptable for turnOffLight>_0`:
+        DATA
+        DATA16
+        DATA
+        DATA16
+        DW        1
+        DATA
+        DATA8
+        DATA
+        DATA8
+        DB        1
+        DATA
+        DATA16
+        DATA
+        DATA16
+        DW        ??turnOffLight_0
+        DATA
+        DATA16
+        DATA
+        DATA16
+        DW        ??turnOffLight_1
+        DATA
+        DATA16
+        DATA
+        DATA16
+        DW        ??turnOffLight_2
+        CODE
+//   37   case 1:
+//   38     LIGHT1_PIN = LIGHT_OFF_STATE;
+??turnOffLight_1:
+        SETB    0x90.1
+//   39     break;
+        SJMP    ??turnOffLight_3
+//   40   case 2:
+//   41     LIGHT2_PIN = LIGHT_OFF_STATE;
+??turnOffLight_2:
+        SETB    0x90.4
+//   42     break;
+        SJMP    ??turnOffLight_3
+//   43   default:
+//   44     LIGHT0_PIN = LIGHT_OFF_STATE;
+??turnOffLight_0:
+        SETB    0x90.0
+//   45   }
+//   46   
+//   47 }
+??turnOffLight_3:
+        SJMP    ?Subroutine0
+        CFI EndBlock cfiBlock2
+        REQUIRE _A_P1
+//   48 
+
+        RSEG BANKED_CODE:CODE:NOROOT(0)
+//   49 void DoorLight_Init()
+DoorLight_Init:
+        CFI Block cfiBlock3 Using cfiCommon0
+        CFI Function DoorLight_Init
+        CODE
+//   50 { 
+        FUNCALL DoorLight_Init, DefaultLight_Init
+        LOCFRAME ISTACK, 2, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 0, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 2, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 0, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        PUSH    DPL
+        CFI DPL0 Frame(CFA_SP, 4)
+        CFI CFA_SP SP+-4
+        PUSH    DPH
+        CFI DPH0 Frame(CFA_SP, 5)
+        CFI CFA_SP SP+-5
+        ; Saved register size: 2
+        ; Auto size: 0
+//   51   DefaultLight_Init(&turnOnLight, &turnOffLight);
+        ; Setup parameters for call to function DefaultLight_Init
+        MOV     R4,#??turnOffLight?relay & 0xff
+        MOV     R5,#(??turnOffLight?relay >> 8) & 0xff
+        MOV     R2,#??turnOnLight?relay & 0xff
+        MOV     R3,#(??turnOnLight?relay >> 8) & 0xff
+        LCALL   ??DefaultLight_Init?relay
+        CFI EndBlock cfiBlock3
+//   52 }
+        REQUIRE ?Subroutine1
+        ; // Fall through to label ?Subroutine1
+
+        RSEG BANKED_CODE:CODE:NOROOT(0)
+?Subroutine1:
+        CFI Block cfiBlock4 Using cfiCommon0
+        CFI NoFunction
+        CFI CFA_SP SP+-5
+        CFI DPL0 Frame(CFA_SP, 4)
+        CFI DPH0 Frame(CFA_SP, 5)
+        POP     DPH
+        CFI CFA_SP SP+-4
+        CFI DPH0 SameValue
+        POP     DPL
+        CFI CFA_SP SP+-3
+        CFI DPL0 SameValue
+        LJMP    ?BRET
+        CFI EndBlock cfiBlock4
+//   53 
+
+        RSEG BANKED_CODE:CODE:NOROOT(0)
+//   54 void DoorLight_HandleKeys(uint8 keys)
+DoorLight_HandleKeys:
+        CFI Block cfiBlock5 Using cfiCommon0
         CFI Function DoorLight_HandleKeys
         CODE
-//    5 {
+//   55 {
         FUNCALL DoorLight_HandleKeys, printf
         LOCFRAME ISTACK, 0, STACK
         LOCFRAME PSTACK, 0, STACK
@@ -300,7 +659,7 @@ DoorLight_HandleKeys:
         ; Auto size: 0
         MOV     A,R1
         MOV     R6,A
-//    6   printf("DoorLight_HandleKeys : %X\n", keys);
+//   56   printf("DoorLight_HandleKeys : %X\n", keys);
         ; Setup parameters for call to function printf
         MOV     ?V0 + 0,R6
         MOV     ?V0 + 1,#0x0
@@ -309,85 +668,105 @@ DoorLight_HandleKeys:
         CFI CFA_XSP16 add(XSP16, 12)
         MOV     R2,#`?<Constant "DoorLight_HandleKeys ...">` & 0xff
         MOV     R3,#(`?<Constant "DoorLight_HandleKeys ...">` >> 8) & 0xff
-        CFI EndBlock cfiBlock0
-        REQUIRE ?Subroutine0
-        ; // Fall through to label ?Subroutine0
-//    7   
-//    8 }
-
-        RSEG BANKED_CODE:CODE:NOROOT(0)
-?Subroutine0:
-        CFI Block cfiBlock1 Using cfiCommon0
-        CFI NoFunction
-        CFI CFA_SP SP+0
-        CFI CFA_XSP16 add(XSP16, 12)
-        CFI VB load(1, XDATA, add(CFA_XSP16, literal(-9)))
-        CFI DPL0 load(1, XDATA, add(CFA_XSP16, literal(-2)))
-        CFI DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
-        CFI R6 load(1, XDATA, add(CFA_XSP16, literal(-10)))
-        CFI R7 load(1, XDATA, add(CFA_XSP16, literal(-6)))
-        CFI V0 load(1, XDATA, add(CFA_XSP16, literal(-8)))
-        CFI V1 load(1, XDATA, add(CFA_XSP16, literal(-7)))
-        CFI ?BRET_EXT load(1, XDATA, add(CFA_XSP16, literal(-3)))
-        CFI ?RET_HIGH load(1, XDATA, add(CFA_XSP16, literal(-4)))
-        CFI ?RET_LOW load(1, XDATA, add(CFA_XSP16, literal(-5)))
         LCALL   ??printf?relay
         MOV     A,#0x2
         LCALL   ?DEALLOC_XSTACK8
         CFI CFA_XSP16 add(XSP16, 10)
-        MOV     R7,#0x2
-        LJMP    ?BANKED_LEAVE_XDATA
-        CFI EndBlock cfiBlock1
-//    9 
-//   10 
+//   57   
+//   58 }
+        SJMP    ?Subroutine0
+        CFI EndBlock cfiBlock5
+//   59 
+//   60 
 
         RSEG BANKED_CODE:CODE:NOROOT(0)
-//   11 void DoorLight_HandleMsg(uint8* msg)
+//   61 void DoorLight_HandleMsg(uint8* msg)
 DoorLight_HandleMsg:
-        CFI Block cfiBlock2 Using cfiCommon0
+        CFI Block cfiBlock6 Using cfiCommon0
         CFI Function DoorLight_HandleMsg
         CODE
-//   12 {
-        FUNCALL DoorLight_HandleMsg, printf
-        LOCFRAME ISTACK, 0, STACK
+//   62 {
+        FUNCALL DoorLight_HandleMsg, DefaultLight_HandleMsg
+        LOCFRAME ISTACK, 2, STACK
         LOCFRAME PSTACK, 0, STACK
-        LOCFRAME XSTACK, 12, STACK
+        LOCFRAME XSTACK, 0, STACK
         LOCFRAME IOVERLAY, 0, STATIC
         LOCFRAME DOVERLAY, 0, STATIC
-        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME ISTACK, 2, STACK
         ARGFRAME PSTACK, 0, STACK
-        ARGFRAME XSTACK, 12, STACK
+        ARGFRAME XSTACK, 0, STACK
         ARGFRAME IOVERLAY, 0, STATIC
         ARGFRAME DOVERLAY, 0, STATIC
-        MOV     A,#-0xa
-        LCALL   ?BANKED_ENTER_XDATA
-        CFI DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
-        CFI DPL0 load(1, XDATA, add(CFA_XSP16, literal(-2)))
-        CFI ?BRET_EXT load(1, XDATA, add(CFA_XSP16, literal(-3)))
-        CFI ?RET_HIGH load(1, XDATA, add(CFA_XSP16, literal(-4)))
-        CFI ?RET_LOW load(1, XDATA, add(CFA_XSP16, literal(-5)))
-        CFI R7 load(1, XDATA, add(CFA_XSP16, literal(-6)))
-        CFI V1 load(1, XDATA, add(CFA_XSP16, literal(-7)))
-        CFI V0 load(1, XDATA, add(CFA_XSP16, literal(-8)))
-        CFI VB load(1, XDATA, add(CFA_XSP16, literal(-9)))
-        CFI R6 load(1, XDATA, add(CFA_XSP16, literal(-10)))
-        CFI CFA_SP SP+0
-        CFI CFA_XSP16 add(XSP16, 10)
-        ; Saved register size: 10
+        PUSH    DPL
+        CFI DPL0 Frame(CFA_SP, 4)
+        CFI CFA_SP SP+-4
+        PUSH    DPH
+        CFI DPH0 Frame(CFA_SP, 5)
+        CFI CFA_SP SP+-5
+        ; Saved register size: 2
         ; Auto size: 0
-//   13   
-//   14   printf("DoorLight_HandleMsg: %s\n", msg); 
-        ; Setup parameters for call to function printf
-        MOV     ?V0 + 0,R2
-        MOV     ?V0 + 1,R3
-        MOV     R0,#?V0 + 0
-        LCALL   ?PUSH_XSTACK_I_TWO
-        CFI CFA_XSP16 add(XSP16, 12)
-        MOV     R2,#`?<Constant "DoorLight_HandleMsg: %s\\n">` & 0xff
-        MOV     R3,#(`?<Constant "DoorLight_HandleMsg: %s\\n">` >> 8) & 0xff
-        SJMP    ?Subroutine0
-        CFI EndBlock cfiBlock2
-//   15 }
+//   63   DefaultLight_HandleMsg(msg, "DoorLight");
+        ; Setup parameters for call to function DefaultLight_HandleMsg
+        MOV     R4,#`?<Constant "DoorLight">` & 0xff
+        MOV     R5,#(`?<Constant "DoorLight">` >> 8) & 0xff
+        LCALL   ??DefaultLight_HandleMsg?relay
+//   64 }
+        SJMP    ?Subroutine1
+        CFI EndBlock cfiBlock6
+//   65 
+//   66 
+//   67 // update every second
+
+        RSEG BANKED_CODE:CODE:NOROOT(0)
+//   68 void DoorLight_Update(void)
+DoorLight_Update:
+        CFI Block cfiBlock7 Using cfiCommon0
+        CFI Function DoorLight_Update
+        CODE
+//   69 {
+        FUNCALL DoorLight_Update, DefaultLight_Update
+        LOCFRAME ISTACK, 2, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 0, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 2, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 0, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        PUSH    DPL
+        CFI DPL0 Frame(CFA_SP, 4)
+        CFI CFA_SP SP+-4
+        PUSH    DPH
+        CFI DPH0 Frame(CFA_SP, 5)
+        CFI CFA_SP SP+-5
+        ; Saved register size: 2
+        ; Auto size: 0
+//   70   DefaultLight_Update();
+        ; Setup parameters for call to function DefaultLight_Update
+        LCALL   ??DefaultLight_Update?relay
+//   71 }
+        SJMP    ?Subroutine1
+        CFI EndBlock cfiBlock7
+
+        RSEG BANK_RELAYS:CODE:REORDER:NOROOT(0)
+??turnOnLight?relay:
+        LCALL   ?BDISPATCH
+        DATA
+        DC24    turnOnLight
+
+        RSEG BANK_RELAYS:CODE:REORDER:NOROOT(0)
+??turnOffLight?relay:
+        LCALL   ?BDISPATCH
+        DATA
+        DC24    turnOffLight
+
+        RSEG BANK_RELAYS:CODE:REORDER:NOROOT(0)
+??DoorLight_Init?relay:
+        LCALL   ?BDISPATCH
+        DATA
+        DC24    DoorLight_Init
 
         RSEG BANK_RELAYS:CODE:REORDER:NOROOT(0)
 ??DoorLight_HandleKeys?relay:
@@ -401,6 +780,22 @@ DoorLight_HandleMsg:
         DATA
         DC24    DoorLight_HandleMsg
 
+        RSEG BANK_RELAYS:CODE:REORDER:NOROOT(0)
+??DoorLight_Update?relay:
+        LCALL   ?BDISPATCH
+        DATA
+        DC24    DoorLight_Update
+
+        RSEG XDATA_ROM_C:CONST:REORDER:NOROOT(0)
+        DATA8
+`?<Constant "TurnOn light %d\\n">`:
+        DB "TurnOn light %d\012"
+
+        RSEG XDATA_ROM_C:CONST:REORDER:NOROOT(0)
+        DATA8
+`?<Constant "TurnOff light %d\\n">`:
+        DB "TurnOff light %d\012"
+
         RSEG XDATA_ROM_C:CONST:REORDER:NOROOT(0)
         DATA8
 `?<Constant "DoorLight_HandleKeys ...">`:
@@ -408,17 +803,23 @@ DoorLight_HandleMsg:
 
         RSEG XDATA_ROM_C:CONST:REORDER:NOROOT(0)
         DATA8
-`?<Constant "DoorLight_HandleMsg: %s\\n">`:
-        DB "DoorLight_HandleMsg: %s\012"
+`?<Constant "DoorLight">`:
+        DB "DoorLight"
 
         END
+//   72 
+//   73 
+//   74 
+//   75 
 // 
-// 54 bytes in segment BANKED_CODE
-// 12 bytes in segment BANK_RELAYS
-// 52 bytes in segment XDATA_ROM_C
+// 182 bytes in segment BANKED_CODE
+//  36 bytes in segment BANK_RELAYS
+//   1 byte  in segment SFR_AN
+//  72 bytes in segment XDATA_ROM_C
 // 
-// 66 bytes of CODE  memory
-// 52 bytes of CONST memory
+// 218 bytes of CODE  memory
+//  72 bytes of CONST memory
+//   0 bytes of DATA  memory (+ 1 byte shared)
 //
 //Errors: none
 //Warnings: none

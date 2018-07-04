@@ -155,7 +155,7 @@ byte SmartHomeApp_TransID;  // This is the unique message ID (counter)
 afAddrType_t SmartHomeApp_DstAddr;
 
 void (*Processor_HandleKeys)(uint8 keys);
-void (*Processor_HandleMsg)(uint8* msg);
+void (*Processor_HandleMsg)(uint8* msg, uint16 srcAddr);
 void (*Processor_Init)(void);
 void (*Processor_Update)(void);
 
@@ -269,14 +269,8 @@ void SmartHomeApp_Init( uint8 task_id )
 
 }
 
-
-void SmartHome_SendCmd(uint8* buf)
+void SmartHome_SendCmdWithAddr(uint8* buf, uint16 destAddr)
 {
-  
-  uint16 destAddr;
-  
-  destAddr =  NameAddrCache_getAddrFromCmd(buf);
-  
   if (destAddr == 0xFFFF) {
     SmartHomeApp_DstAddr.addrMode = afAddrBroadcast;
   } else {
@@ -302,6 +296,13 @@ void SmartHome_SendCmd(uint8* buf)
     printf("SendCmdFailed:%s\n", buf); 
   }
   
+}
+
+void SmartHome_SendCmd(uint8* buf)
+{
+  uint16 destAddr;
+  destAddr =  NameAddrCache_getAddrFromCmd(buf);
+  SmartHome_SendCmdWithAddr(buf, destAddr); 
 }
 
 static void processUartCB(uint8* buf, uint8 len)
@@ -770,19 +771,22 @@ static void SmartHomeApp_MessageMSGCB( afIncomingMSGPacket_t *pkt )
         SmartHomeApp_ProcessNameAddrMapResp(pkt->cmd.Data); 
       } else {
         
-        if (SmartHomeApp_NameAddrNotMatch(pkt->cmd.Data)) { // maybe wrong cache data
-          printf("NameAddrNotMatch %s\n", pkt->cmd.Data);
-          if (!pkt->wasBroadcast) {
-            SmartHomeApp_SendNameAddrResp(pkt);
+        if (Util_StartWith(pkt->cmd.Data, "LightStatusResp ")) {
+          // ok
+        } else {
+          if (SmartHomeApp_NameAddrNotMatch(pkt->cmd.Data)) { // maybe wrong cache data
+            printf("NameAddrNotMatch %s\n", pkt->cmd.Data);
+            if (!pkt->wasBroadcast) {
+              SmartHomeApp_SendNameAddrResp(pkt);
+            }
+            return;
           }
-          return;
+          
+          if (pkt->wasBroadcast) {
+            SmartHomeApp_SendNameAddrResp(pkt); 
+          }
         }
-        
-        if (pkt->wasBroadcast) {
-          SmartHomeApp_SendNameAddrResp(pkt); 
-        }
-        
-        Processor_HandleMsg(pkt->cmd.Data);
+        Processor_HandleMsg(pkt->cmd.Data, pkt->srcAddr.addr.shortAddr);
       }
       
 //#if defined( LCD_SUPPORTED )

@@ -1,6 +1,6 @@
 ###############################################################################
 #                                                                             #
-# IAR C/C++ Compiler V8.10.3.10338/W32 for 8051         03/Jul/2018  09:41:57 #
+# IAR C/C++ Compiler V8.10.3.10338/W32 for 8051         04/Jul/2018  22:34:46 #
 # Copyright 2004-2011 IAR Systems AB.                                         #
 #                                                                             #
 #    Core               =  plain                                              #
@@ -144,87 +144,113 @@ C:\ZigBee\SmartHomeApp\Projects\zstack\Samples\SmartHomeApp\Source\Utils.c
      15            uint8* myBuf;
      16            
      17            if (application_name != NULL) {
-   \   000005   12....       LCALL   ?Subroutine14 & 0xFFFF
-   \                     ??CrossCallReturnLabel_17:
+   \   000005   12....       LCALL   ?Subroutine13 & 0xFFFF
+   \                     ??CrossCallReturnLabel_20:
    \   000008   49           ORL     A,R1
-   \   000009   6005         JZ      ??Util_ReadName_0
+   \   000009   6009         JZ      ??Util_ReadName_0
      18              return application_name;
    \                     ??Util_ReadName_1:
-   \   00000B   12....       LCALL   ?Subroutine10 & 0xFFFF
-   \                     ??CrossCallReturnLabel_21:
-   \   00000E   8056         SJMP    ??Util_ReadName_2
+   \   00000B   90....       MOV     DPTR,#application_name
      19            }
+   \   00000E   12....       LCALL   ??Subroutine16_0 & 0xFFFF
+   \                     ??CrossCallReturnLabel_22:
+   \   000011   02....       LJMP    ??Util_ReadName_2 & 0xFFFF
      20            
      21            len = osal_nv_item_len(MY_NAME_NV_ID);
    \                     ??Util_ReadName_0:
-   \   000010                ; Setup parameters for call to function osal_nv_item_len
-   \   000010   7A01         MOV     R2,#0x1
-   \   000012   7B27         MOV     R3,#0x27
-   \   000014   12....       LCALL   ??osal_nv_item_len?relay
-   \   000017   8A..         MOV     ?V0 + 2,R2
-   \   000019   8B..         MOV     ?V0 + 3,R3
+   \   000014                ; Setup parameters for call to function osal_nv_item_len
+   \   000014   7A01         MOV     R2,#0x1
+   \   000016   7B27         MOV     R3,#0x27
+   \   000018   12....       LCALL   ??osal_nv_item_len?relay
+   \   00001B   8A..         MOV     ?V0 + 0,R2
+   \   00001D   8B..         MOV     ?V0 + 1,R3
      22            if (len > MY_NAME_NV_LEN || len == 0) {
-   \   00001B   C3           CLR     C
-   \   00001C   EA           MOV     A,R2
-   \   00001D   9441         SUBB    A,#0x41
-   \   00001F   EB           MOV     A,R3
-   \   000020   9400         SUBB    A,#0x0
-   \   000022   503E         JNC     ??Util_ReadName_3
-   \   000024   EA           MOV     A,R2
-   \   000025   45..         ORL     A,?V0 + 3
-   \   000027   6039         JZ      ??Util_ReadName_3
+   \   00001F   C3           CLR     C
+   \   000020   EA           MOV     A,R2
+   \   000021   9441         SUBB    A,#0x41
+   \   000023   EB           MOV     A,R3
+   \   000024   9400         SUBB    A,#0x0
+   \   000026   506D         JNC     ??Util_ReadName_3
+   \   000028   EA           MOV     A,R2
+   \   000029   45..         ORL     A,?V0 + 1
+   \   00002B   6068         JZ      ??Util_ReadName_3
      23              return "Unkown";
      24            }
      25            
      26            myBuf = osal_mem_alloc(len+1);
-   \   000029                ; Setup parameters for call to function osal_mem_alloc
-   \   000029   EA           MOV     A,R2
-   \   00002A   2401         ADD     A,#0x1
-   \   00002C   12....       LCALL   ?Subroutine6 & 0xFFFF
-     27            if (osal_nv_read(MY_NAME_NV_ID, 0, len, myBuf ) == ZSUCCESS) {
-   \                     ??CrossCallReturnLabel_23:
-   \   00002F                ; Setup parameters for call to function osal_nv_read
-   \   00002F   78..         MOV     R0,#?V0 + 0
-   \   000031   12....       LCALL   ?PUSH_XSTACK_I_TWO
-   \   000034   78..         MOV     R0,#?V0 + 2
-   \   000036   12....       LCALL   ?PUSH_XSTACK_I_TWO
-   \   000039   7C00         MOV     R4,#0x0
-   \   00003B   7D00         MOV     R5,#0x0
-   \   00003D   7A01         MOV     R2,#0x1
-   \   00003F   7B27         MOV     R3,#0x27
-   \   000041   12....       LCALL   ??osal_nv_read?relay
-   \   000044   7404         MOV     A,#0x4
-   \   000046   12....       LCALL   ?DEALLOC_XSTACK8
-   \   000049   E9           MOV     A,R1
-   \   00004A   700F         JNZ     ??Util_ReadName_4
-     28              myBuf[len] = 0;
-   \   00004C   12....       LCALL   ?Subroutine8 & 0xFFFF
-     29              application_name = myBuf;
-   \                     ??CrossCallReturnLabel_7:
-   \   00004F   90....       MOV     DPTR,#application_name
-   \   000052   E5..         MOV     A,?V0 + 0
-   \   000054   F0           MOVX    @DPTR,A
-   \   000055   A3           INC     DPTR
-   \   000056   E5..         MOV     A,?V0 + 1
-   \   000058   F0           MOVX    @DPTR,A
-     30              return application_name;
-   \   000059   80B0         SJMP    ??Util_ReadName_1
-     31            } else {
-     32              osal_mem_free(myBuf);
+   \   00002D                ; Setup parameters for call to function osal_mem_alloc
+   \   00002D   EA           MOV     A,R2
+   \   00002E   2401         ADD     A,#0x1
+   \   000030   0A           INC     R2
+   \   000031   EB           MOV     A,R3
+   \   000032   3400         ADDC    A,#0x0
+   \   000034   FB           MOV     R3,A
+   \   000035   12....       LCALL   ??osal_mem_alloc?relay
+   \   000038   8A..         MOV     ?V0 + 2,R2
+   \   00003A   8B..         MOV     ?V0 + 3,R3
+     27            osal_nv_item_init(MY_NAME_NV_ID, len, NULL);
+   \   00003C                ; Setup parameters for call to function osal_nv_item_init
+   \   00003C   E4           CLR     A
+   \   00003D   F5..         MOV     ?V0 + 4,A
+   \   00003F   F5..         MOV     ?V0 + 5,A
+   \   000041   78..         MOV     R0,#?V0 + 4
+   \   000043   12....       LCALL   ?PUSH_XSTACK_I_TWO
+   \   000046   AC..         MOV     R4,?V0 + 0
+   \   000048   AD..         MOV     R5,?V0 + 1
+   \   00004A   7A01         MOV     R2,#0x1
+   \   00004C   7B27         MOV     R3,#0x27
+   \   00004E   12....       LCALL   ??osal_nv_item_init?relay
+   \   000051   7402         MOV     A,#0x2
+   \   000053   12....       LCALL   ?DEALLOC_XSTACK8
+     28            if (osal_nv_read(MY_NAME_NV_ID, 0, len, myBuf ) == ZSUCCESS) {
+   \   000056                ; Setup parameters for call to function osal_nv_read
+   \   000056   78..         MOV     R0,#?V0 + 2
+   \   000058   12....       LCALL   ?PUSH_XSTACK_I_TWO
+   \   00005B   78..         MOV     R0,#?V0 + 0
+   \   00005D   12....       LCALL   ?PUSH_XSTACK_I_TWO
+   \   000060   7C00         MOV     R4,#0x0
+   \   000062   7D00         MOV     R5,#0x0
+   \   000064   7A01         MOV     R2,#0x1
+   \   000066   7B27         MOV     R3,#0x27
+   \   000068   12....       LCALL   ??osal_nv_read?relay
+   \   00006B   7404         MOV     A,#0x4
+   \   00006D   12....       LCALL   ?DEALLOC_XSTACK8
+   \   000070   E9           MOV     A,R1
+   \   000071   701B         JNZ     ??Util_ReadName_4
+     29              myBuf[len] = 0;
+   \   000073   E5..         MOV     A,?V0 + 2
+   \   000075   25..         ADD     A,?V0 + 0
+   \   000077   F582         MOV     DPL,A
+   \   000079   E5..         MOV     A,?V0 + 3
+   \   00007B   35..         ADDC    A,?V0 + 1
+   \   00007D   F583         MOV     DPH,A
+   \   00007F   E4           CLR     A
+   \   000080   F0           MOVX    @DPTR,A
+     30              application_name = myBuf;
+   \   000081   90....       MOV     DPTR,#application_name
+   \   000084   E5..         MOV     A,?V0 + 2
+   \   000086   F0           MOVX    @DPTR,A
+   \   000087   A3           INC     DPTR
+   \   000088   E5..         MOV     A,?V0 + 3
+   \   00008A   F0           MOVX    @DPTR,A
+     31              return application_name;
+   \   00008B   02....       LJMP    ??Util_ReadName_1 & 0xFFFF
+     32            } else {
+     33              osal_mem_free(myBuf);
    \                     ??Util_ReadName_4:
-   \   00005B                ; Setup parameters for call to function osal_mem_free
-   \   00005B   AA..         MOV     R2,?V0 + 0
-   \   00005D   AB..         MOV     R3,?V0 + 1
-   \   00005F   12....       LCALL   ??osal_mem_free?relay
-     33              return "Unkown";
+   \   00008E                ; Setup parameters for call to function osal_mem_free
+   \   00008E   AA..         MOV     R2,?V0 + 2
+   \   000090   AB..         MOV     R3,?V0 + 3
+   \   000092   12....       LCALL   ??osal_mem_free?relay
+     34              return "Unkown";
    \                     ??Util_ReadName_3:
-   \   000062   7A..         MOV     R2,#`?<Constant "Unkown">` & 0xff
-   \   000064   7B..         MOV     R3,#(`?<Constant "Unkown">` >> 8) & 0xff
-     34            }
+   \   000095   7A..         MOV     R2,#`?<Constant "Unkown">` & 0xff
+   \   000097   7B..         MOV     R3,#(`?<Constant "Unkown">` >> 8) & 0xff
+     35            }
    \                     ??Util_ReadName_2:
-   \   000066                REQUIRE ?Subroutine0
-   \   000066                ; // Fall through to label ?Subroutine0
-     35          }
+   \   000099                REQUIRE ?Subroutine0
+   \   000099                ; // Fall through to label ?Subroutine0
+     36          }
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
    \                     ?Subroutine0:
@@ -232,7 +258,7 @@ C:\ZigBee\SmartHomeApp\Projects\zstack\Samples\SmartHomeApp\Source\Utils.c
    \   000002   02....       LJMP    ?BANKED_LEAVE_XDATA
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ?Subroutine14:
+   \                     ?Subroutine13:
    \   000000   90....       MOV     DPTR,#application_name
    \   000003                REQUIRE ??Subroutine15_0
    \   000003                ; // Fall through to label ??Subroutine15_0
@@ -248,12 +274,6 @@ C:\ZigBee\SmartHomeApp\Projects\zstack\Samples\SmartHomeApp\Source\Utils.c
    \   000006   22           RET
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ?Subroutine10:
-   \   000000   90....       MOV     DPTR,#application_name
-   \   000003                REQUIRE ??Subroutine16_0
-   \   000003                ; // Fall through to label ??Subroutine16_0
-
-   \                                 In  segment BANKED_CODE, align 1, keep-with-next
    \                     ??Subroutine16_0:
    \   000000   E0           MOVX    A,@DPTR
    \   000001   FA           MOV     R2,A
@@ -261,40 +281,12 @@ C:\ZigBee\SmartHomeApp\Projects\zstack\Samples\SmartHomeApp\Source\Utils.c
    \   000003   E0           MOVX    A,@DPTR
    \   000004   FB           MOV     R3,A
    \   000005   22           RET
+     37          
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ?Subroutine6:
-   \   000000   0A           INC     R2
-   \   000001   EB           MOV     A,R3
-   \   000002                REQUIRE ??Subroutine17_0
-   \   000002                ; // Fall through to label ??Subroutine17_0
-
-   \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ??Subroutine17_0:
-   \   000000   3400         ADDC    A,#0x0
-   \   000002   FB           MOV     R3,A
-   \   000003   12....       LCALL   ??osal_mem_alloc?relay
-   \   000006   8A..         MOV     ?V0 + 0,R2
-   \   000008   8B..         MOV     ?V0 + 1,R3
-   \   00000A   22           RET
-
-   \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ?Subroutine8:
-   \   000000   E5..         MOV     A,?V0 + 0
-   \   000002   25..         ADD     A,?V0 + 2
-   \   000004   F582         MOV     DPL,A
-   \   000006   E5..         MOV     A,?V0 + 1
-   \   000008   35..         ADDC    A,?V0 + 3
-   \   00000A   F583         MOV     DPH,A
-   \   00000C   E4           CLR     A
-   \   00000D   F0           MOVX    @DPTR,A
-   \   00000E   22           RET
-     36          
-
-   \                                 In  segment BANKED_CODE, align 1, keep-with-next
-     37          void Util_WriteName(uint8 *buf, uint16 len)
+     38          void Util_WriteName(uint8 *buf, uint16 len)
    \                     Util_WriteName:
-     38          {
+     39          {
    \   000000   74F2         MOV     A,#-0xe
    \   000002   12....       LCALL   ?BANKED_ENTER_XDATA
    \   000005                ; Saved register size: 14
@@ -303,7 +295,7 @@ C:\ZigBee\SmartHomeApp\Projects\zstack\Samples\SmartHomeApp\Source\Utils.c
    \   000007   8B..         MOV     ?V0 + 3,R3
    \   000009   8C..         MOV     ?V0 + 0,R4
    \   00000B   8D..         MOV     ?V0 + 1,R5
-     39            osal_nv_item_init(MY_NAME_NV_ID, len, NULL);
+     40            osal_nv_item_init(MY_NAME_NV_ID, len, NULL);
    \   00000D                ; Setup parameters for call to function osal_nv_item_init
    \   00000D   E4           CLR     A
    \   00000E   F5..         MOV     ?V0 + 4,A
@@ -315,7 +307,7 @@ C:\ZigBee\SmartHomeApp\Projects\zstack\Samples\SmartHomeApp\Source\Utils.c
    \   00001B   12....       LCALL   ??osal_nv_item_init?relay
    \   00001E   7402         MOV     A,#0x2
    \   000020   12....       LCALL   ?DEALLOC_XSTACK8
-     40            osal_nv_write(MY_NAME_NV_ID, 0, len, buf);
+     41            osal_nv_write(MY_NAME_NV_ID, 0, len, buf);
    \   000023                ; Setup parameters for call to function osal_nv_write
    \   000023   78..         MOV     R0,#?V0 + 2
    \   000025   12....       LCALL   ?PUSH_XSTACK_I_TWO
@@ -328,50 +320,51 @@ C:\ZigBee\SmartHomeApp\Projects\zstack\Samples\SmartHomeApp\Source\Utils.c
    \   000035   12....       LCALL   ??osal_nv_write?relay
    \   000038   7404         MOV     A,#0x4
    \   00003A   12....       LCALL   ?DEALLOC_XSTACK8
-     41            if (application_name != NULL) {
-   \   00003D   12....       LCALL   ?Subroutine14 & 0xFFFF
-   \                     ??CrossCallReturnLabel_18:
+     42            if (application_name != NULL) {
+   \   00003D   12....       LCALL   ?Subroutine13 & 0xFFFF
+   \                     ??CrossCallReturnLabel_21:
    \   000040   49           ORL     A,R1
-   \   000041   6006         JZ      ??Util_WriteName_0
-     42              osal_mem_free(application_name);
+   \   000041   6009         JZ      ??Util_WriteName_0
+     43              osal_mem_free(application_name);
    \   000043                ; Setup parameters for call to function osal_mem_free
-   \   000043   12....       LCALL   ?Subroutine10 & 0xFFFF
-     43            }
-   \                     ??CrossCallReturnLabel_22:
-   \   000046   12....       LCALL   ??osal_mem_free?relay
-     44            application_name = NULL;
+   \   000043   90....       MOV     DPTR,#application_name
+   \   000046   12....       LCALL   ??Subroutine16_0 & 0xFFFF
+     44            }
+   \                     ??CrossCallReturnLabel_23:
+   \   000049   12....       LCALL   ??osal_mem_free?relay
+     45            application_name = NULL;
    \                     ??Util_WriteName_0:
-   \   000049   90....       MOV     DPTR,#application_name
-   \   00004C   E4           CLR     A
-   \   00004D   F0           MOVX    @DPTR,A
-   \   00004E   A3           INC     DPTR
-   \   00004F   F0           MOVX    @DPTR,A
-     45          }
-   \   000050   80..         SJMP    ?Subroutine0
-     46          
+   \   00004C   90....       MOV     DPTR,#application_name
+   \   00004F   E4           CLR     A
+   \   000050   F0           MOVX    @DPTR,A
+   \   000051   A3           INC     DPTR
+   \   000052   F0           MOVX    @DPTR,A
+     46          }
+   \   000053   80..         SJMP    ?Subroutine0
      47          
+     48          
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-     48          uint8 Util_StartWith(const uint8* str1, const uint8* str2)
+     49          uint8 Util_StartWith(const uint8* str1, const uint8* str2)
    \                     Util_StartWith:
-     49          {
+     50          {
    \   000000   C082         PUSH    DPL
    \   000002   C083         PUSH    DPH
    \   000004                ; Saved register size: 2
    \   000004                ; Auto size: 0
    \   000004   8012         SJMP    ??Util_StartWith_0
-     50            while (*str2) {
-     51              if (*str1 != *str2) {
-     52                return 0;
-     53              }
-     54              str1++;
+     51            while (*str2) {
+     52              if (*str1 != *str2) {
+     53                return 0;
+     54              }
+     55              str1++;
    \                     ??Util_StartWith_1:
    \   000006   8A82         MOV     DPL,R2
    \   000008   8B83         MOV     DPH,R3
    \   00000A   A3           INC     DPTR
    \   00000B   AA82         MOV     R2,DPL
    \   00000D   AB83         MOV     R3,DPH
-     55              str2++;
+     56              str2++;
    \   00000F   8C82         MOV     DPL,R4
    \   000011   8D83         MOV     DPH,R5
    \   000013   A3           INC     DPTR
@@ -382,19 +375,19 @@ C:\ZigBee\SmartHomeApp\Projects\zstack\Samples\SmartHomeApp\Source\Utils.c
    \   00001A   8D83         MOV     DPH,R5
    \   00001C   E0           MOVX    A,@DPTR
    \   00001D   6009         JZ      ??Util_StartWith_2
-   \   00001F   12....       LCALL   ?Subroutine11 & 0xFFFF
+   \   00001F   12....       LCALL   ?Subroutine10 & 0xFFFF
    \                     ??CrossCallReturnLabel_9:
    \   000022   60E2         JZ      ??Util_StartWith_1
    \   000024   7900         MOV     R1,#0x0
    \   000026   8002         SJMP    ??Util_StartWith_3
-     56            }
-     57            return 1;
+     57            }
+     58            return 1;
    \                     ??Util_StartWith_2:
    \   000028   7901         MOV     R1,#0x1
    \                     ??Util_StartWith_3:
    \   00002A                REQUIRE ?Subroutine1
    \   00002A                ; // Fall through to label ?Subroutine1
-     58          }
+     59          }
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
    \                     ?Subroutine1:
@@ -403,7 +396,7 @@ C:\ZigBee\SmartHomeApp\Projects\zstack\Samples\SmartHomeApp\Source\Utils.c
    \   000004   02....       LJMP    ?BRET
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ?Subroutine11:
+   \                     ?Subroutine10:
    \   000000   8A82         MOV     DPL,R2
    \   000002   8B83         MOV     DPH,R3
    \   000004   E0           MOVX    A,@DPTR
@@ -413,29 +406,29 @@ C:\ZigBee\SmartHomeApp\Projects\zstack\Samples\SmartHomeApp\Source\Utils.c
    \   00000A   E0           MOVX    A,@DPTR
    \   00000B   68           XRL     A,R0
    \   00000C   22           RET
-     59          
+     60          
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-     60          uint8 Util_StrEqual(const uint8* str1, const uint8* str2)
+     61          uint8 Util_StrEqual(const uint8* str1, const uint8* str2)
    \                     Util_StrEqual:
-     61          {
+     62          {
    \   000000   C082         PUSH    DPL
    \   000002   C083         PUSH    DPH
    \   000004                ; Saved register size: 2
    \   000004                ; Auto size: 0
    \   000004   8012         SJMP    ??Util_StrEqual_0
-     62            while (*str2 && *str1) {
-     63              if (*str1 != *str2) {
-     64                return 0;
-     65              }
-     66              str1++;
+     63            while (*str2 && *str1) {
+     64              if (*str1 != *str2) {
+     65                return 0;
+     66              }
+     67              str1++;
    \                     ??Util_StrEqual_1:
    \   000006   8A82         MOV     DPL,R2
    \   000008   8B83         MOV     DPH,R3
    \   00000A   A3           INC     DPTR
    \   00000B   AA82         MOV     R2,DPL
    \   00000D   AB83         MOV     R3,DPH
-     67              str2++;
+     68              str2++;
    \   00000F   8C82         MOV     DPL,R4
    \   000011   8D83         MOV     DPH,R5
    \   000013   A3           INC     DPTR
@@ -459,48 +452,172 @@ C:\ZigBee\SmartHomeApp\Projects\zstack\Samples\SmartHomeApp\Source\Utils.c
    \                     ??Util_StrEqual_3:
    \   00002F   7900         MOV     R1,#0x0
    \   000031   8007         SJMP    ??Util_StrEqual_4
-     68            }
-     69            if (*str1 == *str2) {
+     69            }
+     70            if (*str1 == *str2) {
    \                     ??Util_StrEqual_2:
-   \   000033   12....       LCALL   ?Subroutine11 & 0xFFFF
+   \   000033   12....       LCALL   ?Subroutine10 & 0xFFFF
    \                     ??CrossCallReturnLabel_10:
    \   000036   70F7         JNZ     ??Util_StrEqual_3
-     70              return 1;
+     71              return 1;
    \   000038   7901         MOV     R1,#0x1
-     71            } else {
+     72            } else {
    \                     ??Util_StrEqual_4:
    \   00003A   80..         SJMP    ?Subroutine1
-     72              return 0;
-     73            }
-     74          }
-     75          
+     73              return 0;
+     74            }
+     75          }
      76          
-     77          typedef struct
-     78          {
-     79            uint16 addr;
-     80            uint8* name;
-     81          } NameAddrCacheData_t;
-     82          
-     83          #define NAME_ADDR_CACHE_SIZE 5
-     84          
+     77          
+     78          typedef struct
+     79          {
+     80            uint16 addr;
+     81            uint8* name;
+     82          } NameAddrCacheData_t;
+     83          
+     84          #define NAME_ADDR_CACHE_SIZE 5
+     85          
 
    \                                 In  segment XDATA_Z, align 1, keep-with-next
-     85          NameAddrCacheData_t* name_addr_cache[NAME_ADDR_CACHE_SIZE];
+     86          NameAddrCacheData_t* name_addr_cache[NAME_ADDR_CACHE_SIZE];
    \                     name_addr_cache:
    \   000000                DS 10
    \   00000A                REQUIRE __INIT_XDATA_Z
 
    \                                 In  segment XDATA_Z, align 1, keep-with-next
-     86          uint16 name_addr_cache_idx = 0;
+     87          uint16 name_addr_cache_idx = 0;
    \                     name_addr_cache_idx:
    \   000000                DS 2
    \   000002                REQUIRE __INIT_XDATA_Z
-     87          
+     88          
+     89          
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-     88          void NameAddrCache_put(uint8* name, uint16 addr)
+     90          void NameAddrCache_delete(uint16 addr)
+   \                     NameAddrCache_delete:
+     91          {
+   \   000000   74F6         MOV     A,#-0xa
+   \   000002   12....       LCALL   ?BANKED_ENTER_XDATA
+   \   000005                ; Saved register size: 10
+   \   000005                ; Auto size: 0
+   \   000005   8A..         MOV     ?V0 + 0,R2
+   \   000007   8B..         MOV     ?V0 + 1,R3
+     92            uint16 i;
+     93            NameAddrCacheData_t* data;
+     94            
+     95            // find old match data, remove it
+     96            for (i = 0; i < NAME_ADDR_CACHE_SIZE; i++) {
+   \   000009   7E00         MOV     R6,#0x0
+   \   00000B   7F00         MOV     R7,#0x0
+     97               data = name_addr_cache[i];
+   \                     ??NameAddrCache_delete_0:
+   \   00000D   EE           MOV     A,R6
+   \   00000E   F8           MOV     R0,A
+   \   00000F   EF           MOV     A,R7
+   \   000010   F9           MOV     R1,A
+   \   000011   E8           MOV     A,R0
+   \   000012   C3           CLR     C
+   \   000013   33           RLC     A
+   \   000014   F8           MOV     R0,A
+   \   000015   E9           MOV     A,R1
+   \   000016   12....       LCALL   ?Subroutine12 & 0xFFFF
+   \                     ??CrossCallReturnLabel_13:
+   \   000019   12....       LCALL   ??Subroutine16_0 & 0xFFFF
+     98               if (data == NULL)
+   \                     ??CrossCallReturnLabel_24:
+   \   00001C   EA           MOV     A,R2
+   \   00001D   4B           ORL     A,R3
+   \   00001E   601E         JZ      ??CrossCallReturnLabel_11
+     99                 continue;
+    100               if (data->addr == addr) {
+   \   000020   8A82         MOV     DPL,R2
+   \   000022   8B83         MOV     DPH,R3
+   \   000024   E0           MOVX    A,@DPTR
+   \   000025   65..         XRL     A,?V0 + 0
+   \   000027   7004         JNZ     ??NameAddrCache_delete_1
+   \   000029   A3           INC     DPTR
+   \   00002A   E0           MOVX    A,@DPTR
+   \   00002B   65..         XRL     A,?V0 + 1
+   \                     ??NameAddrCache_delete_1:
+   \   00002D   700F         JNZ     ??CrossCallReturnLabel_11
+    101                 osal_mem_free(data);
+   \   00002F                ; Setup parameters for call to function osal_mem_free
+   \   00002F   12....       LCALL   ??osal_mem_free?relay
+    102                 name_addr_cache[i] = NULL;
+   \   000032   EE           MOV     A,R6
+   \   000033   F8           MOV     R0,A
+   \   000034   EF           MOV     A,R7
+   \   000035   F9           MOV     R1,A
+   \   000036   E8           MOV     A,R0
+   \   000037   C3           CLR     C
+   \   000038   33           RLC     A
+   \   000039   F8           MOV     R0,A
+   \   00003A   E9           MOV     A,R1
+   \   00003B   12....       LCALL   ?Subroutine11 & 0xFFFF
+    103               }
+    104            }
+   \                     ??CrossCallReturnLabel_11:
+   \   00003E   EE           MOV     A,R6
+   \   00003F   2401         ADD     A,#0x1
+   \   000041   0E           INC     R6
+   \   000042   EF           MOV     A,R7
+   \   000043   3400         ADDC    A,#0x0
+   \   000045   FF           MOV     R7,A
+   \   000046   C3           CLR     C
+   \   000047   EE           MOV     A,R6
+   \   000048   9405         SUBB    A,#0x5
+   \   00004A   EF           MOV     A,R7
+   \   00004B   9400         SUBB    A,#0x0
+   \   00004D   40BE         JC      ??NameAddrCache_delete_0
+    105            
+    106          }
+   \   00004F                REQUIRE ?Subroutine2
+   \   00004F                ; // Fall through to label ?Subroutine2
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ?Subroutine2:
+   \   000000   7F02         MOV     R7,#0x2
+   \   000002   02....       LJMP    ?BANKED_LEAVE_XDATA
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ?Subroutine12:
+   \   000000   12....       LCALL   ?Subroutine14 & 0xFFFF
+   \                     ??CrossCallReturnLabel_18:
+   \   000003   22           RET
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ?Subroutine11:
+   \   000000   12....       LCALL   ?Subroutine14 & 0xFFFF
+   \                     ??CrossCallReturnLabel_17:
+   \   000003   E4           CLR     A
+   \   000004   F0           MOVX    @DPTR,A
+   \   000005   A3           INC     DPTR
+   \   000006   F0           MOVX    @DPTR,A
+   \   000007   22           RET
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ?Subroutine14:
+   \   000000   33           RLC     A
+   \   000001   F9           MOV     R1,A
+   \   000002   74..         MOV     A,#name_addr_cache & 0xff
+   \   000004   28           ADD     A,R0
+   \   000005   F582         MOV     DPL,A
+   \   000007   74..         MOV     A,#(name_addr_cache >> 8) & 0xff
+   \   000009   39           ADDC    A,R1
+   \   00000A   F583         MOV     DPH,A
+   \   00000C   22           RET
+    107          
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ?Subroutine6:
+   \   000000   85..82       MOV     DPL,?V0 + 2
+   \   000003   85..83       MOV     DPH,?V0 + 3
+   \   000006                REQUIRE ??Subroutine16_0
+   \   000006                ; // Fall through to label ??Subroutine16_0
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+    108          void NameAddrCache_put(uint8* name, uint16 addr)
    \                     NameAddrCache_put:
-     89          {
+    109          {
    \   000000   74F1         MOV     A,#-0xf
    \   000002   12....       LCALL   ?BANKED_ENTER_XDATA
    \   000005                ; Saved register size: 15
@@ -509,262 +626,216 @@ C:\ZigBee\SmartHomeApp\Projects\zstack\Samples\SmartHomeApp\Source\Utils.c
    \   000006   FE           MOV     R6,A
    \   000007   EB           MOV     A,R3
    \   000008   FF           MOV     R7,A
-   \   000009   8C..         MOV     ?V0 + 2,R4
-   \   00000B   8D..         MOV     ?V0 + 3,R5
-     90            uint16 i;
-     91            NameAddrCacheData_t* data;
-     92            
-     93            // find old match data, remove it
-     94            for (i = 0; i < NAME_ADDR_CACHE_SIZE; i++) {
-   \   00000D   75..00       MOV     ?V0 + 4,#0x0
-   \   000010   75..00       MOV     ?V0 + 5,#0x0
-     95               data = name_addr_cache[i];
+   \   000009   8C..         MOV     ?V0 + 4,R4
+   \   00000B   8D..         MOV     ?V0 + 5,R5
+    110            uint16 i;
+    111            NameAddrCacheData_t* data;
+    112            
+    113            // find old match data, remove it
+    114            for (i = 0; i < NAME_ADDR_CACHE_SIZE; i++) {
+   \   00000D   75..00       MOV     ?V0 + 2,#0x0
+   \   000010   75..00       MOV     ?V0 + 3,#0x0
+    115               data = name_addr_cache[i];
    \                     ??NameAddrCache_put_0:
-   \   000013   12....       LCALL   ?Subroutine4 & 0xFFFF
-     96               if (data == NULL)
-   \                     ??CrossCallReturnLabel_26:
-   \   000016   6031         JZ      ??NameAddrCache_put_1
-     97                 continue;
-     98               if (data->addr == addr || Util_StrEqual(name, data->name)) {
-   \   000018   85..82       MOV     DPL,?V0 + 0
-   \   00001B   85..83       MOV     DPH,?V0 + 1
-   \   00001E   E0           MOVX    A,@DPTR
-   \   00001F   65..         XRL     A,?V0 + 2
-   \   000021   7004         JNZ     ??NameAddrCache_put_2
-   \   000023   A3           INC     DPTR
-   \   000024   E0           MOVX    A,@DPTR
-   \   000025   65..         XRL     A,?V0 + 3
-   \                     ??NameAddrCache_put_2:
-   \   000027   600B         JZ      ??NameAddrCache_put_3
-   \   000029                ; Setup parameters for call to function Util_StrEqual
-   \   000029   85..82       MOV     DPL,?V0 + 0
-   \   00002C   85..83       MOV     DPH,?V0 + 1
-   \   00002F   12....       LCALL   ?Subroutine7 & 0xFFFF
+   \   000013   E5..         MOV     A,?V0 + 2
+   \   000015   C3           CLR     C
+   \   000016   33           RLC     A
+   \   000017   F8           MOV     R0,A
+   \   000018   E5..         MOV     A,?V0 + 3
+   \   00001A   12....       LCALL   ?Subroutine12 & 0xFFFF
+   \                     ??CrossCallReturnLabel_14:
+   \   00001D   12....       LCALL   ?Subroutine7 & 0xFFFF
+    116               if (data == NULL)
    \                     ??CrossCallReturnLabel_5:
-   \   000032   6015         JZ      ??NameAddrCache_put_1
-     99                 osal_mem_free(data);
-   \                     ??NameAddrCache_put_3:
-   \   000034                ; Setup parameters for call to function osal_mem_free
-   \   000034   AA..         MOV     R2,?V0 + 0
-   \   000036   AB..         MOV     R3,?V0 + 1
-   \   000038   12....       LCALL   ??osal_mem_free?relay
-    100                 name_addr_cache[i] = NULL;
-   \   00003B   E5..         MOV     A,?V0 + 4
-   \   00003D   C3           CLR     C
-   \   00003E   33           RLC     A
-   \   00003F   F8           MOV     R0,A
-   \   000040   E5..         MOV     A,?V0 + 5
-   \   000042   12....       LCALL   ?Subroutine12 & 0xFFFF
-    101               }
-    102            }
-   \                     ??CrossCallReturnLabel_11:
-   \   000045   E4           CLR     A
-   \   000046   F0           MOVX    @DPTR,A
-   \   000047   A3           INC     DPTR
-   \   000048   F0           MOVX    @DPTR,A
+   \   000020   602D         JZ      ??CrossCallReturnLabel_12
+    117                 continue;
+    118               if (data->addr == addr || Util_StrEqual(name, data->name)) {
+   \   000022   85..82       MOV     DPL,?V0 + 0
+   \   000025   85..83       MOV     DPH,?V0 + 1
+   \   000028   E0           MOVX    A,@DPTR
+   \   000029   65..         XRL     A,?V0 + 4
+   \   00002B   7004         JNZ     ??NameAddrCache_put_1
+   \   00002D   A3           INC     DPTR
+   \   00002E   E0           MOVX    A,@DPTR
+   \   00002F   65..         XRL     A,?V0 + 5
    \                     ??NameAddrCache_put_1:
-   \   000049   12....       LCALL   ?Subroutine5 & 0xFFFF
+   \   000031   600B         JZ      ??NameAddrCache_put_2
+   \   000033                ; Setup parameters for call to function Util_StrEqual
+   \   000033   85..82       MOV     DPL,?V0 + 0
+   \   000036   85..83       MOV     DPH,?V0 + 1
+   \   000039   12....       LCALL   ?Subroutine5 & 0xFFFF
    \                     ??CrossCallReturnLabel_3:
-   \   00004C   40C5         JC      ??NameAddrCache_put_0
-    103            
-    104            // remove current point data
-    105            data = name_addr_cache[name_addr_cache_idx];
-   \   00004E   12....       LCALL   ?Subroutine3 & 0xFFFF
+   \   00003C   6011         JZ      ??CrossCallReturnLabel_12
+    119                 osal_mem_free(data);
+   \                     ??NameAddrCache_put_2:
+   \   00003E                ; Setup parameters for call to function osal_mem_free
+   \   00003E   AA..         MOV     R2,?V0 + 0
+   \   000040   AB..         MOV     R3,?V0 + 1
+   \   000042   12....       LCALL   ??osal_mem_free?relay
+    120                 name_addr_cache[i] = NULL;
+   \   000045   E5..         MOV     A,?V0 + 2
+   \   000047   C3           CLR     C
+   \   000048   33           RLC     A
+   \   000049   F8           MOV     R0,A
+   \   00004A   E5..         MOV     A,?V0 + 3
+   \   00004C   12....       LCALL   ?Subroutine11 & 0xFFFF
+    121               }
+    122            }
+   \                     ??CrossCallReturnLabel_12:
+   \   00004F   E5..         MOV     A,?V0 + 2
+   \   000051   2401         ADD     A,#0x1
+   \   000053   F5..         MOV     ?V0 + 2,A
+   \   000055   E5..         MOV     A,?V0 + 3
+   \   000057   3400         ADDC    A,#0x0
+   \   000059   F5..         MOV     ?V0 + 3,A
+   \   00005B   C3           CLR     C
+   \   00005C   E5..         MOV     A,?V0 + 2
+   \   00005E   9405         SUBB    A,#0x5
+   \   000060   E5..         MOV     A,?V0 + 3
+   \   000062   9400         SUBB    A,#0x0
+   \   000064   40AD         JC      ??NameAddrCache_put_0
+    123            
+    124            // remove current point data
+    125            data = name_addr_cache[name_addr_cache_idx];
+   \   000066   12....       LCALL   ?Subroutine4 & 0xFFFF
    \                     ??CrossCallReturnLabel_0:
-   \   000051   12....       LCALL   ??Subroutine18_0 & 0xFFFF
-    106            if (data != NULL) {
-   \                     ??CrossCallReturnLabel_28:
-   \   000054   600E         JZ      ??NameAddrCache_put_4
-    107              osal_mem_free(data);
-   \   000056                ; Setup parameters for call to function osal_mem_free
-   \   000056   AA..         MOV     R2,?V0 + 0
-   \   000058   AB..         MOV     R3,?V0 + 1
-   \   00005A   12....       LCALL   ??osal_mem_free?relay
-    108              name_addr_cache[name_addr_cache_idx] = NULL;
-   \   00005D   12....       LCALL   ?Subroutine3 & 0xFFFF
-    109            }
+   \   000069   12....       LCALL   ?Subroutine7 & 0xFFFF
+    126            if (data != NULL) {
+   \                     ??CrossCallReturnLabel_6:
+   \   00006C   600E         JZ      ??NameAddrCache_put_3
+    127              osal_mem_free(data);
+   \   00006E                ; Setup parameters for call to function osal_mem_free
+   \   00006E   AA..         MOV     R2,?V0 + 0
+   \   000070   AB..         MOV     R3,?V0 + 1
+   \   000072   12....       LCALL   ??osal_mem_free?relay
+    128              name_addr_cache[name_addr_cache_idx] = NULL;
+   \   000075   12....       LCALL   ?Subroutine4 & 0xFFFF
+    129            }
    \                     ??CrossCallReturnLabel_1:
-   \   000060   E4           CLR     A
-   \   000061   F0           MOVX    @DPTR,A
-   \   000062   A3           INC     DPTR
-   \   000063   F0           MOVX    @DPTR,A
-    110            
-    111            data = osal_mem_alloc(2 + osal_strlen((char*)name)+1);
-   \                     ??NameAddrCache_put_4:
-   \   000064                ; Setup parameters for call to function osal_mem_alloc
-   \   000064                ; Setup parameters for call to function osal_strlen
-   \   000064   EE           MOV     A,R6
-   \   000065   FA           MOV     R2,A
-   \   000066   EF           MOV     A,R7
-   \   000067   FB           MOV     R3,A
-   \   000068   12....       LCALL   ??osal_strlen?relay
-   \   00006B   EA           MOV     A,R2
-   \   00006C   2403         ADD     A,#0x3
-   \   00006E   0A           INC     R2
-   \   00006F   0A           INC     R2
-   \   000070   12....       LCALL   ?Subroutine6 & 0xFFFF
-    112            data->addr = addr;
-   \                     ??CrossCallReturnLabel_24:
-   \   000073   8A82         MOV     DPL,R2
-   \   000075   8B83         MOV     DPH,R3
-   \   000077   E5..         MOV     A,?V0 + 2
+   \   000078   E4           CLR     A
    \   000079   F0           MOVX    @DPTR,A
    \   00007A   A3           INC     DPTR
-   \   00007B   E5..         MOV     A,?V0 + 3
-   \   00007D   F0           MOVX    @DPTR,A
-    113            osal_memcpy(data->name, name, osal_strlen((char*)name)+1);
-   \   00007E                ; Setup parameters for call to function osal_memcpy
-   \   00007E   8E..         MOV     ?V0 + 4,R6
-   \   000080   8F..         MOV     ?V0 + 5,R7
-   \   000082   75..00       MOV     ?V0 + 6,#0x0
-   \   000085   78..         MOV     R0,#?V0 + 4
-   \   000087   12....       LCALL   ?PUSH_XSTACK_I_THREE
-   \   00008A                ; Setup parameters for call to function osal_strlen
-   \   00008A   EE           MOV     A,R6
-   \   00008B   FA           MOV     R2,A
-   \   00008C   EF           MOV     A,R7
-   \   00008D   FB           MOV     R3,A
-   \   00008E   12....       LCALL   ??osal_strlen?relay
-   \   000091   EA           MOV     A,R2
-   \   000092   2401         ADD     A,#0x1
-   \   000094   FC           MOV     R4,A
-   \   000095   EB           MOV     A,R3
-   \   000096   3400         ADDC    A,#0x0
-   \   000098   FD           MOV     R5,A
-   \   000099   85..82       MOV     DPL,?V0 + 0
-   \   00009C   85..83       MOV     DPH,?V0 + 1
-   \   00009F   A3           INC     DPTR
-   \   0000A0   A3           INC     DPTR
-   \   0000A1   12....       LCALL   ??Subroutine16_0 & 0xFFFF
-   \                     ??CrossCallReturnLabel_19:
-   \   0000A4   12....       LCALL   ??osal_memcpy?relay
-   \   0000A7   7403         MOV     A,#0x3
-   \   0000A9   12....       LCALL   ?DEALLOC_XSTACK8
-    114            
-    115            name_addr_cache[name_addr_cache_idx] = data;
-   \   0000AC   12....       LCALL   ?Subroutine3 & 0xFFFF
+   \   00007B   F0           MOVX    @DPTR,A
+    130            
+    131            data = osal_mem_alloc(2 + 2 + osal_strlen((char*)name)+1);
+   \                     ??NameAddrCache_put_3:
+   \   00007C                ; Setup parameters for call to function osal_mem_alloc
+   \   00007C                ; Setup parameters for call to function osal_strlen
+   \   00007C   EE           MOV     A,R6
+   \   00007D   FA           MOV     R2,A
+   \   00007E   EF           MOV     A,R7
+   \   00007F   FB           MOV     R3,A
+   \   000080   12....       LCALL   ??osal_strlen?relay
+   \   000083   EA           MOV     A,R2
+   \   000084   2405         ADD     A,#0x5
+   \   000086   FA           MOV     R2,A
+   \   000087   EB           MOV     A,R3
+   \   000088   12....       LCALL   ?Subroutine9 & 0xFFFF
+    132            data->addr = addr;
+   \                     ??CrossCallReturnLabel_7:
+   \   00008B   8A82         MOV     DPL,R2
+   \   00008D   8B83         MOV     DPH,R3
+   \   00008F   E5..         MOV     A,?V0 + 4
+   \   000091   F0           MOVX    @DPTR,A
+   \   000092   A3           INC     DPTR
+   \   000093   E5..         MOV     A,?V0 + 5
+   \   000095   F0           MOVX    @DPTR,A
+    133            data->name = (uint8*)data + 4;
+   \   000096   EA           MOV     A,R2
+   \   000097   2402         ADD     A,#0x2
+   \   000099   F5..         MOV     ?V0 + 2,A
+   \   00009B   EB           MOV     A,R3
+   \   00009C   3400         ADDC    A,#0x0
+   \   00009E   F5..         MOV     ?V0 + 3,A
+   \   0000A0   EA           MOV     A,R2
+   \   0000A1   2404         ADD     A,#0x4
+   \   0000A3   F8           MOV     R0,A
+   \   0000A4   EB           MOV     A,R3
+   \   0000A5   3400         ADDC    A,#0x0
+   \   0000A7   F9           MOV     R1,A
+   \   0000A8   85..82       MOV     DPL,?V0 + 2
+   \   0000AB   85..83       MOV     DPH,?V0 + 3
+   \   0000AE   E8           MOV     A,R0
+   \   0000AF   F0           MOVX    @DPTR,A
+   \   0000B0   A3           INC     DPTR
+   \   0000B1   E9           MOV     A,R1
+   \   0000B2   F0           MOVX    @DPTR,A
+    134            osal_memcpy(data->name, name, osal_strlen((char*)name)+1);
+   \   0000B3                ; Setup parameters for call to function osal_strlen
+   \   0000B3   EE           MOV     A,R6
+   \   0000B4   FA           MOV     R2,A
+   \   0000B5   EF           MOV     A,R7
+   \   0000B6   FB           MOV     R3,A
+   \   0000B7   12....       LCALL   ??osal_strlen?relay
+   \   0000BA                ; Setup parameters for call to function osal_memcpy
+   \   0000BA   8E..         MOV     ?V0 + 4,R6
+   \   0000BC   8F..         MOV     ?V0 + 5,R7
+   \   0000BE   75..00       MOV     ?V0 + 6,#0x0
+   \   0000C1   78..         MOV     R0,#?V0 + 4
+   \   0000C3   12....       LCALL   ?PUSH_XSTACK_I_THREE
+   \   0000C6   EA           MOV     A,R2
+   \   0000C7   2401         ADD     A,#0x1
+   \   0000C9   FC           MOV     R4,A
+   \   0000CA   EB           MOV     A,R3
+   \   0000CB   3400         ADDC    A,#0x0
+   \   0000CD   FD           MOV     R5,A
+   \   0000CE   12....       LCALL   ?Subroutine6 & 0xFFFF
+   \                     ??CrossCallReturnLabel_25:
+   \   0000D1   12....       LCALL   ??osal_memcpy?relay
+   \   0000D4   7403         MOV     A,#0x3
+   \   0000D6   12....       LCALL   ?DEALLOC_XSTACK8
+    135            
+    136            name_addr_cache[name_addr_cache_idx] = data;
+   \   0000D9   12....       LCALL   ?Subroutine4 & 0xFFFF
    \                     ??CrossCallReturnLabel_2:
-   \   0000AF   E5..         MOV     A,?V0 + 0
-   \   0000B1   F0           MOVX    @DPTR,A
-   \   0000B2   A3           INC     DPTR
-   \   0000B3   E5..         MOV     A,?V0 + 1
-   \   0000B5   F0           MOVX    @DPTR,A
-    116            name_addr_cache_idx++;
-    117            name_addr_cache_idx = name_addr_cache_idx % NAME_ADDR_CACHE_SIZE;
-   \   0000B6   90....       MOV     DPTR,#name_addr_cache_idx
-   \   0000B9   E0           MOVX    A,@DPTR
-   \   0000BA   2401         ADD     A,#0x1
-   \   0000BC   F8           MOV     R0,A
-   \   0000BD   A3           INC     DPTR
-   \   0000BE   E0           MOVX    A,@DPTR
-   \   0000BF   3400         ADDC    A,#0x0
-   \   0000C1   F9           MOV     R1,A
-   \   0000C2   7A05         MOV     R2,#0x5
-   \   0000C4   7B00         MOV     R3,#0x0
-   \   0000C6   12....       LCALL   ?US_DIV_MOD
-   \   0000C9   90....       MOV     DPTR,#name_addr_cache_idx
-   \   0000CC   EA           MOV     A,R2
-   \   0000CD   F0           MOVX    @DPTR,A
-   \   0000CE   A3           INC     DPTR
-   \   0000CF   EB           MOV     A,R3
-   \   0000D0   F0           MOVX    @DPTR,A
-    118            
-    119            
-    120            // debug only
-    121            printf("debug idx=%d\n", name_addr_cache_idx);
-   \   0000D1                ; Setup parameters for call to function printf
-   \   0000D1   90....       MOV     DPTR,#name_addr_cache_idx
-   \   0000D4   12....       LCALL   ?PUSH_XSTACK8_X_TWO
-   \   0000D7   7A..         MOV     R2,#`?<Constant "debug idx=%d\\n">` & 0xff
-   \   0000D9   7B..         MOV     R3,#(`?<Constant "debug idx=%d\\n">` >> 8) & 0xff
-   \   0000DB   12....       LCALL   ??printf?relay
-   \   0000DE   7402         MOV     A,#0x2
-   \   0000E0   12....       LCALL   ?DEALLOC_XSTACK8
-    122            for (i = 0; i < NAME_ADDR_CACHE_SIZE; i++) {
-   \   0000E3   75..00       MOV     ?V0 + 4,#0x0
-   \   0000E6   75..00       MOV     ?V0 + 5,#0x0
-    123               data = name_addr_cache[i];
-   \                     ??NameAddrCache_put_5:
-   \   0000E9   12....       LCALL   ?Subroutine4 & 0xFFFF
-    124               if (data == NULL) {
-   \                     ??CrossCallReturnLabel_27:
-   \   0000EC   7013         JNZ     ??NameAddrCache_put_6
-    125                  printf("[%d]=NULL\n", i);
-   \   0000EE                ; Setup parameters for call to function printf
-   \   0000EE   78..         MOV     R0,#?V0 + 4
-   \   0000F0   12....       LCALL   ?PUSH_XSTACK_I_TWO
-   \   0000F3   7A..         MOV     R2,#`?<Constant "[%d]=NULL\\n">` & 0xff
-   \   0000F5   7B..         MOV     R3,#(`?<Constant "[%d]=NULL\\n">` >> 8) & 0xff
-   \   0000F7   12....       LCALL   ??printf?relay
-   \   0000FA   7402         MOV     A,#0x2
-   \   0000FC   12....       LCALL   ?DEALLOC_XSTACK8
-    126                 continue;
-   \   0000FF   8025         SJMP    ??NameAddrCache_put_7
-    127               }
-    128               
-    129               printf("[%d] %04X %s\n", i, data->addr, data->name);
-   \                     ??NameAddrCache_put_6:
-   \   000101                ; Setup parameters for call to function printf
-   \   000101   85..82       MOV     DPL,?V0 + 0
-   \   000104   85..83       MOV     DPH,?V0 + 1
-   \   000107   A3           INC     DPTR
-   \   000108   A3           INC     DPTR
-   \   000109   12....       LCALL   ?PUSH_XSTACK8_X_TWO
-   \   00010C   85..82       MOV     DPL,?V0 + 0
-   \   00010F   85..83       MOV     DPH,?V0 + 1
-   \   000112   12....       LCALL   ?PUSH_XSTACK8_X_TWO
-   \   000115   78..         MOV     R0,#?V0 + 4
-   \   000117   12....       LCALL   ?PUSH_XSTACK_I_TWO
-   \   00011A   7A..         MOV     R2,#`?<Constant "[%d] %04X %s\\n">` & 0xff
-   \   00011C   7B..         MOV     R3,#(`?<Constant "[%d] %04X %s\\n">` >> 8) & 0xff
-   \   00011E   12....       LCALL   ??printf?relay
-   \   000121   7406         MOV     A,#0x6
-   \   000123   12....       LCALL   ?DEALLOC_XSTACK8
-    130            }
-   \                     ??NameAddrCache_put_7:
-   \   000126   12....       LCALL   ?Subroutine5 & 0xFFFF
-   \                     ??CrossCallReturnLabel_4:
-   \   000129   40BE         JC      ??NameAddrCache_put_5
-    131            
-    132            
-    133          }
-   \   00012B                REQUIRE ?Subroutine2
-   \   00012B                ; // Fall through to label ?Subroutine2
+   \   0000DC   E5..         MOV     A,?V0 + 0
+   \   0000DE   F0           MOVX    @DPTR,A
+   \   0000DF   A3           INC     DPTR
+   \   0000E0   E5..         MOV     A,?V0 + 1
+   \   0000E2   F0           MOVX    @DPTR,A
+    137            name_addr_cache_idx++;
+    138            name_addr_cache_idx = name_addr_cache_idx % NAME_ADDR_CACHE_SIZE;
+   \   0000E3   90....       MOV     DPTR,#name_addr_cache_idx
+   \   0000E6   E0           MOVX    A,@DPTR
+   \   0000E7   2401         ADD     A,#0x1
+   \   0000E9   F8           MOV     R0,A
+   \   0000EA   A3           INC     DPTR
+   \   0000EB   E0           MOVX    A,@DPTR
+   \   0000EC   3400         ADDC    A,#0x0
+   \   0000EE   F9           MOV     R1,A
+   \   0000EF   7A05         MOV     R2,#0x5
+   \   0000F1   7B00         MOV     R3,#0x0
+   \   0000F3   12....       LCALL   ?US_DIV_MOD
+   \   0000F6   90....       MOV     DPTR,#name_addr_cache_idx
+   \   0000F9   EA           MOV     A,R2
+   \   0000FA   F0           MOVX    @DPTR,A
+   \   0000FB   A3           INC     DPTR
+   \   0000FC   EB           MOV     A,R3
+   \   0000FD   F0           MOVX    @DPTR,A
+    139            
+    140            
+    141            // debug only
+    142          //  printf("debug idx=%d\n", name_addr_cache_idx);
+    143          //  for (i = 0; i < NAME_ADDR_CACHE_SIZE; i++) {
+    144          //     data = name_addr_cache[i];
+    145          //     if (data == NULL) {
+    146          //        printf("[%d] NULL\n", i);
+    147          //       continue;
+    148          //     }
+    149          //     
+    150          //     printf("[%d] %04X %s\n", i, data->addr, data->name);
+    151          //  }
+    152          }
+   \   0000FE                REQUIRE ?Subroutine3
+   \   0000FE                ; // Fall through to label ?Subroutine3
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ?Subroutine2:
+   \                     ?Subroutine3:
    \   000000   7F07         MOV     R7,#0x7
    \   000002   02....       LJMP    ?BANKED_LEAVE_XDATA
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ?Subroutine5:
-   \   000000   E5..         MOV     A,?V0 + 4
-   \   000002   2401         ADD     A,#0x1
-   \   000004   F5..         MOV     ?V0 + 4,A
-   \   000006   E5..         MOV     A,?V0 + 5
-   \   000008   3400         ADDC    A,#0x0
-   \   00000A   F5..         MOV     ?V0 + 5,A
-   \   00000C   C3           CLR     C
-   \   00000D   E5..         MOV     A,?V0 + 4
-   \   00000F   9405         SUBB    A,#0x5
-   \   000011   E5..         MOV     A,?V0 + 5
-   \   000013   9400         SUBB    A,#0x0
-   \   000015   22           RET
-
-   \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ?Subroutine4:
-   \   000000   E5..         MOV     A,?V0 + 4
-   \   000002   C3           CLR     C
-   \   000003   33           RLC     A
-   \   000004   F8           MOV     R0,A
-   \   000005   E5..         MOV     A,?V0 + 5
-   \   000007   12....       LCALL   ?Subroutine13 & 0xFFFF
-   \                     ??CrossCallReturnLabel_14:
-   \   00000A                REQUIRE ??Subroutine18_0
-   \   00000A                ; // Fall through to label ??Subroutine18_0
-
-   \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ??Subroutine18_0:
+   \                     ?Subroutine7:
    \   000000   E0           MOVX    A,@DPTR
    \   000001   F5..         MOV     ?V0 + 0,A
    \   000003   A3           INC     DPTR
@@ -775,38 +846,29 @@ C:\ZigBee\SmartHomeApp\Projects\zstack\Samples\SmartHomeApp\Source\Utils.c
    \   00000B   22           RET
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ?Subroutine3:
+   \                     ?Subroutine4:
    \   000000   90....       MOV     DPTR,#name_addr_cache_idx
    \   000003   12....       LCALL   ??Subroutine15_0 & 0xFFFF
-   \                     ??CrossCallReturnLabel_16:
+   \                     ??CrossCallReturnLabel_19:
    \   000006   C3           CLR     C
    \   000007   33           RLC     A
    \   000008   F8           MOV     R0,A
    \   000009   E9           MOV     A,R1
-   \   00000A   12....       LCALL   ?Subroutine13 & 0xFFFF
-   \                     ??CrossCallReturnLabel_13:
+   \   00000A   12....       LCALL   ?Subroutine14 & 0xFFFF
+   \                     ??CrossCallReturnLabel_16:
    \   00000D   22           RET
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ?Subroutine12:
-   \   000000   12....       LCALL   ?Subroutine13 & 0xFFFF
-   \                     ??CrossCallReturnLabel_15:
-   \   000003   22           RET
+   \                     ?Subroutine9:
+   \   000000   3400         ADDC    A,#0x0
+   \   000002   FB           MOV     R3,A
+   \   000003   12....       LCALL   ??osal_mem_alloc?relay
+   \   000006   8A..         MOV     ?V0 + 0,R2
+   \   000008   8B..         MOV     ?V0 + 1,R3
+   \   00000A   22           RET
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ?Subroutine13:
-   \   000000   33           RLC     A
-   \   000001   F9           MOV     R1,A
-   \   000002   74..         MOV     A,#name_addr_cache & 0xff
-   \   000004   28           ADD     A,R0
-   \   000005   F582         MOV     DPL,A
-   \   000007   74..         MOV     A,#(name_addr_cache >> 8) & 0xff
-   \   000009   39           ADDC    A,R1
-   \   00000A   F583         MOV     DPH,A
-   \   00000C   22           RET
-
-   \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ?Subroutine7:
+   \                     ?Subroutine5:
    \   000000   A3           INC     DPTR
    \   000001   A3           INC     DPTR
    \   000002   E0           MOVX    A,@DPTR
@@ -821,25 +883,25 @@ C:\ZigBee\SmartHomeApp\Projects\zstack\Samples\SmartHomeApp\Source\Utils.c
    \   00000B   12....       LCALL   ??Util_StrEqual?relay
    \   00000E   E9           MOV     A,R1
    \   00000F   22           RET
-    134          
+    153          
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-    135          uint8* Util_GetNameFromCmd(uint8* cmd)
+    154          uint8* Util_GetNameFromCmd(uint8* cmd)
    \                     Util_GetNameFromCmd:
-    136          {
+    155          {
    \   000000   74F1         MOV     A,#-0xf
    \   000002   12....       LCALL   ?BANKED_ENTER_XDATA
    \   000005                ; Saved register size: 15
    \   000005                ; Auto size: 0
-    137            uint16 name_size;
-    138            uint8 *start_p, *end_p;
-    139            
-    140            start_p = cmd;
+    156            uint16 name_size;
+    157            uint8 *start_p, *end_p;
+    158            
+    159            start_p = cmd;
    \   000005   EA           MOV     A,R2
    \   000006   FE           MOV     R6,A
    \   000007   EB           MOV     A,R3
    \   000008   FF           MOV     R7,A
-    141            while (*start_p != ' ')
+    160            while (*start_p != ' ')
    \                     ??Util_GetNameFromCmd_0:
    \   000009   8E82         MOV     DPL,R6
    \   00000B   8F83         MOV     DPH,R7
@@ -849,22 +911,22 @@ C:\ZigBee\SmartHomeApp\Projects\zstack\Samples\SmartHomeApp\Source\Utils.c
    \   000011   AE82         MOV     R6,DPL
    \   000013   AF83         MOV     R7,DPH
    \   000015   6009         JZ      ??Util_GetNameFromCmd_1
-    142              start_p++;
+    161              start_p++;
    \   000017   80F0         SJMP    ??Util_GetNameFromCmd_0
-    143            
-    144            if (*start_p != ' ')
-    145              return NULL;
+    162            
+    163            if (*start_p != ' ')
+    164              return NULL;
    \                     ??Util_GetNameFromCmd_2:
    \   000019   7A00         MOV     R2,#0x0
    \   00001B   7B00         MOV     R3,#0x0
-   \   00001D   8045         SJMP    ??Util_GetNameFromCmd_3
-    146            
-    147            start_p++;
-    148            
-    149            end_p = start_p;
-    150            
-    151            while (*end_p != ' ' && *end_p)
-    152              end_p++;
+   \   00001D   8050         SJMP    ??Util_GetNameFromCmd_3
+    165            
+    166            start_p++;
+    167            
+    168            end_p = start_p;
+    169            
+    170            while (*end_p != ' ' && *end_p)
+    171              end_p++;
    \                     ??Util_GetNameFromCmd_4:
    \   00001F   A3           INC     DPTR
    \                     ??Util_GetNameFromCmd_1:
@@ -873,17 +935,17 @@ C:\ZigBee\SmartHomeApp\Projects\zstack\Samples\SmartHomeApp\Source\Utils.c
    \   000023   6003         JZ      ??Util_GetNameFromCmd_5
    \   000025   E0           MOVX    A,@DPTR
    \   000026   70F7         JNZ     ??Util_GetNameFromCmd_4
-    153            
-    154            if (*end_p != ' ' && *end_p != '\0')
+    172            
+    173            if (*end_p != ' ' && *end_p != '\0')
    \                     ??Util_GetNameFromCmd_5:
    \   000028   E0           MOVX    A,@DPTR
    \   000029   6420         XRL     A,#0x20
    \   00002B   6003         JZ      ??Util_GetNameFromCmd_6
    \   00002D   E0           MOVX    A,@DPTR
    \   00002E   70E9         JNZ     ??Util_GetNameFromCmd_2
-    155              return NULL;
-    156            
-    157            name_size = end_p - start_p;
+    174              return NULL;
+    175            
+    176            name_size = end_p - start_p;
    \                     ??Util_GetNameFromCmd_6:
    \   000030   E582         MOV     A,DPL
    \   000032   C3           CLR     C
@@ -892,15 +954,15 @@ C:\ZigBee\SmartHomeApp\Projects\zstack\Samples\SmartHomeApp\Source\Utils.c
    \   000036   E583         MOV     A,DPH
    \   000038   9F           SUBB    A,R7
    \   000039   F5..         MOV     ?V0 + 3,A
-    158            uint8* name = osal_mem_alloc(name_size+1);
+    177            uint8* name = osal_mem_alloc(name_size+1);
    \   00003B                ; Setup parameters for call to function osal_mem_alloc
    \   00003B   E5..         MOV     A,?V0 + 2
    \   00003D   2401         ADD     A,#0x1
    \   00003F   FA           MOV     R2,A
    \   000040   E5..         MOV     A,?V0 + 3
-   \   000042   12....       LCALL   ??Subroutine17_0 & 0xFFFF
-    159            osal_memcpy(name, start_p, name_size);
-   \                     ??CrossCallReturnLabel_25:
+   \   000042   12....       LCALL   ?Subroutine9 & 0xFFFF
+    178            osal_memcpy(name, start_p, name_size);
+   \                     ??CrossCallReturnLabel_8:
    \   000045                ; Setup parameters for call to function osal_memcpy
    \   000045   8E..         MOV     ?V0 + 4,R6
    \   000047   8F..         MOV     ?V0 + 5,R7
@@ -912,48 +974,54 @@ C:\ZigBee\SmartHomeApp\Projects\zstack\Samples\SmartHomeApp\Source\Utils.c
    \   000055   12....       LCALL   ??osal_memcpy?relay
    \   000058   7403         MOV     A,#0x3
    \   00005A   12....       LCALL   ?DEALLOC_XSTACK8
-    160            name[name_size] = 0;
-   \   00005D   12....       LCALL   ?Subroutine8 & 0xFFFF
-    161            
-    162            return name;
-   \                     ??CrossCallReturnLabel_8:
-   \   000060   AA..         MOV     R2,?V0 + 0
-   \   000062   AB..         MOV     R3,?V0 + 1
+    179            name[name_size] = 0;
+   \   00005D   E5..         MOV     A,?V0 + 0
+   \   00005F   25..         ADD     A,?V0 + 2
+   \   000061   F582         MOV     DPL,A
+   \   000063   E5..         MOV     A,?V0 + 1
+   \   000065   35..         ADDC    A,?V0 + 3
+   \   000067   F583         MOV     DPH,A
+   \   000069   E4           CLR     A
+   \   00006A   F0           MOVX    @DPTR,A
+    180            
+    181            return name;
+   \   00006B   AA..         MOV     R2,?V0 + 0
+   \   00006D   AB..         MOV     R3,?V0 + 1
    \                     ??Util_GetNameFromCmd_3:
-   \   000064   02....       LJMP    ?Subroutine2 & 0xFFFF
-    163          }
-    164          
+   \   00006F   02....       LJMP    ?Subroutine3 & 0xFFFF
+    182          }
+    183          
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-    165          uint16 NameAddrCache_getAddrFromCmd(uint8* cmd)
+    184          uint16 NameAddrCache_getAddrFromCmd(uint8* cmd)
    \                     NameAddrCache_getAddrFromCmd:
-    166          {
+    185          {
    \   000000   74F4         MOV     A,#-0xc
    \   000002   12....       LCALL   ?BANKED_ENTER_XDATA
    \   000005                ; Saved register size: 12
    \   000005                ; Auto size: 0
-    167            uint16 i;
-    168            NameAddrCacheData_t* data;
-    169            uint8* name;
-    170            
-    171            name = Util_GetNameFromCmd(cmd); 
+    186            uint16 i;
+    187            NameAddrCacheData_t* data;
+    188            uint8* name;
+    189            
+    190            name = Util_GetNameFromCmd(cmd); 
    \   000005                ; Setup parameters for call to function Util_GetNameFromCmd
    \   000005   12....       LCALL   ??Util_GetNameFromCmd?relay
    \   000008   8A..         MOV     ?V0 + 0,R2
    \   00000A   8B..         MOV     ?V0 + 1,R3
    \   00000C   AE..         MOV     R6,?V0 + 0
    \   00000E   AF..         MOV     R7,?V0 + 1
-    172            if (name == NULL)
+    191            if (name == NULL)
    \   000010   EE           MOV     A,R6
    \   000011   4F           ORL     A,R7
-   \   000012   6057         JZ      ??NameAddrCache_getAddrFromCmd_0
-    173              return 0xFFFF;
-    174            
-    175            // find match data
-    176            for (i = 0; i < NAME_ADDR_CACHE_SIZE; i++) {
+   \   000012   6051         JZ      ??NameAddrCache_getAddrFromCmd_0
+    192              return 0xFFFF;
+    193            
+    194            // find match data
+    195            for (i = 0; i < NAME_ADDR_CACHE_SIZE; i++) {
    \   000014   75..00       MOV     ?V0 + 0,#0x0
    \   000017   75..00       MOV     ?V0 + 1,#0x0
-    177               data = name_addr_cache[i];
+    196               data = name_addr_cache[i];
    \                     ??NameAddrCache_getAddrFromCmd_1:
    \   00001A   E5..         MOV     A,?V0 + 0
    \   00001C   C3           CLR     C
@@ -961,7 +1029,7 @@ C:\ZigBee\SmartHomeApp\Projects\zstack\Samples\SmartHomeApp\Source\Utils.c
    \   00001E   F8           MOV     R0,A
    \   00001F   E5..         MOV     A,?V0 + 1
    \   000021   12....       LCALL   ?Subroutine12 & 0xFFFF
-   \                     ??CrossCallReturnLabel_12:
+   \                     ??CrossCallReturnLabel_15:
    \   000024   E0           MOVX    A,@DPTR
    \   000025   F8           MOV     R0,A
    \   000026   A3           INC     DPTR
@@ -969,77 +1037,75 @@ C:\ZigBee\SmartHomeApp\Projects\zstack\Samples\SmartHomeApp\Source\Utils.c
    \   000028   F9           MOV     R1,A
    \   000029   88..         MOV     ?V0 + 2,R0
    \   00002B   89..         MOV     ?V0 + 3,R1
-    178               if (data == NULL)
+    197               if (data == NULL)
    \   00002D   E8           MOV     A,R0
    \   00002E   45..         ORL     A,?V0 + 3
-   \   000030   601B         JZ      ??NameAddrCache_getAddrFromCmd_2
-    179                 continue;
-    180               if (Util_StrEqual(name, data->name)) {
+   \   000030   6015         JZ      ??NameAddrCache_getAddrFromCmd_2
+    198                 continue;
+    199               if (Util_StrEqual(name, data->name)) {
    \   000032                ; Setup parameters for call to function Util_StrEqual
    \   000032   8882         MOV     DPL,R0
    \   000034   8983         MOV     DPH,R1
-   \   000036   12....       LCALL   ?Subroutine7 & 0xFFFF
-   \                     ??CrossCallReturnLabel_6:
-   \   000039   6012         JZ      ??NameAddrCache_getAddrFromCmd_2
-    181                 osal_mem_free(name);
+   \   000036   12....       LCALL   ?Subroutine5 & 0xFFFF
+   \                     ??CrossCallReturnLabel_4:
+   \   000039   600C         JZ      ??NameAddrCache_getAddrFromCmd_2
+    200                 osal_mem_free(name);
    \   00003B                ; Setup parameters for call to function osal_mem_free
    \   00003B   EE           MOV     A,R6
    \   00003C   FA           MOV     R2,A
    \   00003D   EF           MOV     A,R7
    \   00003E   FB           MOV     R3,A
    \   00003F   12....       LCALL   ??osal_mem_free?relay
-    182                 return data->addr;
-   \   000042   85..82       MOV     DPL,?V0 + 2
-   \   000045   85..83       MOV     DPH,?V0 + 3
-   \   000048   12....       LCALL   ??Subroutine16_0 & 0xFFFF
-    183               }
-    184            }
-   \                     ??CrossCallReturnLabel_20:
-   \   00004B   8022         SJMP    ??NameAddrCache_getAddrFromCmd_3
+    201                 return data->addr;
+   \   000042   12....       LCALL   ?Subroutine6 & 0xFFFF
+    202               }
+    203            }
+   \                     ??CrossCallReturnLabel_26:
+   \   000045   8022         SJMP    ??NameAddrCache_getAddrFromCmd_3
    \                     ??NameAddrCache_getAddrFromCmd_2:
-   \   00004D   E5..         MOV     A,?V0 + 0
-   \   00004F   2401         ADD     A,#0x1
-   \   000051   F5..         MOV     ?V0 + 0,A
-   \   000053   E5..         MOV     A,?V0 + 1
-   \   000055   3400         ADDC    A,#0x0
-   \   000057   F5..         MOV     ?V0 + 1,A
-   \   000059   C3           CLR     C
-   \   00005A   E5..         MOV     A,?V0 + 0
-   \   00005C   9405         SUBB    A,#0x5
-   \   00005E   E5..         MOV     A,?V0 + 1
-   \   000060   9400         SUBB    A,#0x0
-   \   000062   40B6         JC      ??NameAddrCache_getAddrFromCmd_1
-    185            
-    186            osal_mem_free(name);
-   \   000064                ; Setup parameters for call to function osal_mem_free
-   \   000064   EE           MOV     A,R6
-   \   000065   FA           MOV     R2,A
-   \   000066   EF           MOV     A,R7
-   \   000067   FB           MOV     R3,A
-   \   000068   12....       LCALL   ??osal_mem_free?relay
-    187            // not find.
-    188            return 0xFFFF;
+   \   000047   E5..         MOV     A,?V0 + 0
+   \   000049   2401         ADD     A,#0x1
+   \   00004B   F5..         MOV     ?V0 + 0,A
+   \   00004D   E5..         MOV     A,?V0 + 1
+   \   00004F   3400         ADDC    A,#0x0
+   \   000051   F5..         MOV     ?V0 + 1,A
+   \   000053   C3           CLR     C
+   \   000054   E5..         MOV     A,?V0 + 0
+   \   000056   9405         SUBB    A,#0x5
+   \   000058   E5..         MOV     A,?V0 + 1
+   \   00005A   9400         SUBB    A,#0x0
+   \   00005C   40BC         JC      ??NameAddrCache_getAddrFromCmd_1
+    204            
+    205            osal_mem_free(name);
+   \   00005E                ; Setup parameters for call to function osal_mem_free
+   \   00005E   EE           MOV     A,R6
+   \   00005F   FA           MOV     R2,A
+   \   000060   EF           MOV     A,R7
+   \   000061   FB           MOV     R3,A
+   \   000062   12....       LCALL   ??osal_mem_free?relay
+    206            // not find.
+    207            return 0xFFFF;
    \                     ??NameAddrCache_getAddrFromCmd_0:
-   \   00006B   7AFF         MOV     R2,#-0x1
-   \   00006D   7BFF         MOV     R3,#-0x1
+   \   000065   7AFF         MOV     R2,#-0x1
+   \   000067   7BFF         MOV     R3,#-0x1
    \                     ??NameAddrCache_getAddrFromCmd_3:
-   \   00006F   7F04         MOV     R7,#0x4
-   \   000071   02....       LJMP    ?BANKED_LEAVE_XDATA
-    189          }
-    190          
-    191          
-    192          static uint16 findHexValue(uint8 ch);
-    193          
+   \   000069   7F04         MOV     R7,#0x4
+   \   00006B   02....       LJMP    ?BANKED_LEAVE_XDATA
+    208          }
+    209          
+    210          
+    211          static uint16 findHexValue(uint8 ch);
+    212          
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-    194          uint16 findHexValue(uint8 ch)
+    213          uint16 findHexValue(uint8 ch)
    \                     findHexValue:
-    195          {
+    214          {
    \   000000   74F6         MOV     A,#-0xa
    \   000002   12....       LCALL   ?BANKED_ENTER_XDATA
    \   000005                ; Saved register size: 10
    \   000005                ; Auto size: 0
-    196            switch(ch) {
+    215            switch(ch) {
    \   000005   E9           MOV     A,R1
    \   000006   12....       LCALL   ?UC_SWITCH_SPARSE
    \                     `?<Jumptable for findHexValue>_0`:
@@ -1055,17 +1121,17 @@ C:\ZigBee\SmartHomeApp\Projects\zstack\Samples\SmartHomeApp\Source\Utils.c
    \   000014   ....         DW        ??findHexValue_2
    \   000016   00           DB        0
    \   000017   ....         DW        ??findHexValue_3
-    197            case '0':
-    198            case '1':
-    199            case '2':
-    200            case '3':
-    201            case '4':
-    202            case '5':
-    203            case '6':
-    204            case '7':
-    205            case '8':
-    206            case '9':
-    207              return ch - '0';
+    216            case '0':
+    217            case '1':
+    218            case '2':
+    219            case '3':
+    220            case '4':
+    221            case '5':
+    222            case '6':
+    223            case '7':
+    224            case '8':
+    225            case '9':
+    226              return ch - '0';
    \                     ??findHexValue_0:
    \   000019   E9           MOV     A,R1
    \   00001A   24D0         ADD     A,#-0x30
@@ -1075,24 +1141,24 @@ C:\ZigBee\SmartHomeApp\Projects\zstack\Samples\SmartHomeApp\Source\Utils.c
    \   00001E   34FF         ADDC    A,#-0x1
    \   000020   FB           MOV     R3,A
    \   000021   8013         SJMP    ??findHexValue_5
-    208            case 'A':
-    209            case 'B':
-    210            case 'C':
-    211            case 'D':
-    212            case 'E':
-    213            case 'F':
-    214              return ch - 'A' + 10;
+    227            case 'A':
+    228            case 'B':
+    229            case 'C':
+    230            case 'D':
+    231            case 'E':
+    232            case 'F':
+    233              return ch - 'A' + 10;
    \                     ??findHexValue_1:
    \   000023   E9           MOV     A,R1
    \   000024   24C9         ADD     A,#-0x37
    \   000026   80F4         SJMP    ??findHexValue_4
-    215            case 'a':
-    216            case 'b':
-    217            case 'c':
-    218            case 'd':
-    219            case 'e':
-    220            case 'f':
-    221              return ch - 'a' + 10;
+    234            case 'a':
+    235            case 'b':
+    236            case 'c':
+    237            case 'd':
+    238            case 'e':
+    239            case 'f':
+    240              return ch - 'a' + 10;
    \                     ??findHexValue_2:
    \   000028   E9           MOV     A,R1
    \   000029   24A9         ADD     A,#-0x57
@@ -1101,48 +1167,47 @@ C:\ZigBee\SmartHomeApp\Projects\zstack\Samples\SmartHomeApp\Source\Utils.c
    \   00002D   34FF         ADDC    A,#-0x1
    \   00002F   FB           MOV     R3,A
    \   000030   8004         SJMP    ??findHexValue_5
-    222            }
-    223            return 0;
+    241            }
+    242            return 0;
    \                     ??findHexValue_3:
    \   000032   7A00         MOV     R2,#0x0
    \   000034   7B00         MOV     R3,#0x0
    \                     ??findHexValue_5:
-   \   000036   7F02         MOV     R7,#0x2
-   \   000038   02....       LJMP    ?BANKED_LEAVE_XDATA
-    224          }
-    225          
-    226          
+   \   000036   02....       LJMP    ?Subroutine2 & 0xFFFF
+    243          }
+    244          
+    245          
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-    227          uint16 Util_Str2Uint16(uint8* str)
+    246          uint16 Util_Str2Uint16(uint8* str)
    \                     Util_Str2Uint16:
-    228          {
+    247          {
    \   000000   74F0         MOV     A,#-0x10
    \   000002   12....       LCALL   ?BANKED_ENTER_XDATA
    \   000005                ; Saved register size: 16
    \   000005                ; Auto size: 0
    \   000005   8A..         MOV     ?V0 + 0,R2
    \   000007   8B..         MOV     ?V0 + 1,R3
-    229              return findHexValue(str[0])*16*16*16 + findHexValue(str[1])*16*16 + findHexValue(str[2])*16 + findHexValue(str[3]);
+    248              return findHexValue(str[0])*16*16*16 + findHexValue(str[1])*16*16 + findHexValue(str[2])*16 + findHexValue(str[3]);
    \   000009                ; Setup parameters for call to function findHexValue
    \   000009   8A82         MOV     DPL,R2
    \   00000B   8B83         MOV     DPH,R3
-   \   00000D   12....       LCALL   ??Subroutine20_0 & 0xFFFF
-   \                     ??CrossCallReturnLabel_32:
+   \   00000D   12....       LCALL   ??Subroutine18_0 & 0xFFFF
+   \                     ??CrossCallReturnLabel_30:
    \   000010   8A..         MOV     ?V0 + 4,R2
    \   000012   8B..         MOV     ?V0 + 5,R3
    \   000014                ; Setup parameters for call to function findHexValue
    \   000014   85..82       MOV     DPL,?V0 + 0
    \   000017   85..83       MOV     DPH,?V0 + 1
-   \   00001A   12....       LCALL   ??Subroutine19_0 & 0xFFFF
-   \                     ??CrossCallReturnLabel_31:
+   \   00001A   12....       LCALL   ??Subroutine17_0 & 0xFFFF
+   \                     ??CrossCallReturnLabel_29:
    \   00001D   8A..         MOV     ?V0 + 2,R2
    \   00001F   AE..         MOV     R6,?V0 + 2
    \   000021                ; Setup parameters for call to function findHexValue
    \   000021   85..82       MOV     DPL,?V0 + 0
    \   000024   85..83       MOV     DPH,?V0 + 1
-   \   000027   12....       LCALL   ?Subroutine9 & 0xFFFF
-   \                     ??CrossCallReturnLabel_29:
+   \   000027   12....       LCALL   ?Subroutine8 & 0xFFFF
+   \                     ??CrossCallReturnLabel_27:
    \   00002A   8A..         MOV     ?V0 + 2,R2
    \   00002C   8B..         MOV     ?V0 + 3,R3
    \   00002E   740C         MOV     A,#0xc
@@ -1167,8 +1232,8 @@ C:\ZigBee\SmartHomeApp\Projects\zstack\Samples\SmartHomeApp\Source\Utils.c
    \   00004C   85..82       MOV     DPL,?V0 + 0
    \   00004F   85..83       MOV     DPH,?V0 + 1
    \   000052   A3           INC     DPTR
-   \   000053   12....       LCALL   ?Subroutine9 & 0xFFFF
-   \                     ??CrossCallReturnLabel_30:
+   \   000053   12....       LCALL   ?Subroutine8 & 0xFFFF
+   \                     ??CrossCallReturnLabel_28:
    \   000056   8A..         MOV     ?V0 + 0,R2
    \   000058   8B..         MOV     ?V0 + 1,R3
    \   00005A   EE           MOV     A,R6
@@ -1179,26 +1244,87 @@ C:\ZigBee\SmartHomeApp\Projects\zstack\Samples\SmartHomeApp\Source\Utils.c
    \   000061   FB           MOV     R3,A
    \   000062   7F08         MOV     R7,#0x8
    \   000064   02....       LJMP    ?BANKED_LEAVE_XDATA
-    230          }
+    249          }
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ?Subroutine9:
+   \                     ?Subroutine8:
    \   000000   A3           INC     DPTR
-   \   000001                REQUIRE ??Subroutine19_0
-   \   000001                ; // Fall through to label ??Subroutine19_0
+   \   000001                REQUIRE ??Subroutine17_0
+   \   000001                ; // Fall through to label ??Subroutine17_0
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ??Subroutine19_0:
+   \                     ??Subroutine17_0:
    \   000000   A3           INC     DPTR
-   \   000001                REQUIRE ??Subroutine20_0
-   \   000001                ; // Fall through to label ??Subroutine20_0
+   \   000001                REQUIRE ??Subroutine18_0
+   \   000001                ; // Fall through to label ??Subroutine18_0
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ??Subroutine20_0:
+   \                     ??Subroutine18_0:
    \   000000   E0           MOVX    A,@DPTR
    \   000001   F9           MOV     R1,A
    \   000002   12....       LCALL   ??findHexValue?relay
    \   000005   22           RET
+    250          
+    251          
+    252          
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+    253          uint16 Util_Str2Dec(uint8 * str)
+   \                     Util_Str2Dec:
+    254          {
+   \   000000   C082         PUSH    DPL
+   \   000002   C083         PUSH    DPH
+   \   000004                ; Saved register size: 2
+   \   000004                ; Auto size: 0
+    255            uint16 ret = 0;
+   \   000004   7800         MOV     R0,#0x0
+   \   000006   7900         MOV     R1,#0x0
+   \   000008   8022         SJMP    ??Util_Str2Dec_0
+    256            while (*str && (*str != ' ')) {
+    257              ret = ret*10 + (*str - '0');
+   \                     ??Util_Str2Dec_1:
+   \   00000A   E8           MOV     A,R0
+   \   00000B   75F00A       MOV     B,#0xa
+   \   00000E   A4           MUL     AB
+   \   00000F   F8           MOV     R0,A
+   \   000010   ACF0         MOV     R4,B
+   \   000012   75F00A       MOV     B,#0xa
+   \   000015   E9           MOV     A,R1
+   \   000016   A4           MUL     AB
+   \   000017   2C           ADD     A,R4
+   \   000018   F9           MOV     R1,A
+   \   000019   E0           MOVX    A,@DPTR
+   \   00001A   24D0         ADD     A,#-0x30
+   \   00001C   FC           MOV     R4,A
+   \   00001D   E4           CLR     A
+   \   00001E   34FF         ADDC    A,#-0x1
+   \   000020   FD           MOV     R5,A
+   \   000021   E8           MOV     A,R0
+   \   000022   2C           ADD     A,R4
+   \   000023   F8           MOV     R0,A
+   \   000024   E9           MOV     A,R1
+   \   000025   3D           ADDC    A,R5
+   \   000026   F9           MOV     R1,A
+    258              str++;
+   \   000027   A3           INC     DPTR
+   \   000028   AA82         MOV     R2,DPL
+   \   00002A   AB83         MOV     R3,DPH
+    259            }
+   \                     ??Util_Str2Dec_0:
+   \   00002C   8A82         MOV     DPL,R2
+   \   00002E   8B83         MOV     DPH,R3
+   \   000030   E0           MOVX    A,@DPTR
+   \   000031   6004         JZ      ??Util_Str2Dec_2
+   \   000033   6420         XRL     A,#0x20
+   \   000035   70D3         JNZ     ??Util_Str2Dec_1
+    260            return ret;
+   \                     ??Util_Str2Dec_2:
+   \   000037   E8           MOV     A,R0
+   \   000038   FA           MOV     R2,A
+   \   000039   E9           MOV     A,R1
+   \   00003A   FB           MOV     R3,A
+   \   00003B   02....       LJMP    ?Subroutine1 & 0xFFFF
+    261          }
 
    \                                 In  segment BANK_RELAYS, align 1
    \                     ??Util_ReadName?relay:
@@ -1219,6 +1345,11 @@ C:\ZigBee\SmartHomeApp\Projects\zstack\Samples\SmartHomeApp\Source\Utils.c
    \                     ??Util_StrEqual?relay:
    \   000000   12....       LCALL   ?BDISPATCH
    \   000003   ......       DC24    Util_StrEqual
+
+   \                                 In  segment BANK_RELAYS, align 1
+   \                     ??NameAddrCache_delete?relay:
+   \   000000   12....       LCALL   ?BDISPATCH
+   \   000003   ......       DC24    NameAddrCache_delete
 
    \                                 In  segment BANK_RELAYS, align 1
    \                     ??NameAddrCache_put?relay:
@@ -1245,62 +1376,46 @@ C:\ZigBee\SmartHomeApp\Projects\zstack\Samples\SmartHomeApp\Source\Utils.c
    \   000000   12....       LCALL   ?BDISPATCH
    \   000003   ......       DC24    Util_Str2Uint16
 
+   \                                 In  segment BANK_RELAYS, align 1
+   \                     ??Util_Str2Dec?relay:
+   \   000000   12....       LCALL   ?BDISPATCH
+   \   000003   ......       DC24    Util_Str2Dec
+
    \                                 In  segment XDATA_ROM_C, align 1
    \                     `?<Constant "Unkown">`:
    \   000000   556E6B6F     DB "Unkown"
    \            776E00  
 
-   \                                 In  segment XDATA_ROM_C, align 1
-   \                     `?<Constant "debug idx=%d\\n">`:
-   \   000000   64656275     DB "debug idx=%d\012"
-   \            67206964
-   \            783D2564
-   \            0A00    
-
-   \                                 In  segment XDATA_ROM_C, align 1
-   \                     `?<Constant "[%d]=NULL\\n">`:
-   \   000000   5B25645D     DB "[%d]=NULL\012"
-   \            3D4E554C
-   \            4C0A00  
-
-   \                                 In  segment XDATA_ROM_C, align 1
-   \                     `?<Constant "[%d] %04X %s\\n">`:
-   \   000000   5B25645D     DB "[%d] %04X %s\012"
-   \            20253034
-   \            58202573
-   \            0A00    
-    231          
-    232          
-
    Maximum stack usage in bytes:
 
      Function                     ISTACK PSTACK XSTACK
      --------                     ------ ------ ------
+     NameAddrCache_delete             0      0     10
+       -> osal_mem_free               0      0     20
      NameAddrCache_getAddrFromCmd     0      0     12
        -> Util_GetNameFromCmd         0      0     24
        -> Util_StrEqual               0      0     24
        -> osal_mem_free               0      0     24
        -> osal_mem_free               0      0     24
-     NameAddrCache_put                0      0     21
+     NameAddrCache_put                0      0     18
        -> Util_StrEqual               0      0     30
        -> osal_mem_free               0      0     30
        -> osal_mem_free               0      0     30
        -> osal_strlen                 0      0     30
        -> osal_mem_alloc              0      0     30
-       -> osal_strlen                 0      0     36
+       -> osal_strlen                 0      0     30
        -> osal_memcpy                 0      0     36
-       -> printf                      0      0     34
-       -> printf                      0      0     34
-       -> printf                      0      0     42
      Util_GetNameFromCmd              0      0     30
        -> osal_mem_alloc              0      0     30
        -> osal_memcpy                 0      0     36
      Util_ReadName                    0      0     18
        -> osal_nv_item_len            0      0     28
        -> osal_mem_alloc              0      0     28
+       -> osal_nv_item_init           0      0     32
        -> osal_nv_read                0      0     36
        -> osal_mem_free               0      0     28
      Util_StartWith                   2      0      0
+     Util_Str2Dec                     2      0      0
      Util_Str2Uint16                  0      0     16
        -> findHexValue                0      0     32
        -> findHexValue                0      0     32
@@ -1319,60 +1434,59 @@ C:\ZigBee\SmartHomeApp\Projects\zstack\Samples\SmartHomeApp\Source\Utils.c
      Function/Label                       Bytes
      --------------                       -----
      application_name                        2
-     Util_ReadName                         102
+     Util_ReadName                         153
      ?Subroutine0                            5
-     ?Subroutine14                           3
+     ?Subroutine13                           3
      ??Subroutine15_0                        7
-     ?Subroutine10                           3
      ??Subroutine16_0                        6
-     ?Subroutine6                            2
-     ??Subroutine17_0                       11
-     ?Subroutine8                           15
-     Util_WriteName                         82
+     Util_WriteName                         85
      Util_StartWith                         42
      ?Subroutine1                            7
-     ?Subroutine11                          13
+     ?Subroutine10                          13
      Util_StrEqual                          60
      name_addr_cache                        10
      name_addr_cache_idx                     2
-     NameAddrCache_put                     299
+     NameAddrCache_delete                   79
      ?Subroutine2                            5
-     ?Subroutine5                           22
-     ?Subroutine4                           10
-     ??Subroutine18_0                       12
-     ?Subroutine3                           14
      ?Subroutine12                           4
-     ?Subroutine13                          13
-     ?Subroutine7                           16
-     Util_GetNameFromCmd                   103
-     NameAddrCache_getAddrFromCmd          116
-     findHexValue                           59
+     ?Subroutine11                           8
+     ?Subroutine14                          13
+     ?Subroutine6                            6
+     NameAddrCache_put                     254
+     ?Subroutine3                            5
+     ?Subroutine7                           12
+     ?Subroutine4                           14
+     ?Subroutine9                           11
+     ?Subroutine5                           16
+     Util_GetNameFromCmd                   114
+     NameAddrCache_getAddrFromCmd          110
+     findHexValue                           57
      Util_Str2Uint16                       103
-     ?Subroutine9                            1
-     ??Subroutine19_0                        1
-     ??Subroutine20_0                        6
+     ?Subroutine8                            1
+     ??Subroutine17_0                        1
+     ??Subroutine18_0                        6
+     Util_Str2Dec                           62
      ??Util_ReadName?relay                   6
      ??Util_WriteName?relay                  6
      ??Util_StartWith?relay                  6
      ??Util_StrEqual?relay                   6
+     ??NameAddrCache_delete?relay            6
      ??NameAddrCache_put?relay               6
      ??Util_GetNameFromCmd?relay             6
      ??NameAddrCache_getAddrFromCmd?relay    6
      ??findHexValue?relay                    6
      ??Util_Str2Uint16?relay                 6
+     ??Util_Str2Dec?relay                    6
      ?<Constant "Unkown">                    7
-     ?<Constant "debug idx=%d\n">           14
-     ?<Constant "[%d]=NULL\n">              11
-     ?<Constant "[%d] %04X %s\n">           14
 
  
- 1 142 bytes in segment BANKED_CODE
-    54 bytes in segment BANK_RELAYS
-    46 bytes in segment XDATA_ROM_C
+ 1 262 bytes in segment BANKED_CODE
+    66 bytes in segment BANK_RELAYS
+     7 bytes in segment XDATA_ROM_C
     14 bytes in segment XDATA_Z
  
- 1 196 bytes of CODE  memory
-    46 bytes of CONST memory
+ 1 328 bytes of CODE  memory
+     7 bytes of CONST memory
     14 bytes of XDATA memory
 
 Errors: none

@@ -1,6 +1,6 @@
 ###############################################################################
 #                                                                             #
-# IAR C/C++ Compiler V8.10.3.10338/W32 for 8051         02/Jul/2018  19:56:19 #
+# IAR C/C++ Compiler V8.10.3.10338/W32 for 8051         04/Jul/2018  22:34:45 #
 # Copyright 2004-2011 IAR Systems AB.                                         #
 #                                                                             #
 #    Core               =  plain                                              #
@@ -119,19 +119,42 @@
 C:\ZigBee\SmartHomeApp\Projects\zstack\Samples\SmartHomeApp\Source\DefaultProcessor.c
       1          #include "DefaultProcessor.h"
       2          
-      3          
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-      4          void DefaultProcessor_HandleKeys(uint8 keys)
+      3          void DefaultProcessor_Init(void)
+   \                     DefaultProcessor_Init:
+      4          {
+   \   000000                ; Saved register size: 0
+   \   000000                ; Auto size: 0
+      5            
+      6          }
+   \   000000   02....       LJMP    ?BRET
+      7          
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+      8          void DefaultProcessor_Update(void)
+   \                     DefaultProcessor_Update:
+      9          {
+   \   000000                ; Saved register size: 0
+   \   000000                ; Auto size: 0
+     10            
+     11          }
+   \   000000   02....       LJMP    ?BRET
+     12          
+     13          
+     14          
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+     15          void DefaultProcessor_HandleKeys(uint8 keys)
    \                     DefaultProcessor_HandleKeys:
-      5          {
+     16          {
    \   000000   74F6         MOV     A,#-0xa
    \   000002   12....       LCALL   ?BANKED_ENTER_XDATA
    \   000005                ; Saved register size: 10
    \   000005                ; Auto size: 0
    \   000005   E9           MOV     A,R1
    \   000006   FE           MOV     R6,A
-      6            printf("DefaultProcessor_HandleKeys : %X\n", keys);
+     17            printf("DefaultProcessor_HandleKeys : %X\n", keys);
    \   000007                ; Setup parameters for call to function printf
    \   000007   8E..         MOV     ?V0 + 0,R6
    \   000009   75..00       MOV     ?V0 + 1,#0x0
@@ -141,8 +164,8 @@ C:\ZigBee\SmartHomeApp\Projects\zstack\Samples\SmartHomeApp\Source\DefaultProces
    \   000013   7B..         MOV     R3,#(`?<Constant "DefaultProcessor_Hand...">` >> 8) & 0xff
    \   000015                REQUIRE ?Subroutine0
    \   000015                ; // Fall through to label ?Subroutine0
-      7            
-      8          }
+     18            
+     19          }
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
    \                     ?Subroutine0:
@@ -151,19 +174,19 @@ C:\ZigBee\SmartHomeApp\Projects\zstack\Samples\SmartHomeApp\Source\DefaultProces
    \   000005   12....       LCALL   ?DEALLOC_XSTACK8
    \   000008   7F02         MOV     R7,#0x2
    \   00000A   02....       LJMP    ?BANKED_LEAVE_XDATA
-      9          
-     10          
+     20          
+     21          
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-     11          void DefaultProcessor_HandleMsg(uint8* msg)
+     22          void DefaultProcessor_HandleMsg(uint8* msg)
    \                     DefaultProcessor_HandleMsg:
-     12          {
+     23          {
    \   000000   74F6         MOV     A,#-0xa
    \   000002   12....       LCALL   ?BANKED_ENTER_XDATA
    \   000005                ; Saved register size: 10
    \   000005                ; Auto size: 0
-     13            
-     14            printf("DefaultProcessor_HandleMsg: %s\n", msg); 
+     24            
+     25            printf("DefaultProcessor_HandleMsg: %s\n", msg); 
    \   000005                ; Setup parameters for call to function printf
    \   000005   8A..         MOV     ?V0 + 0,R2
    \   000007   8B..         MOV     ?V0 + 1,R3
@@ -172,7 +195,17 @@ C:\ZigBee\SmartHomeApp\Projects\zstack\Samples\SmartHomeApp\Source\DefaultProces
    \   00000E   7A..         MOV     R2,#`?<Constant "DefaultProcessor_Hand...">_1` & 0xff
    \   000010   7B..         MOV     R3,#(`?<Constant "DefaultProcessor_Hand...">_1` >> 8) & 0xff
    \   000012   80..         SJMP    ?Subroutine0
-     15          }
+     26          }
+
+   \                                 In  segment BANK_RELAYS, align 1
+   \                     ??DefaultProcessor_Init?relay:
+   \   000000   12....       LCALL   ?BDISPATCH
+   \   000003   ......       DC24    DefaultProcessor_Init
+
+   \                                 In  segment BANK_RELAYS, align 1
+   \                     ??DefaultProcessor_Update?relay:
+   \   000000   12....       LCALL   ?BDISPATCH
+   \   000003   ......       DC24    DefaultProcessor_Update
 
    \                                 In  segment BANK_RELAYS, align 1
    \                     ??DefaultProcessor_HandleKeys?relay:
@@ -215,26 +248,32 @@ C:\ZigBee\SmartHomeApp\Projects\zstack\Samples\SmartHomeApp\Source\DefaultProces
        -> printf                     0      0     24
      DefaultProcessor_HandleMsg      0      0     12
        -> printf                     0      0     24
+     DefaultProcessor_Init           0      0      0
+     DefaultProcessor_Update         0      0      0
 
 
    Segment part sizes:
 
      Function/Label                           Bytes
      --------------                           -----
+     DefaultProcessor_Init                       3
+     DefaultProcessor_Update                     3
      DefaultProcessor_HandleKeys                21
      ?Subroutine0                               13
      DefaultProcessor_HandleMsg                 20
+     ??DefaultProcessor_Init?relay               6
+     ??DefaultProcessor_Update?relay             6
      ??DefaultProcessor_HandleKeys?relay         6
      ??DefaultProcessor_HandleMsg?relay          6
      ?<Constant "DefaultProcessor_Hand...">     34
      ?<Constant "DefaultProcessor_Hand...">_1   32
 
  
- 54 bytes in segment BANKED_CODE
- 12 bytes in segment BANK_RELAYS
+ 60 bytes in segment BANKED_CODE
+ 24 bytes in segment BANK_RELAYS
  66 bytes in segment XDATA_ROM_C
  
- 66 bytes of CODE  memory
+ 84 bytes of CODE  memory
  66 bytes of CONST memory
 
 Errors: none

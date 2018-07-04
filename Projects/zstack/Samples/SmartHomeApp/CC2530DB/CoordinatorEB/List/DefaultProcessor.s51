@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //                                                                            /
-// IAR C/C++ Compiler V8.10.3.10338/W32 for 8051        02/Jul/2018  19:56:19 /
+// IAR C/C++ Compiler V8.10.3.10338/W32 for 8051        04/Jul/2018  22:34:45 /
 // Copyright 2004-2011 IAR Systems AB.                                        /
 //                                                                            /
 //    Core               =  plain                                             /
@@ -137,6 +137,7 @@
         EXTERN ?BANKED_ENTER_XDATA
         EXTERN ?BANKED_LEAVE_XDATA
         EXTERN ?BDISPATCH
+        EXTERN ?BRET
         EXTERN ?DEALLOC_XSTACK8
         EXTERN ?PUSH_XSTACK_I_TWO
         EXTERN ?V0
@@ -145,6 +146,10 @@
         FUNCTION ??DefaultProcessor_HandleKeys?relay,0203H
         PUBLIC ??DefaultProcessor_HandleMsg?relay
         FUNCTION ??DefaultProcessor_HandleMsg?relay,0203H
+        PUBLIC ??DefaultProcessor_Init?relay
+        FUNCTION ??DefaultProcessor_Init?relay,0203H
+        PUBLIC ??DefaultProcessor_Update?relay
+        FUNCTION ??DefaultProcessor_Update?relay,0203H
         PUBLIC DefaultProcessor_HandleKeys
         FUNCTION DefaultProcessor_HandleKeys,021203H
         ARGFRAME XSTACK, 0, STACK
@@ -153,6 +158,12 @@
         FUNCTION DefaultProcessor_HandleMsg,021203H
         ARGFRAME XSTACK, 0, STACK
         LOCFRAME XSTACK, 12, STACK
+        PUBLIC DefaultProcessor_Init
+        FUNCTION DefaultProcessor_Init,0203H
+        ARGFRAME XSTACK, 0, STACK
+        PUBLIC DefaultProcessor_Update
+        FUNCTION DefaultProcessor_Update,0203H
+        ARGFRAME XSTACK, 0, STACK
         
         CFI Names cfiNames0
         CFI StackFrame CFA_SP SP IDATA
@@ -248,6 +259,10 @@ DefaultProcessor_HandleKeys SYMBOL "DefaultProcessor_HandleKeys"
 ??DefaultProcessor_HandleKeys?relay SYMBOL "?relay", DefaultProcessor_HandleKeys
 DefaultProcessor_HandleMsg SYMBOL "DefaultProcessor_HandleMsg"
 ??DefaultProcessor_HandleMsg?relay SYMBOL "?relay", DefaultProcessor_HandleMsg
+DefaultProcessor_Init SYMBOL "DefaultProcessor_Init"
+??DefaultProcessor_Init?relay SYMBOL "?relay", DefaultProcessor_Init
+DefaultProcessor_Update SYMBOL "DefaultProcessor_Update"
+??DefaultProcessor_Update?relay SYMBOL "?relay", DefaultProcessor_Update
 
         EXTERN printf
         FUNCTION printf,0202H
@@ -262,15 +277,46 @@ DefaultProcessor_HandleMsg SYMBOL "DefaultProcessor_HandleMsg"
 // C:\ZigBee\SmartHomeApp\Projects\zstack\Samples\SmartHomeApp\Source\DefaultProcessor.c
 //    1 #include "DefaultProcessor.h"
 //    2 
-//    3 
 
         RSEG BANKED_CODE:CODE:NOROOT(0)
-//    4 void DefaultProcessor_HandleKeys(uint8 keys)
-DefaultProcessor_HandleKeys:
+//    3 void DefaultProcessor_Init(void)
+DefaultProcessor_Init:
         CFI Block cfiBlock0 Using cfiCommon0
+        CFI Function DefaultProcessor_Init
+        CODE
+//    4 {
+        ; Saved register size: 0
+        ; Auto size: 0
+//    5   
+//    6 }
+        LJMP    ?BRET
+        CFI EndBlock cfiBlock0
+//    7 
+
+        RSEG BANKED_CODE:CODE:NOROOT(0)
+//    8 void DefaultProcessor_Update(void)
+DefaultProcessor_Update:
+        CFI Block cfiBlock1 Using cfiCommon0
+        CFI Function DefaultProcessor_Update
+        CODE
+//    9 {
+        ; Saved register size: 0
+        ; Auto size: 0
+//   10   
+//   11 }
+        LJMP    ?BRET
+        CFI EndBlock cfiBlock1
+//   12 
+//   13 
+//   14 
+
+        RSEG BANKED_CODE:CODE:NOROOT(0)
+//   15 void DefaultProcessor_HandleKeys(uint8 keys)
+DefaultProcessor_HandleKeys:
+        CFI Block cfiBlock2 Using cfiCommon0
         CFI Function DefaultProcessor_HandleKeys
         CODE
-//    5 {
+//   16 {
         FUNCALL DefaultProcessor_HandleKeys, printf
         LOCFRAME ISTACK, 0, STACK
         LOCFRAME PSTACK, 0, STACK
@@ -300,7 +346,7 @@ DefaultProcessor_HandleKeys:
         ; Auto size: 0
         MOV     A,R1
         MOV     R6,A
-//    6   printf("DefaultProcessor_HandleKeys : %X\n", keys);
+//   17   printf("DefaultProcessor_HandleKeys : %X\n", keys);
         ; Setup parameters for call to function printf
         MOV     ?V0 + 0,R6
         MOV     ?V0 + 1,#0x0
@@ -309,15 +355,15 @@ DefaultProcessor_HandleKeys:
         CFI CFA_XSP16 add(XSP16, 12)
         MOV     R2,#`?<Constant "DefaultProcessor_Hand...">` & 0xff
         MOV     R3,#(`?<Constant "DefaultProcessor_Hand...">` >> 8) & 0xff
-        CFI EndBlock cfiBlock0
+        CFI EndBlock cfiBlock2
         REQUIRE ?Subroutine0
         ; // Fall through to label ?Subroutine0
-//    7   
-//    8 }
+//   18   
+//   19 }
 
         RSEG BANKED_CODE:CODE:NOROOT(0)
 ?Subroutine0:
-        CFI Block cfiBlock1 Using cfiCommon0
+        CFI Block cfiBlock3 Using cfiCommon0
         CFI NoFunction
         CFI CFA_SP SP+0
         CFI CFA_XSP16 add(XSP16, 12)
@@ -337,17 +383,17 @@ DefaultProcessor_HandleKeys:
         CFI CFA_XSP16 add(XSP16, 10)
         MOV     R7,#0x2
         LJMP    ?BANKED_LEAVE_XDATA
-        CFI EndBlock cfiBlock1
-//    9 
-//   10 
+        CFI EndBlock cfiBlock3
+//   20 
+//   21 
 
         RSEG BANKED_CODE:CODE:NOROOT(0)
-//   11 void DefaultProcessor_HandleMsg(uint8* msg)
+//   22 void DefaultProcessor_HandleMsg(uint8* msg)
 DefaultProcessor_HandleMsg:
-        CFI Block cfiBlock2 Using cfiCommon0
+        CFI Block cfiBlock4 Using cfiCommon0
         CFI Function DefaultProcessor_HandleMsg
         CODE
-//   12 {
+//   23 {
         FUNCALL DefaultProcessor_HandleMsg, printf
         LOCFRAME ISTACK, 0, STACK
         LOCFRAME PSTACK, 0, STACK
@@ -375,8 +421,8 @@ DefaultProcessor_HandleMsg:
         CFI CFA_XSP16 add(XSP16, 10)
         ; Saved register size: 10
         ; Auto size: 0
-//   13   
-//   14   printf("DefaultProcessor_HandleMsg: %s\n", msg); 
+//   24   
+//   25   printf("DefaultProcessor_HandleMsg: %s\n", msg); 
         ; Setup parameters for call to function printf
         MOV     ?V0 + 0,R2
         MOV     ?V0 + 1,R3
@@ -386,8 +432,20 @@ DefaultProcessor_HandleMsg:
         MOV     R2,#`?<Constant "DefaultProcessor_Hand...">_1` & 0xff
         MOV     R3,#(`?<Constant "DefaultProcessor_Hand...">_1` >> 8) & 0xff
         SJMP    ?Subroutine0
-        CFI EndBlock cfiBlock2
-//   15 }
+        CFI EndBlock cfiBlock4
+//   26 }
+
+        RSEG BANK_RELAYS:CODE:REORDER:NOROOT(0)
+??DefaultProcessor_Init?relay:
+        LCALL   ?BDISPATCH
+        DATA
+        DC24    DefaultProcessor_Init
+
+        RSEG BANK_RELAYS:CODE:REORDER:NOROOT(0)
+??DefaultProcessor_Update?relay:
+        LCALL   ?BDISPATCH
+        DATA
+        DC24    DefaultProcessor_Update
 
         RSEG BANK_RELAYS:CODE:REORDER:NOROOT(0)
 ??DefaultProcessor_HandleKeys?relay:
@@ -413,11 +471,11 @@ DefaultProcessor_HandleMsg:
 
         END
 // 
-// 54 bytes in segment BANKED_CODE
-// 12 bytes in segment BANK_RELAYS
+// 60 bytes in segment BANKED_CODE
+// 24 bytes in segment BANK_RELAYS
 // 66 bytes in segment XDATA_ROM_C
 // 
-// 66 bytes of CODE  memory
+// 84 bytes of CODE  memory
 // 66 bytes of CONST memory
 //
 //Errors: none

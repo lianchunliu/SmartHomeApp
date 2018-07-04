@@ -56,6 +56,7 @@
 #include "ZComDef.h"
 #include "ZMAC.h"
 
+#include "user_printf.h"
 /*********************************************************************
  * LOCAL FUNCTIONS
  */
@@ -120,18 +121,16 @@ int main( void )
 
   // Allow interrupts
   osal_int_enable( INTS_ALL );
-
+  
   // Final board initialization
   InitBoard( OB_READY );
 
   // Display information about this device
   zmain_dev_info();
-
   /* Display the device info on the LCD */
 #ifdef LCD_SUPPORTED
   zmain_lcd_init();
 #endif
-
 #ifdef WDT_IN_PM1
   /* If WDT is used, this is a good place to enable it. */
   WatchDogEnable( WDTIMX );

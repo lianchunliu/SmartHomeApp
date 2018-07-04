@@ -6,7 +6,7 @@
 
 void DefaultProcessor_HandleKeys(uint8 keys);
 
-void DefaultProcessor_HandleMsg(uint8* msg);
+void DefaultProcessor_HandleMsg(uint8* msg, uint16 srcAddr);
 
 void DefaultProcessor_Init(void);
 void DefaultProcessor_Update(void);

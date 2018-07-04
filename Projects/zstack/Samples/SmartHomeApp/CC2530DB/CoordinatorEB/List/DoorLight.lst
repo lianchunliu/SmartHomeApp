@@ -1,6 +1,6 @@
 ###############################################################################
 #                                                                             #
-# IAR C/C++ Compiler V8.10.3.10338/W32 for 8051         02/Jul/2018  19:56:19 #
+# IAR C/C++ Compiler V8.10.3.10338/W32 for 8051         04/Jul/2018  22:34:44 #
 # Copyright 2004-2011 IAR Systems AB.                                         #
 #                                                                             #
 #    Core               =  plain                                              #
@@ -117,20 +117,174 @@
 
 C:\ZigBee\SmartHomeApp\Projects\zstack\Samples\SmartHomeApp\Source\DoorLight.c
       1          #include "DoorLight.h"
-      2          
-      3          
+      2          #include "hal_mcu.h"
+
+   \                                 In  segment SFR_AN, at 0x90
+   \   union <unnamed> volatile __sfr _A_P1
+   \                     _A_P1:
+   \   000000                DS 1
+      3          #include "Utils.h"
+      4          
+      5          #include "DefaultLight.h"
+      6          
+      7          #define LIGHT_TOTAL_NUM 3
+      8          #define LIGHT0_PIN P1_0
+      9          #define LIGHT1_PIN P1_1
+     10          #define LIGHT2_PIN P1_4
+     11          
+     12          #define LIHGT_ON_STATE 0
+     13          #define LIGHT_OFF_STATE 1
+     14          
+     15          
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-      4          void DoorLight_HandleKeys(uint8 keys)
+     16          static void turnOnLight(uint16 lightNum)
+   \                     turnOnLight:
+     17          {
+   \   000000   74F6         MOV     A,#-0xa
+   \   000002   12....       LCALL   ?BANKED_ENTER_XDATA
+   \   000005                ; Saved register size: 10
+   \   000005                ; Auto size: 0
+   \   000005   8A..         MOV     ?V0 + 0,R2
+   \   000007   8B..         MOV     ?V0 + 1,R3
+     18            printf("TurnOn light %d\n", lightNum);
+   \   000009                ; Setup parameters for call to function printf
+   \   000009   78..         MOV     R0,#?V0 + 0
+   \   00000B   12....       LCALL   ?PUSH_XSTACK_I_TWO
+   \   00000E   7A..         MOV     R2,#`?<Constant "TurnOn light %d\\n">` & 0xff
+   \   000010   7B..         MOV     R3,#(`?<Constant "TurnOn light %d\\n">` >> 8) & 0xff
+   \   000012   12....       LCALL   ??printf?relay
+   \   000015   7402         MOV     A,#0x2
+   \   000017   12....       LCALL   ?DEALLOC_XSTACK8
+     19            
+     20            switch(lightNum) {
+   \   00001A   78..         MOV     R0,#?V0 + 0
+   \   00001C   12....       LCALL   ?US_SWITCH_DENSE
+   \                     `?<Jumptable for turnOnLight>_0`:
+   \   00001F   0100         DW        1
+   \   000021   01           DB        1
+   \   000022   ....         DW        ??turnOnLight_0
+   \   000024   ....         DW        ??turnOnLight_1
+   \   000026   ....         DW        ??turnOnLight_2
+     21            case 1:
+     22              LIGHT1_PIN = LIHGT_ON_STATE;
+   \                     ??turnOnLight_1:
+   \   000028   C291         CLR     0x90.1
+     23              break;
+   \   00002A   8006         SJMP    ??turnOnLight_3
+     24            case 2:
+     25              LIGHT2_PIN = LIHGT_ON_STATE;
+   \                     ??turnOnLight_2:
+   \   00002C   C294         CLR     0x90.4
+     26              break;
+   \   00002E   8002         SJMP    ??turnOnLight_3
+     27            default:
+     28              LIGHT0_PIN = LIHGT_ON_STATE;
+   \                     ??turnOnLight_0:
+   \   000030   C290         CLR     0x90.0
+     29            }
+     30            
+     31          }
+   \                     ??turnOnLight_3:
+   \   000032                REQUIRE ?Subroutine0
+   \   000032                REQUIRE _A_P1
+   \   000032                ; // Fall through to label ?Subroutine0
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ?Subroutine0:
+   \   000000   7F02         MOV     R7,#0x2
+   \   000002   02....       LJMP    ?BANKED_LEAVE_XDATA
+     32          
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+     33          static void turnOffLight(uint16 lightNum)
+   \                     turnOffLight:
+     34          {
+   \   000000   74F6         MOV     A,#-0xa
+   \   000002   12....       LCALL   ?BANKED_ENTER_XDATA
+   \   000005                ; Saved register size: 10
+   \   000005                ; Auto size: 0
+   \   000005   8A..         MOV     ?V0 + 0,R2
+   \   000007   8B..         MOV     ?V0 + 1,R3
+     35            printf("TurnOff light %d\n", lightNum);
+   \   000009                ; Setup parameters for call to function printf
+   \   000009   78..         MOV     R0,#?V0 + 0
+   \   00000B   12....       LCALL   ?PUSH_XSTACK_I_TWO
+   \   00000E   7A..         MOV     R2,#`?<Constant "TurnOff light %d\\n">` & 0xff
+   \   000010   7B..         MOV     R3,#(`?<Constant "TurnOff light %d\\n">` >> 8) & 0xff
+   \   000012   12....       LCALL   ??printf?relay
+   \   000015   7402         MOV     A,#0x2
+   \   000017   12....       LCALL   ?DEALLOC_XSTACK8
+     36            switch(lightNum) {
+   \   00001A   78..         MOV     R0,#?V0 + 0
+   \   00001C   12....       LCALL   ?US_SWITCH_DENSE
+   \                     `?<Jumptable for turnOffLight>_0`:
+   \   00001F   0100         DW        1
+   \   000021   01           DB        1
+   \   000022   ....         DW        ??turnOffLight_0
+   \   000024   ....         DW        ??turnOffLight_1
+   \   000026   ....         DW        ??turnOffLight_2
+     37            case 1:
+     38              LIGHT1_PIN = LIGHT_OFF_STATE;
+   \                     ??turnOffLight_1:
+   \   000028   D291         SETB    0x90.1
+     39              break;
+   \   00002A   8006         SJMP    ??turnOffLight_3
+     40            case 2:
+     41              LIGHT2_PIN = LIGHT_OFF_STATE;
+   \                     ??turnOffLight_2:
+   \   00002C   D294         SETB    0x90.4
+     42              break;
+   \   00002E   8002         SJMP    ??turnOffLight_3
+     43            default:
+     44              LIGHT0_PIN = LIGHT_OFF_STATE;
+   \                     ??turnOffLight_0:
+   \   000030   D290         SETB    0x90.0
+     45            }
+     46            
+     47          }
+   \                     ??turnOffLight_3:
+   \   000032   80..         SJMP    ?Subroutine0
+   \   000034                REQUIRE _A_P1
+     48          
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+     49          void DoorLight_Init()
+   \                     DoorLight_Init:
+     50          { 
+   \   000000   C082         PUSH    DPL
+   \   000002   C083         PUSH    DPH
+   \   000004                ; Saved register size: 2
+   \   000004                ; Auto size: 0
+     51            DefaultLight_Init(&turnOnLight, &turnOffLight);
+   \   000004                ; Setup parameters for call to function DefaultLight_Init
+   \   000004   7C..         MOV     R4,#??turnOffLight?relay & 0xff
+   \   000006   7D..         MOV     R5,#(??turnOffLight?relay >> 8) & 0xff
+   \   000008   7A..         MOV     R2,#??turnOnLight?relay & 0xff
+   \   00000A   7B..         MOV     R3,#(??turnOnLight?relay >> 8) & 0xff
+   \   00000C   12....       LCALL   ??DefaultLight_Init?relay
+     52          }
+   \   00000F                REQUIRE ?Subroutine1
+   \   00000F                ; // Fall through to label ?Subroutine1
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ?Subroutine1:
+   \   000000   D083         POP     DPH
+   \   000002   D082         POP     DPL
+   \   000004   02....       LJMP    ?BRET
+     53          
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+     54          void DoorLight_HandleKeys(uint8 keys)
    \                     DoorLight_HandleKeys:
-      5          {
+     55          {
    \   000000   74F6         MOV     A,#-0xa
    \   000002   12....       LCALL   ?BANKED_ENTER_XDATA
    \   000005                ; Saved register size: 10
    \   000005                ; Auto size: 0
    \   000005   E9           MOV     A,R1
    \   000006   FE           MOV     R6,A
-      6            printf("DoorLight_HandleKeys : %X\n", keys);
+     56            printf("DoorLight_HandleKeys : %X\n", keys);
    \   000007                ; Setup parameters for call to function printf
    \   000007   8E..         MOV     ?V0 + 0,R6
    \   000009   75..00       MOV     ?V0 + 1,#0x0
@@ -138,40 +292,62 @@ C:\ZigBee\SmartHomeApp\Projects\zstack\Samples\SmartHomeApp\Source\DoorLight.c
    \   00000E   12....       LCALL   ?PUSH_XSTACK_I_TWO
    \   000011   7A..         MOV     R2,#`?<Constant "DoorLight_HandleKeys ...">` & 0xff
    \   000013   7B..         MOV     R3,#(`?<Constant "DoorLight_HandleKeys ...">` >> 8) & 0xff
-   \   000015                REQUIRE ?Subroutine0
-   \   000015                ; // Fall through to label ?Subroutine0
-      7            
-      8          }
+   \   000015   12....       LCALL   ??printf?relay
+   \   000018   7402         MOV     A,#0x2
+   \   00001A   12....       LCALL   ?DEALLOC_XSTACK8
+     57            
+     58          }
+   \   00001D   80..         SJMP    ?Subroutine0
+     59          
+     60          
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ?Subroutine0:
-   \   000000   12....       LCALL   ??printf?relay
-   \   000003   7402         MOV     A,#0x2
-   \   000005   12....       LCALL   ?DEALLOC_XSTACK8
-   \   000008   7F02         MOV     R7,#0x2
-   \   00000A   02....       LJMP    ?BANKED_LEAVE_XDATA
-      9          
-     10          
-
-   \                                 In  segment BANKED_CODE, align 1, keep-with-next
-     11          void DoorLight_HandleMsg(uint8* msg)
+     61          void DoorLight_HandleMsg(uint8* msg)
    \                     DoorLight_HandleMsg:
-     12          {
-   \   000000   74F6         MOV     A,#-0xa
-   \   000002   12....       LCALL   ?BANKED_ENTER_XDATA
-   \   000005                ; Saved register size: 10
-   \   000005                ; Auto size: 0
-     13            
-     14            printf("DoorLight_HandleMsg: %s\n", msg); 
-   \   000005                ; Setup parameters for call to function printf
-   \   000005   8A..         MOV     ?V0 + 0,R2
-   \   000007   8B..         MOV     ?V0 + 1,R3
-   \   000009   78..         MOV     R0,#?V0 + 0
-   \   00000B   12....       LCALL   ?PUSH_XSTACK_I_TWO
-   \   00000E   7A..         MOV     R2,#`?<Constant "DoorLight_HandleMsg: %s\\n">` & 0xff
-   \   000010   7B..         MOV     R3,#(`?<Constant "DoorLight_HandleMsg: %s\\n">` >> 8) & 0xff
-   \   000012   80..         SJMP    ?Subroutine0
-     15          }
+     62          {
+   \   000000   C082         PUSH    DPL
+   \   000002   C083         PUSH    DPH
+   \   000004                ; Saved register size: 2
+   \   000004                ; Auto size: 0
+     63            DefaultLight_HandleMsg(msg, "DoorLight");
+   \   000004                ; Setup parameters for call to function DefaultLight_HandleMsg
+   \   000004   7C..         MOV     R4,#`?<Constant "DoorLight">` & 0xff
+   \   000006   7D..         MOV     R5,#(`?<Constant "DoorLight">` >> 8) & 0xff
+   \   000008   12....       LCALL   ??DefaultLight_HandleMsg?relay
+     64          }
+   \   00000B   80..         SJMP    ?Subroutine1
+     65          
+     66          
+     67          // update every second
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+     68          void DoorLight_Update(void)
+   \                     DoorLight_Update:
+     69          {
+   \   000000   C082         PUSH    DPL
+   \   000002   C083         PUSH    DPH
+   \   000004                ; Saved register size: 2
+   \   000004                ; Auto size: 0
+     70            DefaultLight_Update();
+   \   000004                ; Setup parameters for call to function DefaultLight_Update
+   \   000004   12....       LCALL   ??DefaultLight_Update?relay
+     71          }
+   \   000007   80..         SJMP    ?Subroutine1
+
+   \                                 In  segment BANK_RELAYS, align 1
+   \                     ??turnOnLight?relay:
+   \   000000   12....       LCALL   ?BDISPATCH
+   \   000003   ......       DC24    turnOnLight
+
+   \                                 In  segment BANK_RELAYS, align 1
+   \                     ??turnOffLight?relay:
+   \   000000   12....       LCALL   ?BDISPATCH
+   \   000003   ......       DC24    turnOffLight
+
+   \                                 In  segment BANK_RELAYS, align 1
+   \                     ??DoorLight_Init?relay:
+   \   000000   12....       LCALL   ?BDISPATCH
+   \   000003   ......       DC24    DoorLight_Init
 
    \                                 In  segment BANK_RELAYS, align 1
    \                     ??DoorLight_HandleKeys?relay:
@@ -182,6 +358,27 @@ C:\ZigBee\SmartHomeApp\Projects\zstack\Samples\SmartHomeApp\Source\DoorLight.c
    \                     ??DoorLight_HandleMsg?relay:
    \   000000   12....       LCALL   ?BDISPATCH
    \   000003   ......       DC24    DoorLight_HandleMsg
+
+   \                                 In  segment BANK_RELAYS, align 1
+   \                     ??DoorLight_Update?relay:
+   \   000000   12....       LCALL   ?BDISPATCH
+   \   000003   ......       DC24    DoorLight_Update
+
+   \                                 In  segment XDATA_ROM_C, align 1
+   \                     `?<Constant "TurnOn light %d\\n">`:
+   \   000000   5475726E     DB "TurnOn light %d\012"
+   \            4F6E206C
+   \            69676874
+   \            2025640A
+   \            00      
+
+   \                                 In  segment XDATA_ROM_C, align 1
+   \                     `?<Constant "TurnOff light %d\\n">`:
+   \   000000   5475726E     DB "TurnOff light %d\012"
+   \            4F666620
+   \            6C696768
+   \            74202564
+   \            0A00    
 
    \                                 In  segment XDATA_ROM_C, align 1
    \                     `?<Constant "DoorLight_HandleKeys ...">`:
@@ -194,44 +391,66 @@ C:\ZigBee\SmartHomeApp\Projects\zstack\Samples\SmartHomeApp\Source\DoorLight.c
    \            580A00  
 
    \                                 In  segment XDATA_ROM_C, align 1
-   \                     `?<Constant "DoorLight_HandleMsg: %s\\n">`:
-   \   000000   446F6F72     DB "DoorLight_HandleMsg: %s\012"
+   \                     `?<Constant "DoorLight">`:
+   \   000000   446F6F72     DB "DoorLight"
    \            4C696768
-   \            745F4861
-   \            6E646C65
-   \            4D73673A
-   \            2025730A
-   \            00      
+   \            7400    
+     72          
+     73          
+     74          
+     75          
 
    Maximum stack usage in bytes:
 
-     Function             ISTACK PSTACK XSTACK
-     --------             ------ ------ ------
-     DoorLight_HandleKeys     0      0     12
-       -> printf              0      0     24
-     DoorLight_HandleMsg      0      0     12
-       -> printf              0      0     24
+     Function                    ISTACK PSTACK XSTACK
+     --------                    ------ ------ ------
+     DoorLight_HandleKeys            0      0     12
+       -> printf                     0      0     24
+     DoorLight_HandleMsg             2      0      0
+       -> DefaultLight_HandleMsg     4      0      0
+     DoorLight_Init                  2      0      0
+       -> DefaultLight_Init          4      0      0
+     DoorLight_Update                2      0      0
+       -> DefaultLight_Update        4      0      0
+     turnOffLight                    0      0     12
+       -> printf                     0      0     24
+     turnOnLight                     0      0     12
+       -> printf                     0      0     24
 
 
    Segment part sizes:
 
-     Function/Label                          Bytes
-     --------------                          -----
-     DoorLight_HandleKeys                      21
-     ?Subroutine0                              13
-     DoorLight_HandleMsg                       20
-     ??DoorLight_HandleKeys?relay               6
-     ??DoorLight_HandleMsg?relay                6
-     ?<Constant "DoorLight_HandleKeys ...">    27
-     ?<Constant "DoorLight_HandleMsg: %s\n">   25
+     Function/Label                         Bytes
+     --------------                         -----
+     _A_P1                                     1
+     turnOnLight                              50
+     ?Subroutine0                              5
+     turnOffLight                             52
+     DoorLight_Init                           15
+     ?Subroutine1                              7
+     DoorLight_HandleKeys                     31
+     DoorLight_HandleMsg                      13
+     DoorLight_Update                          9
+     ??turnOnLight?relay                       6
+     ??turnOffLight?relay                      6
+     ??DoorLight_Init?relay                    6
+     ??DoorLight_HandleKeys?relay              6
+     ??DoorLight_HandleMsg?relay               6
+     ??DoorLight_Update?relay                  6
+     ?<Constant "TurnOn light %d\n">          17
+     ?<Constant "TurnOff light %d\n">         18
+     ?<Constant "DoorLight_HandleKeys ...">   27
+     ?<Constant "DoorLight">                  10
 
  
- 54 bytes in segment BANKED_CODE
- 12 bytes in segment BANK_RELAYS
- 52 bytes in segment XDATA_ROM_C
+ 182 bytes in segment BANKED_CODE
+  36 bytes in segment BANK_RELAYS
+   1 byte  in segment SFR_AN
+  72 bytes in segment XDATA_ROM_C
  
- 66 bytes of CODE  memory
- 52 bytes of CONST memory
+ 218 bytes of CODE  memory
+  72 bytes of CONST memory
+   0 bytes of DATA  memory (+ 1 byte shared)
 
 Errors: none
 Warnings: none

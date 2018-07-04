@@ -19,7 +19,7 @@ void DefaultProcessor_HandleKeys(uint8 keys)
 }
 
 
-void DefaultProcessor_HandleMsg(uint8* msg)
+void DefaultProcessor_HandleMsg(uint8* msg, uint16 srcAddr)
 {
   
   printf("DefaultProcessor_HandleMsg: %s\n", msg); 
