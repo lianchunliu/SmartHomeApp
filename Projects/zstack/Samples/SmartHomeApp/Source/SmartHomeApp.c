@@ -449,9 +449,11 @@ uint16 SmartHomeApp_ProcessEvent( uint8 task_id, uint16 events )
 //                                SmartHomeApp_SEND_MSG_EVT,
 //                                SmartHomeApp_SEND_MSG_TIMEOUT );
             
-            osal_start_timerEx( SmartHomeApp_TaskID,
+            if (!ZSTACK_END_DEVICE_BUILD) {
+              osal_start_timerEx( SmartHomeApp_TaskID,
                         SmartHomeApp_TIMER_UPDATE_EVT,
                         1000 );
+            }
           }
           break;
 

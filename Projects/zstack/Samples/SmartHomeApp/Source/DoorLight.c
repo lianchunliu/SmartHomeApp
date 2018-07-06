@@ -3,6 +3,8 @@
 #include "Utils.h"
 
 #include "DefaultLight.h"
+#include "hal_key.h"
+#include "SmartHomeApp.h"
 
 #define LIGHT_TOTAL_NUM 3
 #define LIGHT0_PIN P1_0
@@ -88,6 +90,11 @@ void DoorLight_Init()
 void DoorLight_HandleKeys(uint8 keys)
 {
   printf("DoorLight_HandleKeys : %X\n", keys);
+  
+  if (keys & HAL_KEY_SW_4) {
+    SmartHome_SendCmd("TurnOffLater DoorSensor 0 60");
+  }
+  
   
 }
 

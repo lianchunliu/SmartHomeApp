@@ -22,7 +22,7 @@
   its documentation for any purpose.
 
   YOU FURTHER ACKNOWLEDGE AND AGREE THAT THE SOFTWARE AND DOCUMENTATION ARE
-  PROVIDED “AS IS” WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, 
+  PROVIDED “AS IS?WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, 
   INCLUDING WITHOUT LIMITATION, ANY WARRANTY OF MERCHANTABILITY, TITLE, 
   NON-INFRINGEMENT AND FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT SHALL
   TEXAS INSTRUMENTS OR ITS LICENSORS BE LIABLE OR OBLIGATED UNDER CONTRACT,
@@ -47,6 +47,8 @@
 #include "OSAL_Tasks.h"
 #include "OSAL_Timers.h"
 #include "OSAL_PwrMgr.h"
+
+#include "ZGlobals.h"
 
 /*********************************************************************
  * MACROS
@@ -99,7 +101,11 @@ pwrmgr_attribute_t pwrmgr_attribute;
  */
 void osal_pwrmgr_init( void )
 {
-  pwrmgr_attribute.pwrmgr_device = PWRMGR_ALWAYS_ON; // Default to no power conservation.
+  if (ZSTACK_END_DEVICE_BUILD) {
+    pwrmgr_attribute.pwrmgr_device = PWRMGR_BATTERY; 
+  } else {
+    pwrmgr_attribute.pwrmgr_device = PWRMGR_ALWAYS_ON; // Default to no power conservation.
+  }
   pwrmgr_attribute.pwrmgr_task_state = 0;            // Cleared.  All set to conserve
 }
 
