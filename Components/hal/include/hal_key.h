@@ -75,12 +75,12 @@ extern "C"
 #define HAL_KEY_SW_6 0x20  // Button S1 if available
 #define HAL_KEY_SW_7 0x40  // Button S2 if available
 
-///* Joystick */
-//#define HAL_KEY_UP     0x01  // Joystick up
-//#define HAL_KEY_RIGHT  0x02  // Joystick right
-//#define HAL_KEY_CENTER 0x04  // Joystick center
-//#define HAL_KEY_LEFT   0x08  // Joystick left
-//#define HAL_KEY_DOWN   0x10  // Joystick down
+/* Joystick */
+#define HAL_KEY_UP     0x01  // Joystick up
+#define HAL_KEY_RIGHT  0x02  // Joystick right
+#define HAL_KEY_CENTER 0x04  // Joystick center
+#define HAL_KEY_LEFT   0x08  // Joystick left
+#define HAL_KEY_DOWN   0x10  // Joystick down
 
 /**************************************************************************************************
  * TYPEDEFS

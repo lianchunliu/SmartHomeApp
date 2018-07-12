@@ -274,6 +274,7 @@
         </option>
         <option>
           <name>CCDefines</name>
+          <state>NV_RESTORE=1</state>
           <state>ZTOOL_P1</state>
           <state>MT_TASK</state>
           <state>MT_SYS_FUNC</state>
@@ -2397,8 +2398,8 @@
           <state>MT_ZDO_FUNC</state>
           <state>xLCD_SUPPORTED=DEBUG</state>
           <state>POWER_SAVING</state>
-          <state>HAL_UART_ISR=1</state>
-          <state>HAL_UART_DMA=0</state>
+          <state>xHAL_UART_ISR=1</state>
+          <state>xHAL_UART_DMA=0</state>
         </option>
         <option>
           <name>CCPreprocFile</name>
@@ -3184,6 +3185,12 @@
     <name>App</name>
     <group>
       <name>Modules</name>
+      <file>
+        <name>$PROJ_DIR$\..\Source\Coord.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\Source\Coord.h</name>
+      </file>
       <file>
         <name>$PROJ_DIR$\..\Source\DefaultLight.c</name>
       </file>

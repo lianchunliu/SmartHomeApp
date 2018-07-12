@@ -85,6 +85,7 @@
 #include "DefaultProcessor.h"
 #include "DoorLight.h"
 #include "DoorSensor.h"
+#include "Coord.h"
 
 
 /*********************************************************************
@@ -159,6 +160,8 @@ void (*Processor_HandleMsg)(uint8* msg, uint16 srcAddr);
 void (*Processor_Init)(void);
 void (*Processor_Update)(void);
 
+void ZDApp_SaveNetworkStateEvt(void);
+
 /*********************************************************************
  * LOCAL FUNCTIONS
  */
@@ -218,6 +221,8 @@ void SmartHomeApp_Init( uint8 task_id )
   
   printf("My name is %s\n", Util_ReadName());
   
+
+  
   if (Util_StrEqual((uint8*)"DoorLight", Util_ReadName())) {    
     Processor_HandleKeys = &DoorLight_HandleKeys;
     Processor_HandleMsg = &DoorLight_HandleMsg;
@@ -229,6 +234,12 @@ void SmartHomeApp_Init( uint8 task_id )
     Processor_HandleMsg = &DoorSensor_HandleMsg;
     Processor_Init = &DoorSensor_Init;
     Processor_Update = &DoorSensor_Update;
+  
+  } else if (Util_StrEqual((uint8*)"Coord", Util_ReadName())) {    
+    Processor_HandleKeys = &Coord_HandleKeys;
+    Processor_HandleMsg = &Coord_HandleMsg;
+    Processor_Init = &Coord_Init;
+    Processor_Update = &Coord_Update;
     
   } else {
     printf("ERROR: Unkown name: %s\n", Util_ReadName());
@@ -281,7 +292,7 @@ void SmartHome_SendCmdWithAddr(uint8* buf, uint16 destAddr)
  
   SmartHomeApp_DstAddr.addr.shortAddr=destAddr;
  
-    
+ //   _NIB.nwkDevAddress. 
   SmartHomeApp_DstAddr.endPoint = SmartHomeApp_ENDPOINT;
   
   if ( AF_DataRequest( &SmartHomeApp_DstAddr, &SmartHomeApp_epDesc,
@@ -439,8 +450,17 @@ uint16 SmartHomeApp_ProcessEvent( uint8 task_id, uint16 events )
             uint16 shortAddr = NLME_GetShortAddr();
             uint16 parentShortAddr = NLME_GetCoordShortAddr();
             
-            printf("Addr=%04X, ParentAddr=%04X\n", shortAddr, parentShortAddr);
-            
+            printf("Addr=%04X, ParentAddr=%04X, DeviceType=%d\n", shortAddr, parentShortAddr, SmartHomeApp_NwkState);
+       
+#if defined ( NV_RESTORE )
+ ZDApp_SaveNetworkStateEvt();
+
+ if ( !osal_get_timeoutEx( ZDAppTaskID, ZDO_NWK_UPDATE_NV ) )
+ {
+ // Trigger to save info into NV
+ ZDApp_NVUpdate();
+ }
+#endif
 //            printf("BV(4) = %X, BV(5) = %X, BV(6) = %X\n", BV(4), BV(5), BV(6));
 //            printf("P0_4 = %X, P0_5 = %X, P0_6 = %X\n", P0_4, P0_5, P0_6);
 //            
