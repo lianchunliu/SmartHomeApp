@@ -623,9 +623,9 @@ uint8 ZDOInitDevice( uint16 startDelay )
   // Get Keypad directly to see if a reset nv is needed.
   // Hold down the SW_BYPASS_NV key (defined in OnBoard.h)
   // while booting to skip past NV Restore.
-  if ( HalKeyRead() == SW_BYPASS_NV )
-    networkStateNV = ZDO_INITDEV_NEW_NETWORK_STATE;
-  else
+//  if ( HalKeyRead() == SW_BYPASS_NV )
+//    networkStateNV = ZDO_INITDEV_NEW_NETWORK_STATE;
+//  else
   {
     // Determine if NV should be restored
     networkStateNV = ZDApp_ReadNetworkRestoreState();
@@ -993,11 +993,11 @@ void ZDAppCheckForHoldKey( void )
   // Get Keypad directly to see if a HOLD_START is needed.
   // Hold down the SW_BYPASS_START key (see OnBoard.h)
   // while booting to avoid starting up the device.
-  if ( HalKeyRead () == SW_BYPASS_START)
-  {
-    // Change the device state to HOLD on start up
-    devState = DEV_HOLD;
-  }
+//  if ( HalKeyRead () == SW_BYPASS_START)
+//  {
+//    // Change the device state to HOLD on start up
+//    devState = DEV_HOLD;
+//  }
 #endif // HAL_KEY
 }
 

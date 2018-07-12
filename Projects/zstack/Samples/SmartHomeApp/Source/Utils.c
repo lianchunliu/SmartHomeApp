@@ -14,9 +14,6 @@ const uint8* Util_ReadName(void)
   uint16 len;
   uint8* myBuf;
   
-  if (1) {
-    return "NoName"; 
-  }
   if (application_name != NULL) {
     return application_name;
   }
