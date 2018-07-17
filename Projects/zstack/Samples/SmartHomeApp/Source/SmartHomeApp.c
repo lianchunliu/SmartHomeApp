@@ -451,23 +451,6 @@ uint16 SmartHomeApp_ProcessEvent( uint8 task_id, uint16 events )
             uint16 parentShortAddr = NLME_GetCoordShortAddr();
             
             printf("\nAddr=%04X, ParentAddr=%04X, DeviceType=%d\n", shortAddr, parentShortAddr, SmartHomeApp_NwkState);
-//       
-//#if defined ( NV_RESTORE )
-// ZDApp_SaveNetworkStateEvt();
-//
-// if ( !osal_get_timeoutEx( ZDAppTaskID, ZDO_NWK_UPDATE_NV ) )
-// {
-// // Trigger to save info into NV
-// ZDApp_NVUpdate();
-// }
-//#endif
-//            printf("BV(4) = %X, BV(5) = %X, BV(6) = %X\n", BV(4), BV(5), BV(6));
-//            printf("P0_4 = %X, P0_5 = %X, P0_6 = %X\n", P0_4, P0_5, P0_6);
-//            
-            // Start sending "the" message in a regular interval.
-//            osal_start_timerEx( SmartHomeApp_TaskID,
-//                                SmartHomeApp_SEND_MSG_EVT,
-//                                SmartHomeApp_SEND_MSG_TIMEOUT );
             
             if (!ZSTACK_END_DEVICE_BUILD) {
               osal_start_timerEx( SmartHomeApp_TaskID,

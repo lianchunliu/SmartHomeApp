@@ -132,6 +132,12 @@
 #define HAL_KEY_SW_5_PIN P0_5
 #define HAL_KEY_SW_5_BIT    BV(5)
 
+#define HAL_KEY_SW_6_PIN P0_6
+#define HAL_KEY_SW_6_BIT    BV(6)
+
+#define HAL_KEY_SW_7_PIN P0_7
+#define HAL_KEY_SW_7_BIT    BV(7)
+
 //#define HAL_KEY_SW_6_ICTLBIT  BV(4) /* P0IEN - P0.1 enable/disable bit */
 
 ///* Joy stick move at P2.0 */
@@ -205,9 +211,9 @@ void HalKeyInit( void )
 //    P2INP &= ~(0x20); // 0010 0000
 //    
     
-    P0SEL &= ~(HAL_KEY_SW_4_BIT|HAL_KEY_SW_5_BIT);    /* Set pin function to GPIO */
-    P0DIR &= ~(HAL_KEY_SW_4_BIT|HAL_KEY_SW_5_BIT);    /* Set pin direction to Input */
-    P0INP &= ~(HAL_KEY_SW_4_BIT|HAL_KEY_SW_5_BIT);  //0x30 0011 0000
+    P0SEL &= ~(HAL_KEY_SW_4_BIT|HAL_KEY_SW_5_BIT|HAL_KEY_SW_6_BIT|HAL_KEY_SW_7_BIT);    /* Set pin function to GPIO */
+    P0DIR &= ~(HAL_KEY_SW_4_BIT|HAL_KEY_SW_5_BIT|HAL_KEY_SW_6_BIT|HAL_KEY_SW_7_BIT);    /* Set pin direction to Input */
+    P0INP &= ~(HAL_KEY_SW_4_BIT|HAL_KEY_SW_5_BIT|HAL_KEY_SW_6_BIT|HAL_KEY_SW_7_BIT);  //0x30 0011 0000
     P2INP &= ~(0x20); // 0010 0000
     
 //  
@@ -247,9 +253,9 @@ void HalKeyConfig (bool interruptEnable, halKeyCBack_t cback)
   /* Register the callback fucntion */
   pHalKeyProcessFunction = cback;
 
-    P0SEL &= ~(HAL_KEY_SW_4_BIT|HAL_KEY_SW_5_BIT);    /* Set pin function to GPIO */
-    P0DIR &= ~(HAL_KEY_SW_4_BIT|HAL_KEY_SW_5_BIT);    /* Set pin direction to Input */
-    P0INP &= ~(HAL_KEY_SW_4_BIT|HAL_KEY_SW_5_BIT);  //0x30 0011 0000
+    P0SEL &= ~(HAL_KEY_SW_4_BIT|HAL_KEY_SW_5_BIT|HAL_KEY_SW_6_BIT|HAL_KEY_SW_7_BIT);    /* Set pin function to GPIO */
+    P0DIR &= ~(HAL_KEY_SW_4_BIT|HAL_KEY_SW_5_BIT|HAL_KEY_SW_6_BIT|HAL_KEY_SW_7_BIT);    /* Set pin direction to Input */
+    P0INP &= ~(HAL_KEY_SW_4_BIT|HAL_KEY_SW_5_BIT|HAL_KEY_SW_6_BIT|HAL_KEY_SW_7_BIT);  //0x30 0011 0000
     P2INP &= ~(0x20); // 0010 0000
     
   /* Determine if interrupt is enable or not */
@@ -259,7 +265,7 @@ void HalKeyConfig (bool interruptEnable, halKeyCBack_t cback)
     /* Rising/Falling edge configuratinn */
 
     PICTL |= 0x01;
-    P0IEN |= HAL_KEY_SW_4_BIT|HAL_KEY_SW_5_BIT; // SW4, SW5
+    P0IEN |= HAL_KEY_SW_4_BIT|HAL_KEY_SW_5_BIT|HAL_KEY_SW_6_BIT|HAL_KEY_SW_7_BIT; // SW4, SW5
     P0IE = 1;
     P0IFG = 0;
     //EA=1;
@@ -318,7 +324,7 @@ void HalKeyConfig (bool interruptEnable, halKeyCBack_t cback)
   }
   else    /* Interrupts NOT enabled */
   {
-    HAL_KEY_ICTL &= ~(HAL_KEY_SW_4_BIT|HAL_KEY_SW_5_BIT); /* don't generate interrupt */
+    HAL_KEY_ICTL &= ~(HAL_KEY_SW_4_BIT|HAL_KEY_SW_5_BIT|HAL_KEY_SW_6_BIT|HAL_KEY_SW_7_BIT); /* don't generate interrupt */
     
 //    HAL_KEY_ICTL &= ~(HAL_KEY_SW_5_BIT); /* don't generate interrupt */
 //    HAL_KEY_ICTL &= ~(HAL_KEY_SW_6_BIT); /* don't generate interrupt */
@@ -353,6 +359,16 @@ uint8 HalKeyRead ( void )
    if (HAL_KEY_SW_5_PIN == 0)
   {
     keys |= HAL_KEY_SW_5;
+  }
+  
+   if (HAL_KEY_SW_6_PIN == 0)
+  {
+    keys |= HAL_KEY_SW_6;
+  }
+
+  if (HAL_KEY_SW_7_PIN == 0)
+  {
+    keys |= HAL_KEY_SW_7;
   }
 
 //  if ((HAL_KEY_JOY_MOVE_PORT & HAL_KEY_JOY_MOVE_BIT))  /* Key is active low */
@@ -394,6 +410,16 @@ void HalKeyPoll (void)
   if (HAL_KEY_SW_5_PIN == 0)
   {
     keys |= HAL_KEY_SW_5;
+  }
+
+   if (HAL_KEY_SW_6_PIN == 0)
+  {
+    keys |= HAL_KEY_SW_6;
+  }
+
+  if (HAL_KEY_SW_7_PIN == 0)
+  {
+    keys |= HAL_KEY_SW_7;
   }
 
   
@@ -499,6 +525,18 @@ void halProcessKeyInterrupt (void)
     HAL_KEY_PXIFG &= ~(HAL_KEY_SW_5_BIT); /* Clear Interrupt Flag */
     valid = TRUE;
   }
+  
+   if (HAL_KEY_PXIFG & HAL_KEY_SW_6_BIT)  /* Interrupt Flag has been set */
+  {
+    HAL_KEY_PXIFG &= ~(HAL_KEY_SW_6_BIT); /* Clear Interrupt Flag */
+    valid = TRUE;
+  }
+  
+    if (HAL_KEY_PXIFG & HAL_KEY_SW_7_BIT)  /* Interrupt Flag has been set */
+  {
+    HAL_KEY_PXIFG &= ~(HAL_KEY_SW_7_BIT); /* Clear Interrupt Flag */
+    valid = TRUE;
+  }
 //  if (HAL_KEY_JOY_MOVE_PXIFG & HAL_KEY_JOY_MOVE_BIT)  /* Interrupt Flag has been set */
 //  {
 //    HAL_KEY_JOY_MOVE_PXIFG = ~(HAL_KEY_JOY_MOVE_BIT); /* Clear Interrupt Flag */
@@ -562,6 +600,16 @@ HAL_ISR_FUNCTION( halKeyPort0Isr, P0INT_VECTOR )
   }
 
   if (HAL_KEY_PXIFG & HAL_KEY_SW_5_BIT)
+  {
+    halProcessKeyInterrupt();
+  }
+
+   if (HAL_KEY_PXIFG & HAL_KEY_SW_6_BIT)
+  {
+    halProcessKeyInterrupt();
+  }
+
+   if (HAL_KEY_PXIFG & HAL_KEY_SW_7_BIT)
   {
     halProcessKeyInterrupt();
   }
