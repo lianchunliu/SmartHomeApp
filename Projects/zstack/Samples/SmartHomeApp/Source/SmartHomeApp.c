@@ -86,7 +86,8 @@
 #include "DoorLight.h"
 #include "DoorSensor.h"
 #include "Coord.h"
-
+#include "RestroomLight.h"
+#include "RestroomSensor.h"
 
 /*********************************************************************
  * MACROS
@@ -221,9 +222,19 @@ void SmartHomeApp_Init( uint8 task_id )
   
   printf("My name is %s\n", Util_ReadName());
   
+  if (Util_StrEqual((uint8*)"RestroomLight", Util_ReadName())) {    
+    Processor_HandleKeys = &RestroomLight_HandleKeys;
+    Processor_HandleMsg = &RestroomLight_HandleMsg;
+    Processor_Init = &RestroomLight_Init;
+    Processor_Update = &RestroomLight_Update;
 
-  
-  if (Util_StrEqual((uint8*)"DoorLight", Util_ReadName())) {    
+  } else if (Util_StrEqual((uint8*)"RestroomSensor", Util_ReadName())) {    
+    Processor_HandleKeys = &RestroomSensor_HandleKeys;
+    Processor_HandleMsg = &RestroomSensor_HandleMsg;
+    Processor_Init = &RestroomSensor_Init;
+    Processor_Update = &RestroomSensor_Update;
+    
+  } else if (Util_StrEqual((uint8*)"DoorLight", Util_ReadName())) {    
     Processor_HandleKeys = &DoorLight_HandleKeys;
     Processor_HandleMsg = &DoorLight_HandleMsg;
     Processor_Init = &DoorLight_Init;

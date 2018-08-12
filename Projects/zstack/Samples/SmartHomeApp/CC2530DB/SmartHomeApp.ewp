@@ -3215,6 +3215,18 @@
       <file>
         <name>$PROJ_DIR$\..\Source\DoorSensor.h</name>
       </file>
+      <file>
+        <name>$PROJ_DIR$\..\Source\RestroomLight.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\Source\RestroomLight.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\Source\RestroomSensor.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\Source\RestroomSensor.h</name>
+      </file>
     </group>
     <file>
       <name>$PROJ_DIR$\..\Source\OSAL_SmartHomeApp.c</name>
